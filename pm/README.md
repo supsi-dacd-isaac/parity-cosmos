@@ -5,7 +5,7 @@
 
 <pre>
 cd pm/cmd/pmd
-make build
+go build
 </pre>
 
 ## scaffold commands
