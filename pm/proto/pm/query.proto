@@ -1,0 +1,210 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "pm/dso.proto";
+import "pm/aggregator.proto";
+import "pm/player.proto";
+import "pm/lem.proto";
+import "pm/lem_measure.proto";
+import "pm/sla.proto";
+import "pm/kpi.proto";
+import "pm/kpi_measure.proto";
+// this line is used by starport scaffolding # 1
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // Queries a dso by index.
+	rpc Dso(QueryGetDsoRequest) returns (QueryGetDsoResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/dso";
+	}
+// Queries a aggregator by index.
+	rpc Aggregator(QueryGetAggregatorRequest) returns (QueryGetAggregatorResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/aggregator";
+	}
+// Queries a player by index.
+	rpc Player(QueryGetPlayerRequest) returns (QueryGetPlayerResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/player/{index}";
+	}
+
+	// Queries a list of player items.
+	rpc PlayerAll(QueryAllPlayerRequest) returns (QueryAllPlayerResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/player";
+	}
+
+// Queries a lem by index.
+	rpc Lem(QueryGetLemRequest) returns (QueryGetLemResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/lem/{index}";
+	}
+
+	// Queries a list of lem items.
+	rpc LemAll(QueryAllLemRequest) returns (QueryAllLemResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/lem";
+	}
+
+// Queries a lemMeasure by index.
+	rpc LemMeasure(QueryGetLemMeasureRequest) returns (QueryGetLemMeasureResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/lemMeasure/{index}";
+	}
+
+	// Queries a list of lemMeasure items.
+	rpc LemMeasureAll(QueryAllLemMeasureRequest) returns (QueryAllLemMeasureResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/lemMeasure";
+	}
+
+// Queries a sla by index.
+	rpc Sla(QueryGetSlaRequest) returns (QueryGetSlaResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/sla/{index}";
+	}
+
+	// Queries a list of sla items.
+	rpc SlaAll(QueryAllSlaRequest) returns (QueryAllSlaResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/sla";
+	}
+
+// Queries a kpi by index.
+	rpc Kpi(QueryGetKpiRequest) returns (QueryGetKpiResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/kpi/{index}";
+	}
+
+	// Queries a list of kpi items.
+	rpc KpiAll(QueryAllKpiRequest) returns (QueryAllKpiResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/kpi";
+	}
+
+// Queries a kpiMeasure by index.
+	rpc KpiMeasure(QueryGetKpiMeasureRequest) returns (QueryGetKpiMeasureResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/kpiMeasure/{index}";
+	}
+
+	// Queries a list of kpiMeasure items.
+	rpc KpiMeasureAll(QueryAllKpiMeasureRequest) returns (QueryAllKpiMeasureResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/kpiMeasure";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+message QueryGetDsoRequest {}
+
+message QueryGetDsoResponse {
+	Dso Dso = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetAggregatorRequest {}
+
+message QueryGetAggregatorResponse {
+	Aggregator Aggregator = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetPlayerRequest {
+	  string index = 1;
+
+}
+
+message QueryGetPlayerResponse {
+	Player player = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPlayerRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPlayerResponse {
+	repeated Player player = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetLemRequest {
+	  string index = 1;
+
+}
+
+message QueryGetLemResponse {
+	Lem lem = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllLemRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllLemResponse {
+	repeated Lem lem = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetLemMeasureRequest {
+	  string index = 1;
+
+}
+
+message QueryGetLemMeasureResponse {
+	LemMeasure lemMeasure = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllLemMeasureRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllLemMeasureResponse {
+	repeated LemMeasure lemMeasure = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSlaRequest {
+	  string index = 1;
+
+}
+
+message QueryGetSlaResponse {
+	Sla sla = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSlaRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSlaResponse {
+	repeated Sla sla = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetKpiRequest {
+	  string index = 1;
+
+}
+
+message QueryGetKpiResponse {
+	Kpi kpi = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllKpiRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllKpiResponse {
+	repeated Kpi kpi = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetKpiMeasureRequest {
+	  string index = 1;
+
+}
+
+message QueryGetKpiMeasureResponse {
+	KpiMeasure kpiMeasure = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllKpiMeasureRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllKpiMeasureResponse {
+	repeated KpiMeasure kpiMeasure = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+
+
+message Player {
+  string index = 1; 
+  string idx = 2; 
+  string address = 3; 
+  string role = 4; 
+  string creator = 5;
+}
+
