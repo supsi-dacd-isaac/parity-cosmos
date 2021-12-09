@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
@@ -32,6 +33,12 @@ func CmdCreateKpi() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to create a KPI")
+				return nil
 			}
 
 			msg := types.NewMsgCreateKpi(
@@ -79,6 +86,12 @@ func CmdUpdateKpi() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a KPI")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateKpi(
 				clientCtx.GetFromAddress().String(),
 				indexIndex,
@@ -111,6 +124,12 @@ func CmdDeleteKpi() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a KPI")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteKpi(

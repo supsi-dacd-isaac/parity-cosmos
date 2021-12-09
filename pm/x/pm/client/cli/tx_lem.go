@@ -89,6 +89,12 @@ func CmdUpdateLem() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a LEM")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateLem(
 				clientCtx.GetFromAddress().String(),
 				indexIndex,
@@ -120,6 +126,12 @@ func CmdDeleteLem() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a LEM")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteLem(

@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
@@ -32,6 +33,12 @@ func CmdCreateSla() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to create a SLA")
+				return nil
 			}
 
 			msg := types.NewMsgCreateSla(
@@ -76,6 +83,12 @@ func CmdUpdateSla() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a SLA")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateSla(
 				clientCtx.GetFromAddress().String(),
 				indexIndex,
@@ -105,6 +118,12 @@ func CmdDeleteSla() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the aggregator
+			if isAggregator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a SLA")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteSla(

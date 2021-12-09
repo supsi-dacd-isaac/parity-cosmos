@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -26,6 +27,12 @@ func CmdCreatePlayer() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to insert a new player")
+				return nil
 			}
 
 			msg := types.NewMsgCreatePlayer(
@@ -66,6 +73,12 @@ func CmdUpdatePlayer() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a player")
+				return nil
+			}
+
 			msg := types.NewMsgUpdatePlayer(
 				clientCtx.GetFromAddress().String(),
 				indexIndex,
@@ -96,6 +109,12 @@ func CmdDeletePlayer() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a player")
+				return nil
 			}
 
 			msg := types.NewMsgDeletePlayer(

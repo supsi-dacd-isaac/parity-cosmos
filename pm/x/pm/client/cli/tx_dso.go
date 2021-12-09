@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -21,6 +22,15 @@ func CmdCreateDso() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			//Check if the DSO has not been already set
+			if isDSONone(clientCtx) == false {
+				// Check if the node performing the transaction is the DSO
+				if isDSO(clientCtx) == false {
+					fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to create a DSO")
+					return nil
+				}
 			}
 
 			msg := types.NewMsgCreateDso(clientCtx.GetFromAddress().String(), argIdx, argAddress)
@@ -50,6 +60,12 @@ func CmdUpdateDso() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a DSO")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateDso(clientCtx.GetFromAddress().String(), argIdx, argAddress)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -72,6 +88,12 @@ func CmdDeleteDso() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a DSO")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteDso(clientCtx.GetFromAddress().String())

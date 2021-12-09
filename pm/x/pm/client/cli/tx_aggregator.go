@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -21,6 +22,12 @@ func CmdCreateAggregator() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to create the aggregator")
+				return nil
 			}
 
 			msg := types.NewMsgCreateAggregator(clientCtx.GetFromAddress().String(), argIdx, argAddress)
@@ -50,6 +57,12 @@ func CmdUpdateAggregator() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update the aggregator")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateAggregator(clientCtx.GetFromAddress().String(), argIdx, argAddress)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -72,6 +85,12 @@ func CmdDeleteAggregator() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the DSO
+			if isDSO(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete the aggregator")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteAggregator(clientCtx.GetFromAddress().String())

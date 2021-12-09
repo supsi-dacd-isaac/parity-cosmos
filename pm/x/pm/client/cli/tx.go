@@ -71,6 +71,17 @@ func isDSO(ctx client.Context) bool {
 	}
 }
 
+func isDSONone(ctx client.Context) bool {
+	queryClient := types.NewQueryClient(ctx)
+	params := &types.QueryGetDsoRequest{}
+	res, _ := queryClient.Dso(context.Background(), params)
+	if res == nil {
+		return true
+	} else {
+		return false
+	}
+}
+
 func isAggregator(ctx client.Context) bool {
 	queryClient := types.NewQueryClient(ctx)
 	params := &types.QueryGetAggregatorRequest{}
