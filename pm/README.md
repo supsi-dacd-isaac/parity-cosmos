@@ -2,8 +2,11 @@
 **pm** (Parity market) is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
 
 ## compiling on ARMv7 (raspberry)
+
+<pre>
 cd pm/cmd/pmd
-make build
+go build
+</pre>
 
 ## scaffold commands
 
