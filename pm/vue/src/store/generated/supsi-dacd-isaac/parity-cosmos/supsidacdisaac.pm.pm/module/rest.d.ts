@@ -38,6 +38,17 @@ export interface PmLem {
     players?: string[];
     creator?: string;
 }
+export interface PmLemDataset {
+    index?: string;
+    player?: string;
+    /** @format int32 */
+    timestamp?: number;
+    pconsMeasure?: string;
+    pprodMeasure?: string;
+    pconsForecast?: string;
+    pprodForecast?: string;
+    creator?: string;
+}
 export interface PmLemMeasure {
     index?: string;
     player?: string;
@@ -52,6 +63,7 @@ export declare type PmMsgCreateAggregatorResponse = object;
 export declare type PmMsgCreateDsoResponse = object;
 export declare type PmMsgCreateKpiMeasureResponse = object;
 export declare type PmMsgCreateKpiResponse = object;
+export declare type PmMsgCreateLemDatasetResponse = object;
 export declare type PmMsgCreateLemMeasureResponse = object;
 export declare type PmMsgCreateLemResponse = object;
 export declare type PmMsgCreatePlayerResponse = object;
@@ -60,6 +72,7 @@ export declare type PmMsgDeleteAggregatorResponse = object;
 export declare type PmMsgDeleteDsoResponse = object;
 export declare type PmMsgDeleteKpiMeasureResponse = object;
 export declare type PmMsgDeleteKpiResponse = object;
+export declare type PmMsgDeleteLemDatasetResponse = object;
 export declare type PmMsgDeleteLemMeasureResponse = object;
 export declare type PmMsgDeleteLemResponse = object;
 export declare type PmMsgDeletePlayerResponse = object;
@@ -68,6 +81,7 @@ export declare type PmMsgUpdateAggregatorResponse = object;
 export declare type PmMsgUpdateDsoResponse = object;
 export declare type PmMsgUpdateKpiMeasureResponse = object;
 export declare type PmMsgUpdateKpiResponse = object;
+export declare type PmMsgUpdateLemDatasetResponse = object;
 export declare type PmMsgUpdateLemMeasureResponse = object;
 export declare type PmMsgUpdateLemResponse = object;
 export declare type PmMsgUpdatePlayerResponse = object;
@@ -94,6 +108,19 @@ export interface PmQueryAllKpiMeasureResponse {
 }
 export interface PmQueryAllKpiResponse {
     kpi?: PmKpi[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface PmQueryAllLemDatasetResponse {
+    lemDataset?: PmLemDataset[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -168,6 +195,9 @@ export interface PmQueryGetKpiMeasureResponse {
 }
 export interface PmQueryGetKpiResponse {
     kpi?: PmKpi;
+}
+export interface PmQueryGetLemDatasetResponse {
+    lemDataset?: PmLemDataset;
 }
 export interface PmQueryGetLemMeasureResponse {
     lemMeasure?: PmLemMeasure;
@@ -398,6 +428,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/supsi-dacd-isaac/pm/pm/lem/{index}
      */
     queryLem: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetLemResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryLemDatasetAll
+     * @summary Queries a list of lemDataset items.
+     * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset
+     */
+    queryLemDatasetAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PmQueryAllLemDatasetResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryLemDataset
+     * @summary Queries a lemDataset by index.
+     * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset/{index}
+     */
+    queryLemDataset: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetLemDatasetResponse, RpcStatus>>;
     /**
      * No description
      *

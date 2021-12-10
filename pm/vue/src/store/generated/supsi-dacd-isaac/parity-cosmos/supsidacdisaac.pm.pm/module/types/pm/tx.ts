@@ -221,6 +221,39 @@ export interface MsgDeleteKpiMeasure {
 
 export interface MsgDeleteKpiMeasureResponse {}
 
+export interface MsgCreateLemDataset {
+  creator: string;
+  index: string;
+  player: string;
+  timestamp: number;
+  pconsMeasure: string;
+  pprodMeasure: string;
+  pconsForecast: string;
+  pprodForecast: string;
+}
+
+export interface MsgCreateLemDatasetResponse {}
+
+export interface MsgUpdateLemDataset {
+  creator: string;
+  index: string;
+  player: string;
+  timestamp: number;
+  pconsMeasure: string;
+  pprodMeasure: string;
+  pconsForecast: string;
+  pprodForecast: string;
+}
+
+export interface MsgUpdateLemDatasetResponse {}
+
+export interface MsgDeleteLemDataset {
+  creator: string;
+  index: string;
+}
+
+export interface MsgDeleteLemDatasetResponse {}
+
 const baseMsgCreateDso: object = { creator: "", idx: "", address: "" };
 
 export const MsgCreateDso = {
@@ -3990,6 +4023,617 @@ export const MsgDeleteKpiMeasureResponse = {
   },
 };
 
+const baseMsgCreateLemDataset: object = {
+  creator: "",
+  index: "",
+  player: "",
+  timestamp: 0,
+  pconsMeasure: "",
+  pprodMeasure: "",
+  pconsForecast: "",
+  pprodForecast: "",
+};
+
+export const MsgCreateLemDataset = {
+  encode(
+    message: MsgCreateLemDataset,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.player !== "") {
+      writer.uint32(26).string(message.player);
+    }
+    if (message.timestamp !== 0) {
+      writer.uint32(32).int32(message.timestamp);
+    }
+    if (message.pconsMeasure !== "") {
+      writer.uint32(42).string(message.pconsMeasure);
+    }
+    if (message.pprodMeasure !== "") {
+      writer.uint32(50).string(message.pprodMeasure);
+    }
+    if (message.pconsForecast !== "") {
+      writer.uint32(58).string(message.pconsForecast);
+    }
+    if (message.pprodForecast !== "") {
+      writer.uint32(66).string(message.pprodForecast);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateLemDataset {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateLemDataset } as MsgCreateLemDataset;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.player = reader.string();
+          break;
+        case 4:
+          message.timestamp = reader.int32();
+          break;
+        case 5:
+          message.pconsMeasure = reader.string();
+          break;
+        case 6:
+          message.pprodMeasure = reader.string();
+          break;
+        case 7:
+          message.pconsForecast = reader.string();
+          break;
+        case 8:
+          message.pprodForecast = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateLemDataset {
+    const message = { ...baseMsgCreateLemDataset } as MsgCreateLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.player !== undefined && object.player !== null) {
+      message.player = String(object.player);
+    } else {
+      message.player = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Number(object.timestamp);
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.pconsMeasure !== undefined && object.pconsMeasure !== null) {
+      message.pconsMeasure = String(object.pconsMeasure);
+    } else {
+      message.pconsMeasure = "";
+    }
+    if (object.pprodMeasure !== undefined && object.pprodMeasure !== null) {
+      message.pprodMeasure = String(object.pprodMeasure);
+    } else {
+      message.pprodMeasure = "";
+    }
+    if (object.pconsForecast !== undefined && object.pconsForecast !== null) {
+      message.pconsForecast = String(object.pconsForecast);
+    } else {
+      message.pconsForecast = "";
+    }
+    if (object.pprodForecast !== undefined && object.pprodForecast !== null) {
+      message.pprodForecast = String(object.pprodForecast);
+    } else {
+      message.pprodForecast = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateLemDataset): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.player !== undefined && (obj.player = message.player);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.pconsMeasure !== undefined &&
+      (obj.pconsMeasure = message.pconsMeasure);
+    message.pprodMeasure !== undefined &&
+      (obj.pprodMeasure = message.pprodMeasure);
+    message.pconsForecast !== undefined &&
+      (obj.pconsForecast = message.pconsForecast);
+    message.pprodForecast !== undefined &&
+      (obj.pprodForecast = message.pprodForecast);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateLemDataset>): MsgCreateLemDataset {
+    const message = { ...baseMsgCreateLemDataset } as MsgCreateLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.player !== undefined && object.player !== null) {
+      message.player = object.player;
+    } else {
+      message.player = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.pconsMeasure !== undefined && object.pconsMeasure !== null) {
+      message.pconsMeasure = object.pconsMeasure;
+    } else {
+      message.pconsMeasure = "";
+    }
+    if (object.pprodMeasure !== undefined && object.pprodMeasure !== null) {
+      message.pprodMeasure = object.pprodMeasure;
+    } else {
+      message.pprodMeasure = "";
+    }
+    if (object.pconsForecast !== undefined && object.pconsForecast !== null) {
+      message.pconsForecast = object.pconsForecast;
+    } else {
+      message.pconsForecast = "";
+    }
+    if (object.pprodForecast !== undefined && object.pprodForecast !== null) {
+      message.pprodForecast = object.pprodForecast;
+    } else {
+      message.pprodForecast = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateLemDatasetResponse: object = {};
+
+export const MsgCreateLemDatasetResponse = {
+  encode(
+    _: MsgCreateLemDatasetResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateLemDatasetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateLemDatasetResponse,
+    } as MsgCreateLemDatasetResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateLemDatasetResponse {
+    const message = {
+      ...baseMsgCreateLemDatasetResponse,
+    } as MsgCreateLemDatasetResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateLemDatasetResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateLemDatasetResponse>
+  ): MsgCreateLemDatasetResponse {
+    const message = {
+      ...baseMsgCreateLemDatasetResponse,
+    } as MsgCreateLemDatasetResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateLemDataset: object = {
+  creator: "",
+  index: "",
+  player: "",
+  timestamp: 0,
+  pconsMeasure: "",
+  pprodMeasure: "",
+  pconsForecast: "",
+  pprodForecast: "",
+};
+
+export const MsgUpdateLemDataset = {
+  encode(
+    message: MsgUpdateLemDataset,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.player !== "") {
+      writer.uint32(26).string(message.player);
+    }
+    if (message.timestamp !== 0) {
+      writer.uint32(32).int32(message.timestamp);
+    }
+    if (message.pconsMeasure !== "") {
+      writer.uint32(42).string(message.pconsMeasure);
+    }
+    if (message.pprodMeasure !== "") {
+      writer.uint32(50).string(message.pprodMeasure);
+    }
+    if (message.pconsForecast !== "") {
+      writer.uint32(58).string(message.pconsForecast);
+    }
+    if (message.pprodForecast !== "") {
+      writer.uint32(66).string(message.pprodForecast);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateLemDataset {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateLemDataset } as MsgUpdateLemDataset;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.player = reader.string();
+          break;
+        case 4:
+          message.timestamp = reader.int32();
+          break;
+        case 5:
+          message.pconsMeasure = reader.string();
+          break;
+        case 6:
+          message.pprodMeasure = reader.string();
+          break;
+        case 7:
+          message.pconsForecast = reader.string();
+          break;
+        case 8:
+          message.pprodForecast = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateLemDataset {
+    const message = { ...baseMsgUpdateLemDataset } as MsgUpdateLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.player !== undefined && object.player !== null) {
+      message.player = String(object.player);
+    } else {
+      message.player = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Number(object.timestamp);
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.pconsMeasure !== undefined && object.pconsMeasure !== null) {
+      message.pconsMeasure = String(object.pconsMeasure);
+    } else {
+      message.pconsMeasure = "";
+    }
+    if (object.pprodMeasure !== undefined && object.pprodMeasure !== null) {
+      message.pprodMeasure = String(object.pprodMeasure);
+    } else {
+      message.pprodMeasure = "";
+    }
+    if (object.pconsForecast !== undefined && object.pconsForecast !== null) {
+      message.pconsForecast = String(object.pconsForecast);
+    } else {
+      message.pconsForecast = "";
+    }
+    if (object.pprodForecast !== undefined && object.pprodForecast !== null) {
+      message.pprodForecast = String(object.pprodForecast);
+    } else {
+      message.pprodForecast = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateLemDataset): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.player !== undefined && (obj.player = message.player);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.pconsMeasure !== undefined &&
+      (obj.pconsMeasure = message.pconsMeasure);
+    message.pprodMeasure !== undefined &&
+      (obj.pprodMeasure = message.pprodMeasure);
+    message.pconsForecast !== undefined &&
+      (obj.pconsForecast = message.pconsForecast);
+    message.pprodForecast !== undefined &&
+      (obj.pprodForecast = message.pprodForecast);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateLemDataset>): MsgUpdateLemDataset {
+    const message = { ...baseMsgUpdateLemDataset } as MsgUpdateLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.player !== undefined && object.player !== null) {
+      message.player = object.player;
+    } else {
+      message.player = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.pconsMeasure !== undefined && object.pconsMeasure !== null) {
+      message.pconsMeasure = object.pconsMeasure;
+    } else {
+      message.pconsMeasure = "";
+    }
+    if (object.pprodMeasure !== undefined && object.pprodMeasure !== null) {
+      message.pprodMeasure = object.pprodMeasure;
+    } else {
+      message.pprodMeasure = "";
+    }
+    if (object.pconsForecast !== undefined && object.pconsForecast !== null) {
+      message.pconsForecast = object.pconsForecast;
+    } else {
+      message.pconsForecast = "";
+    }
+    if (object.pprodForecast !== undefined && object.pprodForecast !== null) {
+      message.pprodForecast = object.pprodForecast;
+    } else {
+      message.pprodForecast = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateLemDatasetResponse: object = {};
+
+export const MsgUpdateLemDatasetResponse = {
+  encode(
+    _: MsgUpdateLemDatasetResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateLemDatasetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateLemDatasetResponse,
+    } as MsgUpdateLemDatasetResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateLemDatasetResponse {
+    const message = {
+      ...baseMsgUpdateLemDatasetResponse,
+    } as MsgUpdateLemDatasetResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateLemDatasetResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateLemDatasetResponse>
+  ): MsgUpdateLemDatasetResponse {
+    const message = {
+      ...baseMsgUpdateLemDatasetResponse,
+    } as MsgUpdateLemDatasetResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteLemDataset: object = { creator: "", index: "" };
+
+export const MsgDeleteLemDataset = {
+  encode(
+    message: MsgDeleteLemDataset,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteLemDataset {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteLemDataset } as MsgDeleteLemDataset;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteLemDataset {
+    const message = { ...baseMsgDeleteLemDataset } as MsgDeleteLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteLemDataset): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteLemDataset>): MsgDeleteLemDataset {
+    const message = { ...baseMsgDeleteLemDataset } as MsgDeleteLemDataset;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteLemDatasetResponse: object = {};
+
+export const MsgDeleteLemDatasetResponse = {
+  encode(
+    _: MsgDeleteLemDatasetResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteLemDatasetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteLemDatasetResponse,
+    } as MsgDeleteLemDatasetResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteLemDatasetResponse {
+    const message = {
+      ...baseMsgDeleteLemDatasetResponse,
+    } as MsgDeleteLemDatasetResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteLemDatasetResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteLemDatasetResponse>
+  ): MsgDeleteLemDatasetResponse {
+    const message = {
+      ...baseMsgDeleteLemDatasetResponse,
+    } as MsgDeleteLemDatasetResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -4031,10 +4675,19 @@ export interface Msg {
   UpdateKpiMeasure(
     request: MsgUpdateKpiMeasure
   ): Promise<MsgUpdateKpiMeasureResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   DeleteKpiMeasure(
     request: MsgDeleteKpiMeasure
   ): Promise<MsgDeleteKpiMeasureResponse>;
+  CreateLemDataset(
+    request: MsgCreateLemDataset
+  ): Promise<MsgCreateLemDatasetResponse>;
+  UpdateLemDataset(
+    request: MsgUpdateLemDataset
+  ): Promise<MsgUpdateLemDatasetResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteLemDataset(
+    request: MsgDeleteLemDataset
+  ): Promise<MsgDeleteLemDatasetResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -4345,6 +4998,48 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgDeleteKpiMeasureResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateLemDataset(
+    request: MsgCreateLemDataset
+  ): Promise<MsgCreateLemDatasetResponse> {
+    const data = MsgCreateLemDataset.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "CreateLemDataset",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateLemDatasetResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateLemDataset(
+    request: MsgUpdateLemDataset
+  ): Promise<MsgUpdateLemDatasetResponse> {
+    const data = MsgUpdateLemDataset.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "UpdateLemDataset",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateLemDatasetResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteLemDataset(
+    request: MsgDeleteLemDataset
+  ): Promise<MsgDeleteLemDatasetResponse> {
+    const data = MsgDeleteLemDataset.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "DeleteLemDataset",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteLemDatasetResponse.decode(new Reader(data))
     );
   }
 }

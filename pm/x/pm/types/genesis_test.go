@@ -77,6 +77,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				LemDatasetList: []types.LemDataset{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -155,6 +163,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated kpiMeasure",
 			genState: &types.GenesisState{
 				KpiMeasureList: []types.KpiMeasure{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated lemDataset",
+			genState: &types.GenesisState{
+				LemDatasetList: []types.LemDataset{
 					{
 						Index: "0",
 					},

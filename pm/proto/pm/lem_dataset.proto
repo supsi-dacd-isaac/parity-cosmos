@@ -1,0 +1,18 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+
+
+message LemDataset {
+  string index = 1; 
+  string player = 2; 
+  int32 timestamp = 3; 
+  string pconsMeasure = 4; 
+  string pprodMeasure = 5; 
+  string pconsForecast = 6; 
+  string pprodForecast = 7; 
+  string creator = 8;
+}
+

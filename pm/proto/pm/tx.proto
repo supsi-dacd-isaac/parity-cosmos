@@ -9,6 +9,7 @@ import "pm/lem_measure.proto";
 import "pm/sla.proto";
 import "pm/kpi.proto";
 import "pm/kpi_measure.proto";
+import "pm/lem_dataset.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -39,6 +40,9 @@ service Msg {
   rpc CreateKpiMeasure(MsgCreateKpiMeasure) returns (MsgCreateKpiMeasureResponse);
   rpc UpdateKpiMeasure(MsgUpdateKpiMeasure) returns (MsgUpdateKpiMeasureResponse);
   rpc DeleteKpiMeasure(MsgDeleteKpiMeasure) returns (MsgDeleteKpiMeasureResponse);
+  rpc CreateLemDataset(MsgCreateLemDataset) returns (MsgCreateLemDatasetResponse);
+  rpc UpdateLemDataset(MsgUpdateLemDataset) returns (MsgUpdateLemDatasetResponse);
+  rpc DeleteLemDataset(MsgDeleteLemDataset) returns (MsgDeleteLemDatasetResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -245,5 +249,37 @@ message MsgDeleteKpiMeasure {
   string index = 2;
 }
 message MsgDeleteKpiMeasureResponse {}
+
+message MsgCreateLemDataset {
+  string creator = 1;
+  string index = 2;
+
+  string player = 3;
+  int32 timestamp = 4;
+  string pconsMeasure = 5;
+  string pprodMeasure = 6;
+  string pconsForecast = 7;
+  string pprodForecast = 8;
+}
+message MsgCreateLemDatasetResponse {}
+
+message MsgUpdateLemDataset {
+  string creator = 1;
+  string index = 2;
+
+  string player = 3;
+  int32 timestamp = 4;
+  string pconsMeasure = 5;
+  string pprodMeasure = 6;
+  string pconsForecast = 7;
+  string pprodForecast = 8;
+}
+message MsgUpdateLemDatasetResponse {}
+
+message MsgDeleteLemDataset {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteLemDatasetResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

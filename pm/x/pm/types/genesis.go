@@ -18,6 +18,7 @@ func DefaultGenesis() *GenesisState {
 		SlaList:        []Sla{},
 		KpiList:        []Kpi{},
 		KpiMeasureList: []KpiMeasure{},
+		LemDatasetList: []LemDataset{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -84,6 +85,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for kpiMeasure")
 		}
 		kpiMeasureIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in lemDataset
+	lemDatasetIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.LemDatasetList {
+		index := string(LemDatasetKey(elem.Index))
+		if _, ok := lemDatasetIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for lemDataset")
+		}
+		lemDatasetIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

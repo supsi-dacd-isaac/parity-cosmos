@@ -58,6 +58,19 @@ export interface PmLem {
   creator?: string;
 }
 
+export interface PmLemDataset {
+  index?: string;
+  player?: string;
+
+  /** @format int32 */
+  timestamp?: number;
+  pconsMeasure?: string;
+  pprodMeasure?: string;
+  pconsForecast?: string;
+  pprodForecast?: string;
+  creator?: string;
+}
+
 export interface PmLemMeasure {
   index?: string;
   player?: string;
@@ -78,6 +91,8 @@ export type PmMsgCreateKpiMeasureResponse = object;
 
 export type PmMsgCreateKpiResponse = object;
 
+export type PmMsgCreateLemDatasetResponse = object;
+
 export type PmMsgCreateLemMeasureResponse = object;
 
 export type PmMsgCreateLemResponse = object;
@@ -94,6 +109,8 @@ export type PmMsgDeleteKpiMeasureResponse = object;
 
 export type PmMsgDeleteKpiResponse = object;
 
+export type PmMsgDeleteLemDatasetResponse = object;
+
 export type PmMsgDeleteLemMeasureResponse = object;
 
 export type PmMsgDeleteLemResponse = object;
@@ -109,6 +126,8 @@ export type PmMsgUpdateDsoResponse = object;
 export type PmMsgUpdateKpiMeasureResponse = object;
 
 export type PmMsgUpdateKpiResponse = object;
+
+export type PmMsgUpdateLemDatasetResponse = object;
 
 export type PmMsgUpdateLemMeasureResponse = object;
 
@@ -143,6 +162,21 @@ export interface PmQueryAllKpiMeasureResponse {
 
 export interface PmQueryAllKpiResponse {
   kpi?: PmKpi[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface PmQueryAllLemDatasetResponse {
+  lemDataset?: PmLemDataset[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -230,6 +264,10 @@ export interface PmQueryGetKpiMeasureResponse {
 
 export interface PmQueryGetKpiResponse {
   kpi?: PmKpi;
+}
+
+export interface PmQueryGetLemDatasetResponse {
+  lemDataset?: PmLemDataset;
 }
 
 export interface PmQueryGetLemMeasureResponse {
@@ -678,6 +716,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryLem = (index: string, params: RequestParams = {}) =>
     this.request<PmQueryGetLemResponse, RpcStatus>({
       path: `/supsi-dacd-isaac/pm/pm/lem/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryLemDatasetAll
+   * @summary Queries a list of lemDataset items.
+   * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset
+   */
+  queryLemDatasetAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PmQueryAllLemDatasetResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/lemDataset`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryLemDataset
+   * @summary Queries a lemDataset by index.
+   * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset/{index}
+   */
+  queryLemDataset = (index: string, params: RequestParams = {}) =>
+    this.request<PmQueryGetLemDatasetResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/lemDataset/${index}`,
       method: "GET",
       format: "json",
       ...params,

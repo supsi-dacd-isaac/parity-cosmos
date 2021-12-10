@@ -67,6 +67,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		LemDatasetList: []types.LemDataset{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -89,5 +97,7 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.KpiList, got.KpiList)
 	require.Len(t, got.KpiMeasureList, len(genesisState.KpiMeasureList))
 	require.Subset(t, genesisState.KpiMeasureList, got.KpiMeasureList)
+	require.Len(t, got.LemDatasetList, len(genesisState.LemDatasetList))
+	require.Subset(t, genesisState.LemDatasetList, got.LemDatasetList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

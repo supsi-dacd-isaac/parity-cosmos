@@ -8,6 +8,7 @@ import { LemMeasure } from "../pm/lem_measure";
 import { Sla } from "../pm/sla";
 import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
+import { LemDataset } from "../pm/lem_dataset";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -95,6 +96,19 @@ export interface QueryAllKpiMeasureRequest {
 }
 export interface QueryAllKpiMeasureResponse {
     kpiMeasure: KpiMeasure[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetLemDatasetRequest {
+    index: string;
+}
+export interface QueryGetLemDatasetResponse {
+    lemDataset: LemDataset | undefined;
+}
+export interface QueryAllLemDatasetRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllLemDatasetResponse {
+    lemDataset: LemDataset[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryGetDsoRequest: {
@@ -293,6 +307,34 @@ export declare const QueryAllKpiMeasureResponse: {
     toJSON(message: QueryAllKpiMeasureResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllKpiMeasureResponse>): QueryAllKpiMeasureResponse;
 };
+export declare const QueryGetLemDatasetRequest: {
+    encode(message: QueryGetLemDatasetRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetLemDatasetRequest;
+    fromJSON(object: any): QueryGetLemDatasetRequest;
+    toJSON(message: QueryGetLemDatasetRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetLemDatasetRequest>): QueryGetLemDatasetRequest;
+};
+export declare const QueryGetLemDatasetResponse: {
+    encode(message: QueryGetLemDatasetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetLemDatasetResponse;
+    fromJSON(object: any): QueryGetLemDatasetResponse;
+    toJSON(message: QueryGetLemDatasetResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetLemDatasetResponse>): QueryGetLemDatasetResponse;
+};
+export declare const QueryAllLemDatasetRequest: {
+    encode(message: QueryAllLemDatasetRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllLemDatasetRequest;
+    fromJSON(object: any): QueryAllLemDatasetRequest;
+    toJSON(message: QueryAllLemDatasetRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllLemDatasetRequest>): QueryAllLemDatasetRequest;
+};
+export declare const QueryAllLemDatasetResponse: {
+    encode(message: QueryAllLemDatasetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllLemDatasetResponse;
+    fromJSON(object: any): QueryAllLemDatasetResponse;
+    toJSON(message: QueryAllLemDatasetResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllLemDatasetResponse>): QueryAllLemDatasetResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -323,6 +365,10 @@ export interface Query {
     KpiMeasure(request: QueryGetKpiMeasureRequest): Promise<QueryGetKpiMeasureResponse>;
     /** Queries a list of kpiMeasure items. */
     KpiMeasureAll(request: QueryAllKpiMeasureRequest): Promise<QueryAllKpiMeasureResponse>;
+    /** Queries a lemDataset by index. */
+    LemDataset(request: QueryGetLemDatasetRequest): Promise<QueryGetLemDatasetResponse>;
+    /** Queries a list of lemDataset items. */
+    LemDatasetAll(request: QueryAllLemDatasetRequest): Promise<QueryAllLemDatasetResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -341,6 +387,8 @@ export declare class QueryClientImpl implements Query {
     KpiAll(request: QueryAllKpiRequest): Promise<QueryAllKpiResponse>;
     KpiMeasure(request: QueryGetKpiMeasureRequest): Promise<QueryGetKpiMeasureResponse>;
     KpiMeasureAll(request: QueryAllKpiMeasureRequest): Promise<QueryAllKpiMeasureResponse>;
+    LemDataset(request: QueryGetLemDatasetRequest): Promise<QueryGetLemDatasetResponse>;
+    LemDatasetAll(request: QueryAllLemDatasetRequest): Promise<QueryAllLemDatasetResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

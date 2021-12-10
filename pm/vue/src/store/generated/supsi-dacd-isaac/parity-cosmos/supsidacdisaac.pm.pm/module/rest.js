@@ -255,6 +255,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryLemDatasetAll
+         * @summary Queries a list of lemDataset items.
+         * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset
+         */
+        this.queryLemDatasetAll = (query, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/lemDataset`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryLemDataset
+         * @summary Queries a lemDataset by index.
+         * @request GET:/supsi-dacd-isaac/pm/pm/lemDataset/{index}
+         */
+        this.queryLemDataset = (index, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/lemDataset/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryLemMeasureAll
          * @summary Queries a list of lemMeasure items.
          * @request GET:/supsi-dacd-isaac/pm/pm/lemMeasure

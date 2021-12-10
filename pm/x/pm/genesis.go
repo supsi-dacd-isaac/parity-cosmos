@@ -41,6 +41,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.KpiMeasureList {
 		k.SetKpiMeasure(ctx, elem)
 	}
+	// Set all the lemDataset
+	for _, elem := range genState.LemDatasetList {
+		k.SetLemDataset(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 }
 
@@ -64,6 +68,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.SlaList = k.GetAllSla(ctx)
 	genesis.KpiList = k.GetAllKpi(ctx)
 	genesis.KpiMeasureList = k.GetAllKpiMeasure(ctx)
+	genesis.LemDatasetList = k.GetAllLemDataset(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

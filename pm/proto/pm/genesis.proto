@@ -9,6 +9,7 @@ import "pm/lem_measure.proto";
 import "pm/sla.proto";
 import "pm/kpi.proto";
 import "pm/kpi_measure.proto";
+import "pm/lem_dataset.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 import "gogoproto/gogo.proto";
 
@@ -24,5 +25,6 @@ message GenesisState {
   repeated Sla slaList = 6 [(gogoproto.nullable) = false];
   repeated Kpi kpiList = 7 [(gogoproto.nullable) = false];
   repeated KpiMeasure kpiMeasureList = 8 [(gogoproto.nullable) = false];
+  repeated LemDataset lemDatasetList = 9 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

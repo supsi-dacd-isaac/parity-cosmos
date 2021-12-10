@@ -194,6 +194,36 @@ export interface MsgDeleteKpiMeasure {
 }
 export interface MsgDeleteKpiMeasureResponse {
 }
+export interface MsgCreateLemDataset {
+    creator: string;
+    index: string;
+    player: string;
+    timestamp: number;
+    pconsMeasure: string;
+    pprodMeasure: string;
+    pconsForecast: string;
+    pprodForecast: string;
+}
+export interface MsgCreateLemDatasetResponse {
+}
+export interface MsgUpdateLemDataset {
+    creator: string;
+    index: string;
+    player: string;
+    timestamp: number;
+    pconsMeasure: string;
+    pprodMeasure: string;
+    pconsForecast: string;
+    pprodForecast: string;
+}
+export interface MsgUpdateLemDatasetResponse {
+}
+export interface MsgDeleteLemDataset {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteLemDatasetResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -530,6 +560,48 @@ export declare const MsgDeleteKpiMeasureResponse: {
     toJSON(_: MsgDeleteKpiMeasureResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteKpiMeasureResponse>): MsgDeleteKpiMeasureResponse;
 };
+export declare const MsgCreateLemDataset: {
+    encode(message: MsgCreateLemDataset, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateLemDataset;
+    fromJSON(object: any): MsgCreateLemDataset;
+    toJSON(message: MsgCreateLemDataset): unknown;
+    fromPartial(object: DeepPartial<MsgCreateLemDataset>): MsgCreateLemDataset;
+};
+export declare const MsgCreateLemDatasetResponse: {
+    encode(_: MsgCreateLemDatasetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateLemDatasetResponse;
+    fromJSON(_: any): MsgCreateLemDatasetResponse;
+    toJSON(_: MsgCreateLemDatasetResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateLemDatasetResponse>): MsgCreateLemDatasetResponse;
+};
+export declare const MsgUpdateLemDataset: {
+    encode(message: MsgUpdateLemDataset, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateLemDataset;
+    fromJSON(object: any): MsgUpdateLemDataset;
+    toJSON(message: MsgUpdateLemDataset): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateLemDataset>): MsgUpdateLemDataset;
+};
+export declare const MsgUpdateLemDatasetResponse: {
+    encode(_: MsgUpdateLemDatasetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateLemDatasetResponse;
+    fromJSON(_: any): MsgUpdateLemDatasetResponse;
+    toJSON(_: MsgUpdateLemDatasetResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateLemDatasetResponse>): MsgUpdateLemDatasetResponse;
+};
+export declare const MsgDeleteLemDataset: {
+    encode(message: MsgDeleteLemDataset, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteLemDataset;
+    fromJSON(object: any): MsgDeleteLemDataset;
+    toJSON(message: MsgDeleteLemDataset): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteLemDataset>): MsgDeleteLemDataset;
+};
+export declare const MsgDeleteLemDatasetResponse: {
+    encode(_: MsgDeleteLemDatasetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteLemDatasetResponse;
+    fromJSON(_: any): MsgDeleteLemDatasetResponse;
+    toJSON(_: MsgDeleteLemDatasetResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteLemDatasetResponse>): MsgDeleteLemDatasetResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -555,8 +627,11 @@ export interface Msg {
     DeleteKpi(request: MsgDeleteKpi): Promise<MsgDeleteKpiResponse>;
     CreateKpiMeasure(request: MsgCreateKpiMeasure): Promise<MsgCreateKpiMeasureResponse>;
     UpdateKpiMeasure(request: MsgUpdateKpiMeasure): Promise<MsgUpdateKpiMeasureResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteKpiMeasure(request: MsgDeleteKpiMeasure): Promise<MsgDeleteKpiMeasureResponse>;
+    CreateLemDataset(request: MsgCreateLemDataset): Promise<MsgCreateLemDatasetResponse>;
+    UpdateLemDataset(request: MsgUpdateLemDataset): Promise<MsgUpdateLemDatasetResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteLemDataset(request: MsgDeleteLemDataset): Promise<MsgDeleteLemDatasetResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -585,6 +660,9 @@ export declare class MsgClientImpl implements Msg {
     CreateKpiMeasure(request: MsgCreateKpiMeasure): Promise<MsgCreateKpiMeasureResponse>;
     UpdateKpiMeasure(request: MsgUpdateKpiMeasure): Promise<MsgUpdateKpiMeasureResponse>;
     DeleteKpiMeasure(request: MsgDeleteKpiMeasure): Promise<MsgDeleteKpiMeasureResponse>;
+    CreateLemDataset(request: MsgCreateLemDataset): Promise<MsgCreateLemDatasetResponse>;
+    UpdateLemDataset(request: MsgUpdateLemDataset): Promise<MsgUpdateLemDatasetResponse>;
+    DeleteLemDataset(request: MsgDeleteLemDataset): Promise<MsgDeleteLemDatasetResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

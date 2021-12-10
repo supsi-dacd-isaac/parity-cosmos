@@ -9,6 +9,7 @@ import { LemMeasure } from "../pm/lem_measure";
 import { Sla } from "../pm/sla";
 import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
+import { LemDataset } from "../pm/lem_dataset";
 export const protobufPackage = "supsidacdisaac.pm.pm";
 const baseQueryGetDsoRequest = {};
 export const QueryGetDsoRequest = {
@@ -1660,6 +1661,268 @@ export const QueryAllKpiMeasureResponse = {
         return message;
     },
 };
+const baseQueryGetLemDatasetRequest = { index: "" };
+export const QueryGetLemDatasetRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.index !== "") {
+            writer.uint32(10).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetLemDatasetRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetLemDatasetRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetLemDatasetRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+};
+const baseQueryGetLemDatasetResponse = {};
+export const QueryGetLemDatasetResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.lemDataset !== undefined) {
+            LemDataset.encode(message.lemDataset, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetLemDatasetResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lemDataset = LemDataset.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetLemDatasetResponse,
+        };
+        if (object.lemDataset !== undefined && object.lemDataset !== null) {
+            message.lemDataset = LemDataset.fromJSON(object.lemDataset);
+        }
+        else {
+            message.lemDataset = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.lemDataset !== undefined &&
+            (obj.lemDataset = message.lemDataset
+                ? LemDataset.toJSON(message.lemDataset)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetLemDatasetResponse,
+        };
+        if (object.lemDataset !== undefined && object.lemDataset !== null) {
+            message.lemDataset = LemDataset.fromPartial(object.lemDataset);
+        }
+        else {
+            message.lemDataset = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllLemDatasetRequest = {};
+export const QueryAllLemDatasetRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllLemDatasetRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllLemDatasetRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllLemDatasetRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllLemDatasetResponse = {};
+export const QueryAllLemDatasetResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.lemDataset) {
+            LemDataset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllLemDatasetResponse,
+        };
+        message.lemDataset = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lemDataset.push(LemDataset.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllLemDatasetResponse,
+        };
+        message.lemDataset = [];
+        if (object.lemDataset !== undefined && object.lemDataset !== null) {
+            for (const e of object.lemDataset) {
+                message.lemDataset.push(LemDataset.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.lemDataset) {
+            obj.lemDataset = message.lemDataset.map((e) => e ? LemDataset.toJSON(e) : undefined);
+        }
+        else {
+            obj.lemDataset = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllLemDatasetResponse,
+        };
+        message.lemDataset = [];
+        if (object.lemDataset !== undefined && object.lemDataset !== null) {
+            for (const e of object.lemDataset) {
+                message.lemDataset.push(LemDataset.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1733,5 +1996,15 @@ export class QueryClientImpl {
         const data = QueryAllKpiMeasureRequest.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "KpiMeasureAll", data);
         return promise.then((data) => QueryAllKpiMeasureResponse.decode(new Reader(data)));
+    }
+    LemDataset(request) {
+        const data = QueryGetLemDatasetRequest.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "LemDataset", data);
+        return promise.then((data) => QueryGetLemDatasetResponse.decode(new Reader(data)));
+    }
+    LemDatasetAll(request) {
+        const data = QueryAllLemDatasetRequest.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "LemDatasetAll", data);
+        return promise.then((data) => QueryAllLemDatasetResponse.decode(new Reader(data)));
     }
 }
