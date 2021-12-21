@@ -75,6 +75,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		DefaultLemParsList: []types.DefaultLemPars{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -99,5 +107,7 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.KpiMeasureList, got.KpiMeasureList)
 	require.Len(t, got.LemDatasetList, len(genesisState.LemDatasetList))
 	require.Subset(t, genesisState.LemDatasetList, got.LemDatasetList)
+	require.Len(t, got.DefaultLemParsList, len(genesisState.DefaultLemParsList))
+	require.Subset(t, genesisState.DefaultLemParsList, got.DefaultLemParsList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

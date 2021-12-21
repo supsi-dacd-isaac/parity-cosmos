@@ -1,0 +1,17 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+
+
+message DefaultLemPars {
+  string index = 1; 
+  string pbBAU = 2; 
+  string psBAU = 3; 
+  string pbP2P = 4; 
+  string psP2P = 5; 
+  string beta = 6; 
+  string creator = 7;
+}
+

@@ -154,6 +154,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryDefaultLemParsAll
+         * @summary Queries a list of defaultLemPars items.
+         * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars
+         */
+        this.queryDefaultLemParsAll = (query, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/defaultLemPars`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryDefaultLemPars
+         * @summary Queries a defaultLemPars by index.
+         * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars/{index}
+         */
+        this.queryDefaultLemPars = (index, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/defaultLemPars/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryDso
          * @summary Queries a dso by index.
          * @request GET:/supsi-dacd-isaac/pm/pm/dso

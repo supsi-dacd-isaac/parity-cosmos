@@ -57,6 +57,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateLemDataset())
 	cmd.AddCommand(CmdUpdateLemDataset())
 	cmd.AddCommand(CmdDeleteLemDataset())
+	cmd.AddCommand(CmdCreateDefaultLemPars())
+	cmd.AddCommand(CmdUpdateDefaultLemPars())
+	cmd.AddCommand(CmdDeleteDefaultLemPars())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

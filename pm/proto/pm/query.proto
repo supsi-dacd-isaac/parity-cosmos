@@ -12,6 +12,7 @@ import "pm/sla.proto";
 import "pm/kpi.proto";
 import "pm/kpi_measure.proto";
 import "pm/lem_dataset.proto";
+import "pm/default_lem_pars.proto";
 // this line is used by starport scaffolding # 1
 import "gogoproto/gogo.proto";
 
@@ -95,6 +96,16 @@ service Query {
 	// Queries a list of lemDataset items.
 	rpc LemDatasetAll(QueryAllLemDatasetRequest) returns (QueryAllLemDatasetResponse) {
 		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/lemDataset";
+	}
+
+// Queries a defaultLemPars by index.
+	rpc DefaultLemPars(QueryGetDefaultLemParsRequest) returns (QueryGetDefaultLemParsResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/defaultLemPars/{index}";
+	}
+
+	// Queries a list of defaultLemPars items.
+	rpc DefaultLemParsAll(QueryAllDefaultLemParsRequest) returns (QueryAllDefaultLemParsResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/defaultLemPars";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -233,6 +244,24 @@ message QueryAllLemDatasetRequest {
 
 message QueryAllLemDatasetResponse {
 	repeated LemDataset lemDataset = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetDefaultLemParsRequest {
+	  string index = 1;
+
+}
+
+message QueryGetDefaultLemParsResponse {
+	DefaultLemPars defaultLemPars = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDefaultLemParsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDefaultLemParsResponse {
+	repeated DefaultLemPars defaultLemPars = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

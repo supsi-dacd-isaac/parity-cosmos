@@ -3,6 +3,15 @@ export interface PmAggregator {
     address?: string;
     creator?: string;
 }
+export interface PmDefaultLemPars {
+    index?: string;
+    pbBAU?: string;
+    psBAU?: string;
+    pbP2P?: string;
+    psP2P?: string;
+    beta?: string;
+    creator?: string;
+}
 export interface PmDso {
     idx?: string;
     address?: string;
@@ -60,6 +69,7 @@ export interface PmLemMeasure {
     creator?: string;
 }
 export declare type PmMsgCreateAggregatorResponse = object;
+export declare type PmMsgCreateDefaultLemParsResponse = object;
 export declare type PmMsgCreateDsoResponse = object;
 export declare type PmMsgCreateKpiMeasureResponse = object;
 export declare type PmMsgCreateKpiResponse = object;
@@ -69,6 +79,7 @@ export declare type PmMsgCreateLemResponse = object;
 export declare type PmMsgCreatePlayerResponse = object;
 export declare type PmMsgCreateSlaResponse = object;
 export declare type PmMsgDeleteAggregatorResponse = object;
+export declare type PmMsgDeleteDefaultLemParsResponse = object;
 export declare type PmMsgDeleteDsoResponse = object;
 export declare type PmMsgDeleteKpiMeasureResponse = object;
 export declare type PmMsgDeleteKpiResponse = object;
@@ -78,6 +89,7 @@ export declare type PmMsgDeleteLemResponse = object;
 export declare type PmMsgDeletePlayerResponse = object;
 export declare type PmMsgDeleteSlaResponse = object;
 export declare type PmMsgUpdateAggregatorResponse = object;
+export declare type PmMsgUpdateDefaultLemParsResponse = object;
 export declare type PmMsgUpdateDsoResponse = object;
 export declare type PmMsgUpdateKpiMeasureResponse = object;
 export declare type PmMsgUpdateKpiResponse = object;
@@ -92,6 +104,19 @@ export interface PmPlayer {
     address?: string;
     role?: string;
     creator?: string;
+}
+export interface PmQueryAllDefaultLemParsResponse {
+    defaultLemPars?: PmDefaultLemPars[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface PmQueryAllKpiMeasureResponse {
     kpiMeasure?: PmKpiMeasure[];
@@ -186,6 +211,9 @@ export interface PmQueryAllSlaResponse {
 }
 export interface PmQueryGetAggregatorResponse {
     Aggregator?: PmAggregator;
+}
+export interface PmQueryGetDefaultLemParsResponse {
+    defaultLemPars?: PmDefaultLemPars;
 }
 export interface PmQueryGetDsoResponse {
     Dso?: PmDso;
@@ -347,6 +375,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/supsi-dacd-isaac/pm/pm/aggregator
      */
     queryAggregator: (params?: RequestParams) => Promise<HttpResponse<PmQueryGetAggregatorResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryDefaultLemParsAll
+     * @summary Queries a list of defaultLemPars items.
+     * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars
+     */
+    queryDefaultLemParsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PmQueryAllDefaultLemParsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryDefaultLemPars
+     * @summary Queries a defaultLemPars by index.
+     * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars/{index}
+     */
+    queryDefaultLemPars: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetDefaultLemParsResponse, RpcStatus>>;
     /**
      * No description
      *

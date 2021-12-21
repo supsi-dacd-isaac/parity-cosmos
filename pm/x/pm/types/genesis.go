@@ -10,15 +10,16 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		Dso:            nil,
-		Aggregator:     nil,
-		PlayerList:     []Player{},
-		LemList:        []Lem{},
-		LemMeasureList: []LemMeasure{},
-		SlaList:        []Sla{},
-		KpiList:        []Kpi{},
-		KpiMeasureList: []KpiMeasure{},
-		LemDatasetList: []LemDataset{},
+		Dso:                nil,
+		Aggregator:         nil,
+		PlayerList:         []Player{},
+		LemList:            []Lem{},
+		LemMeasureList:     []LemMeasure{},
+		SlaList:            []Sla{},
+		KpiList:            []Kpi{},
+		KpiMeasureList:     []KpiMeasure{},
+		LemDatasetList:     []LemDataset{},
+		DefaultLemParsList: []DefaultLemPars{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -95,6 +96,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for lemDataset")
 		}
 		lemDatasetIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in defaultLemPars
+	defaultLemParsIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.DefaultLemParsList {
+		index := string(DefaultLemParsKey(elem.Index))
+		if _, ok := defaultLemParsIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for defaultLemPars")
+		}
+		defaultLemParsIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

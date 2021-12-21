@@ -8,6 +8,7 @@ import { Sla } from "../pm/sla";
 import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
+import { DefaultLemPars } from "../pm/default_lem_pars";
 import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "supsidacdisaac.pm.pm";
 const baseGenesisState = {};
@@ -40,6 +41,9 @@ export const GenesisState = {
         for (const v of message.lemDatasetList) {
             LemDataset.encode(v, writer.uint32(74).fork()).ldelim();
         }
+        for (const v of message.defaultLemParsList) {
+            DefaultLemPars.encode(v, writer.uint32(82).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -53,6 +57,7 @@ export const GenesisState = {
         message.kpiList = [];
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
+        message.defaultLemParsList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -83,6 +88,9 @@ export const GenesisState = {
                 case 9:
                     message.lemDatasetList.push(LemDataset.decode(reader, reader.uint32()));
                     break;
+                case 10:
+                    message.defaultLemParsList.push(DefaultLemPars.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -99,6 +107,7 @@ export const GenesisState = {
         message.kpiList = [];
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
+        message.defaultLemParsList = [];
         if (object.dso !== undefined && object.dso !== null) {
             message.dso = Dso.fromJSON(object.dso);
         }
@@ -144,6 +153,12 @@ export const GenesisState = {
         if (object.lemDatasetList !== undefined && object.lemDatasetList !== null) {
             for (const e of object.lemDatasetList) {
                 message.lemDatasetList.push(LemDataset.fromJSON(e));
+            }
+        }
+        if (object.defaultLemParsList !== undefined &&
+            object.defaultLemParsList !== null) {
+            for (const e of object.defaultLemParsList) {
+                message.defaultLemParsList.push(DefaultLemPars.fromJSON(e));
             }
         }
         return message;
@@ -198,6 +213,12 @@ export const GenesisState = {
         else {
             obj.lemDatasetList = [];
         }
+        if (message.defaultLemParsList) {
+            obj.defaultLemParsList = message.defaultLemParsList.map((e) => e ? DefaultLemPars.toJSON(e) : undefined);
+        }
+        else {
+            obj.defaultLemParsList = [];
+        }
         return obj;
     },
     fromPartial(object) {
@@ -209,6 +230,7 @@ export const GenesisState = {
         message.kpiList = [];
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
+        message.defaultLemParsList = [];
         if (object.dso !== undefined && object.dso !== null) {
             message.dso = Dso.fromPartial(object.dso);
         }
@@ -254,6 +276,12 @@ export const GenesisState = {
         if (object.lemDatasetList !== undefined && object.lemDatasetList !== null) {
             for (const e of object.lemDatasetList) {
                 message.lemDatasetList.push(LemDataset.fromPartial(e));
+            }
+        }
+        if (object.defaultLemParsList !== undefined &&
+            object.defaultLemParsList !== null) {
+            for (const e of object.defaultLemParsList) {
+                message.defaultLemParsList.push(DefaultLemPars.fromPartial(e));
             }
         }
         return message;

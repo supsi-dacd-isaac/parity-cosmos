@@ -15,6 +15,16 @@ export interface PmAggregator {
   creator?: string;
 }
 
+export interface PmDefaultLemPars {
+  index?: string;
+  pbBAU?: string;
+  psBAU?: string;
+  pbP2P?: string;
+  psP2P?: string;
+  beta?: string;
+  creator?: string;
+}
+
 export interface PmDso {
   idx?: string;
   address?: string;
@@ -85,6 +95,8 @@ export interface PmLemMeasure {
 
 export type PmMsgCreateAggregatorResponse = object;
 
+export type PmMsgCreateDefaultLemParsResponse = object;
+
 export type PmMsgCreateDsoResponse = object;
 
 export type PmMsgCreateKpiMeasureResponse = object;
@@ -103,6 +115,8 @@ export type PmMsgCreateSlaResponse = object;
 
 export type PmMsgDeleteAggregatorResponse = object;
 
+export type PmMsgDeleteDefaultLemParsResponse = object;
+
 export type PmMsgDeleteDsoResponse = object;
 
 export type PmMsgDeleteKpiMeasureResponse = object;
@@ -120,6 +134,8 @@ export type PmMsgDeletePlayerResponse = object;
 export type PmMsgDeleteSlaResponse = object;
 
 export type PmMsgUpdateAggregatorResponse = object;
+
+export type PmMsgUpdateDefaultLemParsResponse = object;
 
 export type PmMsgUpdateDsoResponse = object;
 
@@ -143,6 +159,21 @@ export interface PmPlayer {
   address?: string;
   role?: string;
   creator?: string;
+}
+
+export interface PmQueryAllDefaultLemParsResponse {
+  defaultLemPars?: PmDefaultLemPars[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface PmQueryAllKpiMeasureResponse {
@@ -252,6 +283,10 @@ export interface PmQueryAllSlaResponse {
 
 export interface PmQueryGetAggregatorResponse {
   Aggregator?: PmAggregator;
+}
+
+export interface PmQueryGetDefaultLemParsResponse {
+  defaultLemPars?: PmDefaultLemPars;
 }
 
 export interface PmQueryGetDsoResponse {
@@ -574,6 +609,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryAggregator = (params: RequestParams = {}) =>
     this.request<PmQueryGetAggregatorResponse, RpcStatus>({
       path: `/supsi-dacd-isaac/pm/pm/aggregator`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDefaultLemParsAll
+   * @summary Queries a list of defaultLemPars items.
+   * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars
+   */
+  queryDefaultLemParsAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PmQueryAllDefaultLemParsResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/defaultLemPars`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDefaultLemPars
+   * @summary Queries a defaultLemPars by index.
+   * @request GET:/supsi-dacd-isaac/pm/pm/defaultLemPars/{index}
+   */
+  queryDefaultLemPars = (index: string, params: RequestParams = {}) =>
+    this.request<PmQueryGetDefaultLemParsResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/defaultLemPars/${index}`,
       method: "GET",
       format: "json",
       ...params,

@@ -9,6 +9,7 @@ import { Sla } from "../pm/sla";
 import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
+import { DefaultLemPars } from "../pm/default_lem_pars";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -109,6 +110,19 @@ export interface QueryAllLemDatasetRequest {
 }
 export interface QueryAllLemDatasetResponse {
     lemDataset: LemDataset[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetDefaultLemParsRequest {
+    index: string;
+}
+export interface QueryGetDefaultLemParsResponse {
+    defaultLemPars: DefaultLemPars | undefined;
+}
+export interface QueryAllDefaultLemParsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllDefaultLemParsResponse {
+    defaultLemPars: DefaultLemPars[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryGetDsoRequest: {
@@ -335,6 +349,34 @@ export declare const QueryAllLemDatasetResponse: {
     toJSON(message: QueryAllLemDatasetResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllLemDatasetResponse>): QueryAllLemDatasetResponse;
 };
+export declare const QueryGetDefaultLemParsRequest: {
+    encode(message: QueryGetDefaultLemParsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetDefaultLemParsRequest;
+    fromJSON(object: any): QueryGetDefaultLemParsRequest;
+    toJSON(message: QueryGetDefaultLemParsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetDefaultLemParsRequest>): QueryGetDefaultLemParsRequest;
+};
+export declare const QueryGetDefaultLemParsResponse: {
+    encode(message: QueryGetDefaultLemParsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetDefaultLemParsResponse;
+    fromJSON(object: any): QueryGetDefaultLemParsResponse;
+    toJSON(message: QueryGetDefaultLemParsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetDefaultLemParsResponse>): QueryGetDefaultLemParsResponse;
+};
+export declare const QueryAllDefaultLemParsRequest: {
+    encode(message: QueryAllDefaultLemParsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllDefaultLemParsRequest;
+    fromJSON(object: any): QueryAllDefaultLemParsRequest;
+    toJSON(message: QueryAllDefaultLemParsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllDefaultLemParsRequest>): QueryAllDefaultLemParsRequest;
+};
+export declare const QueryAllDefaultLemParsResponse: {
+    encode(message: QueryAllDefaultLemParsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllDefaultLemParsResponse;
+    fromJSON(object: any): QueryAllDefaultLemParsResponse;
+    toJSON(message: QueryAllDefaultLemParsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllDefaultLemParsResponse>): QueryAllDefaultLemParsResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -369,6 +411,10 @@ export interface Query {
     LemDataset(request: QueryGetLemDatasetRequest): Promise<QueryGetLemDatasetResponse>;
     /** Queries a list of lemDataset items. */
     LemDatasetAll(request: QueryAllLemDatasetRequest): Promise<QueryAllLemDatasetResponse>;
+    /** Queries a defaultLemPars by index. */
+    DefaultLemPars(request: QueryGetDefaultLemParsRequest): Promise<QueryGetDefaultLemParsResponse>;
+    /** Queries a list of defaultLemPars items. */
+    DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -389,6 +435,8 @@ export declare class QueryClientImpl implements Query {
     KpiMeasureAll(request: QueryAllKpiMeasureRequest): Promise<QueryAllKpiMeasureResponse>;
     LemDataset(request: QueryGetLemDatasetRequest): Promise<QueryGetLemDatasetResponse>;
     LemDatasetAll(request: QueryAllLemDatasetRequest): Promise<QueryAllLemDatasetResponse>;
+    DefaultLemPars(request: QueryGetDefaultLemParsRequest): Promise<QueryGetDefaultLemParsResponse>;
+    DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

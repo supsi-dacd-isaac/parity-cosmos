@@ -10,6 +10,7 @@ import "pm/sla.proto";
 import "pm/kpi.proto";
 import "pm/kpi_measure.proto";
 import "pm/lem_dataset.proto";
+import "pm/default_lem_pars.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -43,6 +44,9 @@ service Msg {
   rpc CreateLemDataset(MsgCreateLemDataset) returns (MsgCreateLemDatasetResponse);
   rpc UpdateLemDataset(MsgUpdateLemDataset) returns (MsgUpdateLemDatasetResponse);
   rpc DeleteLemDataset(MsgDeleteLemDataset) returns (MsgDeleteLemDatasetResponse);
+  rpc CreateDefaultLemPars(MsgCreateDefaultLemPars) returns (MsgCreateDefaultLemParsResponse);
+  rpc UpdateDefaultLemPars(MsgUpdateDefaultLemPars) returns (MsgUpdateDefaultLemParsResponse);
+  rpc DeleteDefaultLemPars(MsgDeleteDefaultLemPars) returns (MsgDeleteDefaultLemParsResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -281,5 +285,35 @@ message MsgDeleteLemDataset {
   string index = 2;
 }
 message MsgDeleteLemDatasetResponse {}
+
+message MsgCreateDefaultLemPars {
+  string creator = 1;
+  string index = 2;
+
+  string pbBAU = 3;
+  string psBAU = 4;
+  string pbP2P = 5;
+  string psP2P = 6;
+  string beta = 7;
+}
+message MsgCreateDefaultLemParsResponse {}
+
+message MsgUpdateDefaultLemPars {
+  string creator = 1;
+  string index = 2;
+
+  string pbBAU = 3;
+  string psBAU = 4;
+  string pbP2P = 5;
+  string psP2P = 6;
+  string beta = 7;
+}
+message MsgUpdateDefaultLemParsResponse {}
+
+message MsgDeleteDefaultLemPars {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteDefaultLemParsResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

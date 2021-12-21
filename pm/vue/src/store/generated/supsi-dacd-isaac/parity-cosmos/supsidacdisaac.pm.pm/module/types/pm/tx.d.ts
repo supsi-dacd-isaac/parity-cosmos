@@ -224,6 +224,34 @@ export interface MsgDeleteLemDataset {
 }
 export interface MsgDeleteLemDatasetResponse {
 }
+export interface MsgCreateDefaultLemPars {
+    creator: string;
+    index: string;
+    pbBAU: string;
+    psBAU: string;
+    pbP2P: string;
+    psP2P: string;
+    beta: string;
+}
+export interface MsgCreateDefaultLemParsResponse {
+}
+export interface MsgUpdateDefaultLemPars {
+    creator: string;
+    index: string;
+    pbBAU: string;
+    psBAU: string;
+    pbP2P: string;
+    psP2P: string;
+    beta: string;
+}
+export interface MsgUpdateDefaultLemParsResponse {
+}
+export interface MsgDeleteDefaultLemPars {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteDefaultLemParsResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -602,6 +630,48 @@ export declare const MsgDeleteLemDatasetResponse: {
     toJSON(_: MsgDeleteLemDatasetResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteLemDatasetResponse>): MsgDeleteLemDatasetResponse;
 };
+export declare const MsgCreateDefaultLemPars: {
+    encode(message: MsgCreateDefaultLemPars, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateDefaultLemPars;
+    fromJSON(object: any): MsgCreateDefaultLemPars;
+    toJSON(message: MsgCreateDefaultLemPars): unknown;
+    fromPartial(object: DeepPartial<MsgCreateDefaultLemPars>): MsgCreateDefaultLemPars;
+};
+export declare const MsgCreateDefaultLemParsResponse: {
+    encode(_: MsgCreateDefaultLemParsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateDefaultLemParsResponse;
+    fromJSON(_: any): MsgCreateDefaultLemParsResponse;
+    toJSON(_: MsgCreateDefaultLemParsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateDefaultLemParsResponse>): MsgCreateDefaultLemParsResponse;
+};
+export declare const MsgUpdateDefaultLemPars: {
+    encode(message: MsgUpdateDefaultLemPars, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateDefaultLemPars;
+    fromJSON(object: any): MsgUpdateDefaultLemPars;
+    toJSON(message: MsgUpdateDefaultLemPars): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateDefaultLemPars>): MsgUpdateDefaultLemPars;
+};
+export declare const MsgUpdateDefaultLemParsResponse: {
+    encode(_: MsgUpdateDefaultLemParsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateDefaultLemParsResponse;
+    fromJSON(_: any): MsgUpdateDefaultLemParsResponse;
+    toJSON(_: MsgUpdateDefaultLemParsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateDefaultLemParsResponse>): MsgUpdateDefaultLemParsResponse;
+};
+export declare const MsgDeleteDefaultLemPars: {
+    encode(message: MsgDeleteDefaultLemPars, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteDefaultLemPars;
+    fromJSON(object: any): MsgDeleteDefaultLemPars;
+    toJSON(message: MsgDeleteDefaultLemPars): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteDefaultLemPars>): MsgDeleteDefaultLemPars;
+};
+export declare const MsgDeleteDefaultLemParsResponse: {
+    encode(_: MsgDeleteDefaultLemParsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteDefaultLemParsResponse;
+    fromJSON(_: any): MsgDeleteDefaultLemParsResponse;
+    toJSON(_: MsgDeleteDefaultLemParsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteDefaultLemParsResponse>): MsgDeleteDefaultLemParsResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -630,8 +700,11 @@ export interface Msg {
     DeleteKpiMeasure(request: MsgDeleteKpiMeasure): Promise<MsgDeleteKpiMeasureResponse>;
     CreateLemDataset(request: MsgCreateLemDataset): Promise<MsgCreateLemDatasetResponse>;
     UpdateLemDataset(request: MsgUpdateLemDataset): Promise<MsgUpdateLemDatasetResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteLemDataset(request: MsgDeleteLemDataset): Promise<MsgDeleteLemDatasetResponse>;
+    CreateDefaultLemPars(request: MsgCreateDefaultLemPars): Promise<MsgCreateDefaultLemParsResponse>;
+    UpdateDefaultLemPars(request: MsgUpdateDefaultLemPars): Promise<MsgUpdateDefaultLemParsResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteDefaultLemPars(request: MsgDeleteDefaultLemPars): Promise<MsgDeleteDefaultLemParsResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -663,6 +736,9 @@ export declare class MsgClientImpl implements Msg {
     CreateLemDataset(request: MsgCreateLemDataset): Promise<MsgCreateLemDatasetResponse>;
     UpdateLemDataset(request: MsgUpdateLemDataset): Promise<MsgUpdateLemDatasetResponse>;
     DeleteLemDataset(request: MsgDeleteLemDataset): Promise<MsgDeleteLemDatasetResponse>;
+    CreateDefaultLemPars(request: MsgCreateDefaultLemPars): Promise<MsgCreateDefaultLemParsResponse>;
+    UpdateDefaultLemPars(request: MsgUpdateDefaultLemPars): Promise<MsgUpdateDefaultLemParsResponse>;
+    DeleteDefaultLemPars(request: MsgDeleteDefaultLemPars): Promise<MsgDeleteDefaultLemParsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

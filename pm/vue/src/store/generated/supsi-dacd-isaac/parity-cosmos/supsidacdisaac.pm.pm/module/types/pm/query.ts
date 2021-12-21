@@ -13,6 +13,7 @@ import { Sla } from "../pm/sla";
 import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
+import { DefaultLemPars } from "../pm/default_lem_pars";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
 
@@ -144,6 +145,23 @@ export interface QueryAllLemDatasetRequest {
 
 export interface QueryAllLemDatasetResponse {
   lemDataset: LemDataset[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetDefaultLemParsRequest {
+  index: string;
+}
+
+export interface QueryGetDefaultLemParsResponse {
+  defaultLemPars: DefaultLemPars | undefined;
+}
+
+export interface QueryAllDefaultLemParsRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllDefaultLemParsResponse {
+  defaultLemPars: DefaultLemPars[];
   pagination: PageResponse | undefined;
 }
 
@@ -2384,6 +2402,330 @@ export const QueryAllLemDatasetResponse = {
   },
 };
 
+const baseQueryGetDefaultLemParsRequest: object = { index: "" };
+
+export const QueryGetDefaultLemParsRequest = {
+  encode(
+    message: QueryGetDefaultLemParsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetDefaultLemParsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDefaultLemParsRequest,
+    } as QueryGetDefaultLemParsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDefaultLemParsRequest {
+    const message = {
+      ...baseQueryGetDefaultLemParsRequest,
+    } as QueryGetDefaultLemParsRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDefaultLemParsRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDefaultLemParsRequest>
+  ): QueryGetDefaultLemParsRequest {
+    const message = {
+      ...baseQueryGetDefaultLemParsRequest,
+    } as QueryGetDefaultLemParsRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetDefaultLemParsResponse: object = {};
+
+export const QueryGetDefaultLemParsResponse = {
+  encode(
+    message: QueryGetDefaultLemParsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.defaultLemPars !== undefined) {
+      DefaultLemPars.encode(
+        message.defaultLemPars,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetDefaultLemParsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDefaultLemParsResponse,
+    } as QueryGetDefaultLemParsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.defaultLemPars = DefaultLemPars.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDefaultLemParsResponse {
+    const message = {
+      ...baseQueryGetDefaultLemParsResponse,
+    } as QueryGetDefaultLemParsResponse;
+    if (object.defaultLemPars !== undefined && object.defaultLemPars !== null) {
+      message.defaultLemPars = DefaultLemPars.fromJSON(object.defaultLemPars);
+    } else {
+      message.defaultLemPars = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDefaultLemParsResponse): unknown {
+    const obj: any = {};
+    message.defaultLemPars !== undefined &&
+      (obj.defaultLemPars = message.defaultLemPars
+        ? DefaultLemPars.toJSON(message.defaultLemPars)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDefaultLemParsResponse>
+  ): QueryGetDefaultLemParsResponse {
+    const message = {
+      ...baseQueryGetDefaultLemParsResponse,
+    } as QueryGetDefaultLemParsResponse;
+    if (object.defaultLemPars !== undefined && object.defaultLemPars !== null) {
+      message.defaultLemPars = DefaultLemPars.fromPartial(
+        object.defaultLemPars
+      );
+    } else {
+      message.defaultLemPars = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDefaultLemParsRequest: object = {};
+
+export const QueryAllDefaultLemParsRequest = {
+  encode(
+    message: QueryAllDefaultLemParsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllDefaultLemParsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDefaultLemParsRequest,
+    } as QueryAllDefaultLemParsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDefaultLemParsRequest {
+    const message = {
+      ...baseQueryAllDefaultLemParsRequest,
+    } as QueryAllDefaultLemParsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDefaultLemParsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDefaultLemParsRequest>
+  ): QueryAllDefaultLemParsRequest {
+    const message = {
+      ...baseQueryAllDefaultLemParsRequest,
+    } as QueryAllDefaultLemParsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDefaultLemParsResponse: object = {};
+
+export const QueryAllDefaultLemParsResponse = {
+  encode(
+    message: QueryAllDefaultLemParsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.defaultLemPars) {
+      DefaultLemPars.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllDefaultLemParsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDefaultLemParsResponse,
+    } as QueryAllDefaultLemParsResponse;
+    message.defaultLemPars = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.defaultLemPars.push(
+            DefaultLemPars.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDefaultLemParsResponse {
+    const message = {
+      ...baseQueryAllDefaultLemParsResponse,
+    } as QueryAllDefaultLemParsResponse;
+    message.defaultLemPars = [];
+    if (object.defaultLemPars !== undefined && object.defaultLemPars !== null) {
+      for (const e of object.defaultLemPars) {
+        message.defaultLemPars.push(DefaultLemPars.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDefaultLemParsResponse): unknown {
+    const obj: any = {};
+    if (message.defaultLemPars) {
+      obj.defaultLemPars = message.defaultLemPars.map((e) =>
+        e ? DefaultLemPars.toJSON(e) : undefined
+      );
+    } else {
+      obj.defaultLemPars = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDefaultLemParsResponse>
+  ): QueryAllDefaultLemParsResponse {
+    const message = {
+      ...baseQueryAllDefaultLemParsResponse,
+    } as QueryAllDefaultLemParsResponse;
+    message.defaultLemPars = [];
+    if (object.defaultLemPars !== undefined && object.defaultLemPars !== null) {
+      for (const e of object.defaultLemPars) {
+        message.defaultLemPars.push(DefaultLemPars.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Queries a dso by index. */
@@ -2432,6 +2774,14 @@ export interface Query {
   LemDatasetAll(
     request: QueryAllLemDatasetRequest
   ): Promise<QueryAllLemDatasetResponse>;
+  /** Queries a defaultLemPars by index. */
+  DefaultLemPars(
+    request: QueryGetDefaultLemParsRequest
+  ): Promise<QueryGetDefaultLemParsResponse>;
+  /** Queries a list of defaultLemPars items. */
+  DefaultLemParsAll(
+    request: QueryAllDefaultLemParsRequest
+  ): Promise<QueryAllDefaultLemParsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2612,6 +2962,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllLemDatasetResponse.decode(new Reader(data))
+    );
+  }
+
+  DefaultLemPars(
+    request: QueryGetDefaultLemParsRequest
+  ): Promise<QueryGetDefaultLemParsResponse> {
+    const data = QueryGetDefaultLemParsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "DefaultLemPars",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetDefaultLemParsResponse.decode(new Reader(data))
+    );
+  }
+
+  DefaultLemParsAll(
+    request: QueryAllDefaultLemParsRequest
+  ): Promise<QueryAllDefaultLemParsResponse> {
+    const data = QueryAllDefaultLemParsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "DefaultLemParsAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllDefaultLemParsResponse.decode(new Reader(data))
     );
   }
 }

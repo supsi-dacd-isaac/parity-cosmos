@@ -35,6 +35,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateLemDataset{}, "pm/CreateLemDataset", nil)
 	cdc.RegisterConcrete(&MsgUpdateLemDataset{}, "pm/UpdateLemDataset", nil)
 	cdc.RegisterConcrete(&MsgDeleteLemDataset{}, "pm/DeleteLemDataset", nil)
+	cdc.RegisterConcrete(&MsgCreateDefaultLemPars{}, "pm/CreateDefaultLemPars", nil)
+	cdc.RegisterConcrete(&MsgUpdateDefaultLemPars{}, "pm/UpdateDefaultLemPars", nil)
+	cdc.RegisterConcrete(&MsgDeleteDefaultLemPars{}, "pm/DeleteDefaultLemPars", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -83,6 +86,11 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateLemDataset{},
 		&MsgUpdateLemDataset{},
 		&MsgDeleteLemDataset{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateDefaultLemPars{},
+		&MsgUpdateDefaultLemPars{},
+		&MsgDeleteDefaultLemPars{},
 	)
 	// this line is used by starport scaffolding # 3
 

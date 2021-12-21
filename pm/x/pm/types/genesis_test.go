@@ -85,6 +85,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				DefaultLemParsList: []types.DefaultLemPars{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -177,6 +185,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated lemDataset",
 			genState: &types.GenesisState{
 				LemDatasetList: []types.LemDataset{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated defaultLemPars",
+			genState: &types.GenesisState{
+				DefaultLemParsList: []types.DefaultLemPars{
 					{
 						Index: "0",
 					},
