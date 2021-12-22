@@ -93,6 +93,12 @@ export interface PmLemMeasure {
   creator?: string;
 }
 
+export interface PmMarketOperator {
+  idx?: string;
+  address?: string;
+  creator?: string;
+}
+
 export type PmMsgCreateAggregatorResponse = object;
 
 export type PmMsgCreateDefaultLemParsResponse = object;
@@ -108,6 +114,8 @@ export type PmMsgCreateLemDatasetResponse = object;
 export type PmMsgCreateLemMeasureResponse = object;
 
 export type PmMsgCreateLemResponse = object;
+
+export type PmMsgCreateMarketOperatorResponse = object;
 
 export type PmMsgCreatePlayerResponse = object;
 
@@ -129,6 +137,8 @@ export type PmMsgDeleteLemMeasureResponse = object;
 
 export type PmMsgDeleteLemResponse = object;
 
+export type PmMsgDeleteMarketOperatorResponse = object;
+
 export type PmMsgDeletePlayerResponse = object;
 
 export type PmMsgDeleteSlaResponse = object;
@@ -148,6 +158,8 @@ export type PmMsgUpdateLemDatasetResponse = object;
 export type PmMsgUpdateLemMeasureResponse = object;
 
 export type PmMsgUpdateLemResponse = object;
+
+export type PmMsgUpdateMarketOperatorResponse = object;
 
 export type PmMsgUpdatePlayerResponse = object;
 
@@ -311,6 +323,10 @@ export interface PmQueryGetLemMeasureResponse {
 
 export interface PmQueryGetLemResponse {
   lem?: PmLem;
+}
+
+export interface PmQueryGetMarketOperatorResponse {
+  MarketOperator?: PmMarketOperator;
 }
 
 export interface PmQueryGetPlayerResponse {
@@ -877,6 +893,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryLemMeasure = (index: string, params: RequestParams = {}) =>
     this.request<PmQueryGetLemMeasureResponse, RpcStatus>({
       path: `/supsi-dacd-isaac/pm/pm/lemMeasure/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryMarketOperator
+   * @summary Queries a marketOperator by index.
+   * @request GET:/supsi-dacd-isaac/pm/pm/marketOperator
+   */
+  queryMarketOperator = (params: RequestParams = {}) =>
+    this.request<PmQueryGetMarketOperatorResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/marketOperator`,
       method: "GET",
       format: "json",
       ...params,

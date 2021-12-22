@@ -4695,6 +4695,375 @@ export const MsgDeleteDefaultLemParsResponse = {
         return message;
     },
 };
+const baseMsgCreateMarketOperator = {
+    creator: "",
+    idx: "",
+    address: "",
+};
+export const MsgCreateMarketOperator = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.idx !== "") {
+            writer.uint32(26).string(message.idx);
+        }
+        if (message.address !== "") {
+            writer.uint32(34).string(message.address);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateMarketOperator,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 3:
+                    message.idx = reader.string();
+                    break;
+                case 4:
+                    message.address = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCreateMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.idx !== undefined && object.idx !== null) {
+            message.idx = String(object.idx);
+        }
+        else {
+            message.idx = "";
+        }
+        if (object.address !== undefined && object.address !== null) {
+            message.address = String(object.address);
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.idx !== undefined && (obj.idx = message.idx);
+        message.address !== undefined && (obj.address = message.address);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCreateMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.idx !== undefined && object.idx !== null) {
+            message.idx = object.idx;
+        }
+        else {
+            message.idx = "";
+        }
+        if (object.address !== undefined && object.address !== null) {
+            message.address = object.address;
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateMarketOperatorResponse = {};
+export const MsgCreateMarketOperatorResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateMarketOperatorResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateMarketOperatorResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateMarketOperatorResponse,
+        };
+        return message;
+    },
+};
+const baseMsgUpdateMarketOperator = {
+    creator: "",
+    idx: "",
+    address: "",
+};
+export const MsgUpdateMarketOperator = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.idx !== "") {
+            writer.uint32(26).string(message.idx);
+        }
+        if (message.address !== "") {
+            writer.uint32(34).string(message.address);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUpdateMarketOperator,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 3:
+                    message.idx = reader.string();
+                    break;
+                case 4:
+                    message.address = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgUpdateMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.idx !== undefined && object.idx !== null) {
+            message.idx = String(object.idx);
+        }
+        else {
+            message.idx = "";
+        }
+        if (object.address !== undefined && object.address !== null) {
+            message.address = String(object.address);
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.idx !== undefined && (obj.idx = message.idx);
+        message.address !== undefined && (obj.address = message.address);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgUpdateMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.idx !== undefined && object.idx !== null) {
+            message.idx = object.idx;
+        }
+        else {
+            message.idx = "";
+        }
+        if (object.address !== undefined && object.address !== null) {
+            message.address = object.address;
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+};
+const baseMsgUpdateMarketOperatorResponse = {};
+export const MsgUpdateMarketOperatorResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUpdateMarketOperatorResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUpdateMarketOperatorResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUpdateMarketOperatorResponse,
+        };
+        return message;
+    },
+};
+const baseMsgDeleteMarketOperator = { creator: "" };
+export const MsgDeleteMarketOperator = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteMarketOperator,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgDeleteMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgDeleteMarketOperator,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        return message;
+    },
+};
+const baseMsgDeleteMarketOperatorResponse = {};
+export const MsgDeleteMarketOperatorResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteMarketOperatorResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDeleteMarketOperatorResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDeleteMarketOperatorResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -4848,5 +5217,20 @@ export class MsgClientImpl {
         const data = MsgDeleteDefaultLemPars.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteDefaultLemPars", data);
         return promise.then((data) => MsgDeleteDefaultLemParsResponse.decode(new Reader(data)));
+    }
+    CreateMarketOperator(request) {
+        const data = MsgCreateMarketOperator.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "CreateMarketOperator", data);
+        return promise.then((data) => MsgCreateMarketOperatorResponse.decode(new Reader(data)));
+    }
+    UpdateMarketOperator(request) {
+        const data = MsgUpdateMarketOperator.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "UpdateMarketOperator", data);
+        return promise.then((data) => MsgUpdateMarketOperatorResponse.decode(new Reader(data)));
+    }
+    DeleteMarketOperator(request) {
+        const data = MsgDeleteMarketOperator.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteMarketOperator", data);
+        return promise.then((data) => MsgDeleteMarketOperatorResponse.decode(new Reader(data)));
     }
 }

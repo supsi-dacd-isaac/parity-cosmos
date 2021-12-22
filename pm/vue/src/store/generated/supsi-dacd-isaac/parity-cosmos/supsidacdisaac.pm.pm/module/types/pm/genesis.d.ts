@@ -8,6 +8,7 @@ import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
+import { MarketOperator } from "../pm/market_operator";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 /** GenesisState defines the pm module's genesis state. */
@@ -21,8 +22,9 @@ export interface GenesisState {
     kpiList: Kpi[];
     kpiMeasureList: KpiMeasure[];
     lemDatasetList: LemDataset[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     defaultLemParsList: DefaultLemPars[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    marketOperator: MarketOperator | undefined;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

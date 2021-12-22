@@ -252,6 +252,25 @@ export interface MsgDeleteDefaultLemPars {
 }
 export interface MsgDeleteDefaultLemParsResponse {
 }
+export interface MsgCreateMarketOperator {
+    creator: string;
+    idx: string;
+    address: string;
+}
+export interface MsgCreateMarketOperatorResponse {
+}
+export interface MsgUpdateMarketOperator {
+    creator: string;
+    idx: string;
+    address: string;
+}
+export interface MsgUpdateMarketOperatorResponse {
+}
+export interface MsgDeleteMarketOperator {
+    creator: string;
+}
+export interface MsgDeleteMarketOperatorResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -672,6 +691,48 @@ export declare const MsgDeleteDefaultLemParsResponse: {
     toJSON(_: MsgDeleteDefaultLemParsResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteDefaultLemParsResponse>): MsgDeleteDefaultLemParsResponse;
 };
+export declare const MsgCreateMarketOperator: {
+    encode(message: MsgCreateMarketOperator, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateMarketOperator;
+    fromJSON(object: any): MsgCreateMarketOperator;
+    toJSON(message: MsgCreateMarketOperator): unknown;
+    fromPartial(object: DeepPartial<MsgCreateMarketOperator>): MsgCreateMarketOperator;
+};
+export declare const MsgCreateMarketOperatorResponse: {
+    encode(_: MsgCreateMarketOperatorResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateMarketOperatorResponse;
+    fromJSON(_: any): MsgCreateMarketOperatorResponse;
+    toJSON(_: MsgCreateMarketOperatorResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateMarketOperatorResponse>): MsgCreateMarketOperatorResponse;
+};
+export declare const MsgUpdateMarketOperator: {
+    encode(message: MsgUpdateMarketOperator, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateMarketOperator;
+    fromJSON(object: any): MsgUpdateMarketOperator;
+    toJSON(message: MsgUpdateMarketOperator): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateMarketOperator>): MsgUpdateMarketOperator;
+};
+export declare const MsgUpdateMarketOperatorResponse: {
+    encode(_: MsgUpdateMarketOperatorResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateMarketOperatorResponse;
+    fromJSON(_: any): MsgUpdateMarketOperatorResponse;
+    toJSON(_: MsgUpdateMarketOperatorResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateMarketOperatorResponse>): MsgUpdateMarketOperatorResponse;
+};
+export declare const MsgDeleteMarketOperator: {
+    encode(message: MsgDeleteMarketOperator, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteMarketOperator;
+    fromJSON(object: any): MsgDeleteMarketOperator;
+    toJSON(message: MsgDeleteMarketOperator): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteMarketOperator>): MsgDeleteMarketOperator;
+};
+export declare const MsgDeleteMarketOperatorResponse: {
+    encode(_: MsgDeleteMarketOperatorResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteMarketOperatorResponse;
+    fromJSON(_: any): MsgDeleteMarketOperatorResponse;
+    toJSON(_: MsgDeleteMarketOperatorResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteMarketOperatorResponse>): MsgDeleteMarketOperatorResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -703,8 +764,11 @@ export interface Msg {
     DeleteLemDataset(request: MsgDeleteLemDataset): Promise<MsgDeleteLemDatasetResponse>;
     CreateDefaultLemPars(request: MsgCreateDefaultLemPars): Promise<MsgCreateDefaultLemParsResponse>;
     UpdateDefaultLemPars(request: MsgUpdateDefaultLemPars): Promise<MsgUpdateDefaultLemParsResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteDefaultLemPars(request: MsgDeleteDefaultLemPars): Promise<MsgDeleteDefaultLemParsResponse>;
+    CreateMarketOperator(request: MsgCreateMarketOperator): Promise<MsgCreateMarketOperatorResponse>;
+    UpdateMarketOperator(request: MsgUpdateMarketOperator): Promise<MsgUpdateMarketOperatorResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteMarketOperator(request: MsgDeleteMarketOperator): Promise<MsgDeleteMarketOperatorResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -739,6 +803,9 @@ export declare class MsgClientImpl implements Msg {
     CreateDefaultLemPars(request: MsgCreateDefaultLemPars): Promise<MsgCreateDefaultLemParsResponse>;
     UpdateDefaultLemPars(request: MsgUpdateDefaultLemPars): Promise<MsgUpdateDefaultLemParsResponse>;
     DeleteDefaultLemPars(request: MsgDeleteDefaultLemPars): Promise<MsgDeleteDefaultLemParsResponse>;
+    CreateMarketOperator(request: MsgCreateMarketOperator): Promise<MsgCreateMarketOperatorResponse>;
+    UpdateMarketOperator(request: MsgUpdateMarketOperator): Promise<MsgUpdateMarketOperatorResponse>;
+    DeleteMarketOperator(request: MsgDeleteMarketOperator): Promise<MsgDeleteMarketOperatorResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

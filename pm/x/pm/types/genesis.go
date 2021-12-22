@@ -20,6 +20,7 @@ func DefaultGenesis() *GenesisState {
 		KpiMeasureList:     []KpiMeasure{},
 		LemDatasetList:     []LemDataset{},
 		DefaultLemParsList: []DefaultLemPars{},
+		MarketOperator:     nil,
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }

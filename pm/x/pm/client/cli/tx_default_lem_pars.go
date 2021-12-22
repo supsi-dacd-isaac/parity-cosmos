@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -28,6 +29,12 @@ func CmdCreateDefaultLemPars() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the market operator
+			if isMarketOperator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to create a set of default LEM parameters")
+				return nil
 			}
 
 			msg := types.NewMsgCreateDefaultLemPars(
@@ -72,6 +79,12 @@ func CmdUpdateDefaultLemPars() *cobra.Command {
 				return err
 			}
 
+			// Check if the node performing the transaction is the market operator
+			if isMarketOperator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to update a set of default LEM parameters")
+				return nil
+			}
+
 			msg := types.NewMsgUpdateDefaultLemPars(
 				clientCtx.GetFromAddress().String(),
 				indexIndex,
@@ -104,6 +117,12 @@ func CmdDeleteDefaultLemPars() *cobra.Command {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
+			}
+
+			// Check if the node performing the transaction is the market operator
+			if isMarketOperator(clientCtx) == false {
+				fmt.Println("Node ", clientCtx.GetFromAddress().String(), " not allowed to delete a set of default LEM parameters")
+				return nil
 			}
 
 			msg := types.NewMsgDeleteDefaultLemPars(

@@ -342,6 +342,20 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryMarketOperator
+         * @summary Queries a marketOperator by index.
+         * @request GET:/supsi-dacd-isaac/pm/pm/marketOperator
+         */
+        this.queryMarketOperator = (params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/marketOperator`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryPlayerAll
          * @summary Queries a list of player items.
          * @request GET:/supsi-dacd-isaac/pm/pm/player

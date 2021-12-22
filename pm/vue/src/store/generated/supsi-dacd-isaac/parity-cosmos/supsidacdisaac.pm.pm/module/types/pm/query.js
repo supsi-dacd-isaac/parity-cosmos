@@ -11,6 +11,7 @@ import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
+import { MarketOperator } from "../pm/market_operator";
 export const protobufPackage = "supsidacdisaac.pm.pm";
 const baseQueryGetDsoRequest = {};
 export const QueryGetDsoRequest = {
@@ -2186,6 +2187,104 @@ export const QueryAllDefaultLemParsResponse = {
         return message;
     },
 };
+const baseQueryGetMarketOperatorRequest = {};
+export const QueryGetMarketOperatorRequest = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetMarketOperatorRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseQueryGetMarketOperatorRequest,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseQueryGetMarketOperatorRequest,
+        };
+        return message;
+    },
+};
+const baseQueryGetMarketOperatorResponse = {};
+export const QueryGetMarketOperatorResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.MarketOperator !== undefined) {
+            MarketOperator.encode(message.MarketOperator, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetMarketOperatorResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.MarketOperator = MarketOperator.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetMarketOperatorResponse,
+        };
+        if (object.MarketOperator !== undefined && object.MarketOperator !== null) {
+            message.MarketOperator = MarketOperator.fromJSON(object.MarketOperator);
+        }
+        else {
+            message.MarketOperator = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.MarketOperator !== undefined &&
+            (obj.MarketOperator = message.MarketOperator
+                ? MarketOperator.toJSON(message.MarketOperator)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetMarketOperatorResponse,
+        };
+        if (object.MarketOperator !== undefined && object.MarketOperator !== null) {
+            message.MarketOperator = MarketOperator.fromPartial(object.MarketOperator);
+        }
+        else {
+            message.MarketOperator = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2279,5 +2378,10 @@ export class QueryClientImpl {
         const data = QueryAllDefaultLemParsRequest.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "DefaultLemParsAll", data);
         return promise.then((data) => QueryAllDefaultLemParsResponse.decode(new Reader(data)));
+    }
+    MarketOperator(request) {
+        const data = QueryGetMarketOperatorRequest.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "MarketOperator", data);
+        return promise.then((data) => QueryGetMarketOperatorResponse.decode(new Reader(data)));
     }
 }

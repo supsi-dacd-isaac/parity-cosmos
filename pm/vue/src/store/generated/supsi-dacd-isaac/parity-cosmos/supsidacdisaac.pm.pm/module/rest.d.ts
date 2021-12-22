@@ -68,6 +68,11 @@ export interface PmLemMeasure {
     mu?: string;
     creator?: string;
 }
+export interface PmMarketOperator {
+    idx?: string;
+    address?: string;
+    creator?: string;
+}
 export declare type PmMsgCreateAggregatorResponse = object;
 export declare type PmMsgCreateDefaultLemParsResponse = object;
 export declare type PmMsgCreateDsoResponse = object;
@@ -76,6 +81,7 @@ export declare type PmMsgCreateKpiResponse = object;
 export declare type PmMsgCreateLemDatasetResponse = object;
 export declare type PmMsgCreateLemMeasureResponse = object;
 export declare type PmMsgCreateLemResponse = object;
+export declare type PmMsgCreateMarketOperatorResponse = object;
 export declare type PmMsgCreatePlayerResponse = object;
 export declare type PmMsgCreateSlaResponse = object;
 export declare type PmMsgDeleteAggregatorResponse = object;
@@ -86,6 +92,7 @@ export declare type PmMsgDeleteKpiResponse = object;
 export declare type PmMsgDeleteLemDatasetResponse = object;
 export declare type PmMsgDeleteLemMeasureResponse = object;
 export declare type PmMsgDeleteLemResponse = object;
+export declare type PmMsgDeleteMarketOperatorResponse = object;
 export declare type PmMsgDeletePlayerResponse = object;
 export declare type PmMsgDeleteSlaResponse = object;
 export declare type PmMsgUpdateAggregatorResponse = object;
@@ -96,6 +103,7 @@ export declare type PmMsgUpdateKpiResponse = object;
 export declare type PmMsgUpdateLemDatasetResponse = object;
 export declare type PmMsgUpdateLemMeasureResponse = object;
 export declare type PmMsgUpdateLemResponse = object;
+export declare type PmMsgUpdateMarketOperatorResponse = object;
 export declare type PmMsgUpdatePlayerResponse = object;
 export declare type PmMsgUpdateSlaResponse = object;
 export interface PmPlayer {
@@ -232,6 +240,9 @@ export interface PmQueryGetLemMeasureResponse {
 }
 export interface PmQueryGetLemResponse {
     lem?: PmLem;
+}
+export interface PmQueryGetMarketOperatorResponse {
+    MarketOperator?: PmMarketOperator;
 }
 export interface PmQueryGetPlayerResponse {
     player?: PmPlayer;
@@ -528,6 +539,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/supsi-dacd-isaac/pm/pm/lemMeasure/{index}
      */
     queryLemMeasure: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetLemMeasureResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryMarketOperator
+     * @summary Queries a marketOperator by index.
+     * @request GET:/supsi-dacd-isaac/pm/pm/marketOperator
+     */
+    queryMarketOperator: (params?: RequestParams) => Promise<HttpResponse<PmQueryGetMarketOperatorResponse, RpcStatus>>;
     /**
      * No description
      *

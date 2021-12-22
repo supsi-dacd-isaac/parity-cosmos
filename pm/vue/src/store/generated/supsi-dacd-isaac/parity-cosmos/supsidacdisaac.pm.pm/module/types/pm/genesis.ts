@@ -9,6 +9,7 @@ import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
+import { MarketOperator } from "../pm/market_operator";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
@@ -24,8 +25,9 @@ export interface GenesisState {
   kpiList: Kpi[];
   kpiMeasureList: KpiMeasure[];
   lemDatasetList: LemDataset[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   defaultLemParsList: DefaultLemPars[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  marketOperator: MarketOperator | undefined;
 }
 
 const baseGenesisState: object = {};
@@ -61,6 +63,12 @@ export const GenesisState = {
     }
     for (const v of message.defaultLemParsList) {
       DefaultLemPars.encode(v!, writer.uint32(82).fork()).ldelim();
+    }
+    if (message.marketOperator !== undefined) {
+      MarketOperator.encode(
+        message.marketOperator,
+        writer.uint32(90).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -116,6 +124,12 @@ export const GenesisState = {
         case 10:
           message.defaultLemParsList.push(
             DefaultLemPars.decode(reader, reader.uint32())
+          );
+          break;
+        case 11:
+          message.marketOperator = MarketOperator.decode(
+            reader,
+            reader.uint32()
           );
           break;
         default:
@@ -189,6 +203,11 @@ export const GenesisState = {
         message.defaultLemParsList.push(DefaultLemPars.fromJSON(e));
       }
     }
+    if (object.marketOperator !== undefined && object.marketOperator !== null) {
+      message.marketOperator = MarketOperator.fromJSON(object.marketOperator);
+    } else {
+      message.marketOperator = undefined;
+    }
     return message;
   },
 
@@ -250,6 +269,10 @@ export const GenesisState = {
     } else {
       obj.defaultLemParsList = [];
     }
+    message.marketOperator !== undefined &&
+      (obj.marketOperator = message.marketOperator
+        ? MarketOperator.toJSON(message.marketOperator)
+        : undefined);
     return obj;
   },
 
@@ -315,6 +338,13 @@ export const GenesisState = {
       for (const e of object.defaultLemParsList) {
         message.defaultLemParsList.push(DefaultLemPars.fromPartial(e));
       }
+    }
+    if (object.marketOperator !== undefined && object.marketOperator !== null) {
+      message.marketOperator = MarketOperator.fromPartial(
+        object.marketOperator
+      );
+    } else {
+      message.marketOperator = undefined;
     }
     return message;
   },

@@ -28,3 +28,7 @@ const (
 const (
 	AggregatorKey = "Aggregator-value-"
 )
+
+const (
+	MarketOperatorKey = "MarketOperator-value-"
+)

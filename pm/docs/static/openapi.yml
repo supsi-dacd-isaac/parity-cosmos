@@ -13691,6 +13691,45 @@ paths:
           type: string
       tags:
         - Query
+  /supsi-dacd-isaac/pm/pm/marketOperator:
+    get:
+      summary: Queries a marketOperator by index.
+      operationId: SupsidacdisaacPmPmMarketOperator
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              MarketOperator:
+                type: object
+                properties:
+                  idx:
+                    type: string
+                  address:
+                    type: string
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /supsi-dacd-isaac/pm/pm/player:
     get:
       summary: Queries a list of player items.
@@ -21483,6 +21522,15 @@ definitions:
         type: string
       creator:
         type: string
+  supsidacdisaac.pm.pm.MarketOperator:
+    type: object
+    properties:
+      idx:
+        type: string
+      address:
+        type: string
+      creator:
+        type: string
   supsidacdisaac.pm.pm.MsgCreateAggregatorResponse:
     type: object
   supsidacdisaac.pm.pm.MsgCreateDefaultLemParsResponse:
@@ -21498,6 +21546,8 @@ definitions:
   supsidacdisaac.pm.pm.MsgCreateLemMeasureResponse:
     type: object
   supsidacdisaac.pm.pm.MsgCreateLemResponse:
+    type: object
+  supsidacdisaac.pm.pm.MsgCreateMarketOperatorResponse:
     type: object
   supsidacdisaac.pm.pm.MsgCreatePlayerResponse:
     type: object
@@ -21519,6 +21569,8 @@ definitions:
     type: object
   supsidacdisaac.pm.pm.MsgDeleteLemResponse:
     type: object
+  supsidacdisaac.pm.pm.MsgDeleteMarketOperatorResponse:
+    type: object
   supsidacdisaac.pm.pm.MsgDeletePlayerResponse:
     type: object
   supsidacdisaac.pm.pm.MsgDeleteSlaResponse:
@@ -21538,6 +21590,8 @@ definitions:
   supsidacdisaac.pm.pm.MsgUpdateLemMeasureResponse:
     type: object
   supsidacdisaac.pm.pm.MsgUpdateLemResponse:
+    type: object
+  supsidacdisaac.pm.pm.MsgUpdateMarketOperatorResponse:
     type: object
   supsidacdisaac.pm.pm.MsgUpdatePlayerResponse:
     type: object
@@ -22086,6 +22140,18 @@ definitions:
             type: array
             items:
               type: string
+          creator:
+            type: string
+  supsidacdisaac.pm.pm.QueryGetMarketOperatorResponse:
+    type: object
+    properties:
+      MarketOperator:
+        type: object
+        properties:
+          idx:
+            type: string
+          address:
+            type: string
           creator:
             type: string
   supsidacdisaac.pm.pm.QueryGetPlayerResponse:

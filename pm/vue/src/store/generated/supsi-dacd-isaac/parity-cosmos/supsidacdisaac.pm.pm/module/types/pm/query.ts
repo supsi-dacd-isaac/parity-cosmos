@@ -14,6 +14,7 @@ import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
+import { MarketOperator } from "../pm/market_operator";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
 
@@ -163,6 +164,12 @@ export interface QueryAllDefaultLemParsRequest {
 export interface QueryAllDefaultLemParsResponse {
   defaultLemPars: DefaultLemPars[];
   pagination: PageResponse | undefined;
+}
+
+export interface QueryGetMarketOperatorRequest {}
+
+export interface QueryGetMarketOperatorResponse {
+  MarketOperator: MarketOperator | undefined;
 }
 
 const baseQueryGetDsoRequest: object = {};
@@ -2726,6 +2733,138 @@ export const QueryAllDefaultLemParsResponse = {
   },
 };
 
+const baseQueryGetMarketOperatorRequest: object = {};
+
+export const QueryGetMarketOperatorRequest = {
+  encode(
+    _: QueryGetMarketOperatorRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetMarketOperatorRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetMarketOperatorRequest,
+    } as QueryGetMarketOperatorRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGetMarketOperatorRequest {
+    const message = {
+      ...baseQueryGetMarketOperatorRequest,
+    } as QueryGetMarketOperatorRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGetMarketOperatorRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryGetMarketOperatorRequest>
+  ): QueryGetMarketOperatorRequest {
+    const message = {
+      ...baseQueryGetMarketOperatorRequest,
+    } as QueryGetMarketOperatorRequest;
+    return message;
+  },
+};
+
+const baseQueryGetMarketOperatorResponse: object = {};
+
+export const QueryGetMarketOperatorResponse = {
+  encode(
+    message: QueryGetMarketOperatorResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.MarketOperator !== undefined) {
+      MarketOperator.encode(
+        message.MarketOperator,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetMarketOperatorResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetMarketOperatorResponse,
+    } as QueryGetMarketOperatorResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.MarketOperator = MarketOperator.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetMarketOperatorResponse {
+    const message = {
+      ...baseQueryGetMarketOperatorResponse,
+    } as QueryGetMarketOperatorResponse;
+    if (object.MarketOperator !== undefined && object.MarketOperator !== null) {
+      message.MarketOperator = MarketOperator.fromJSON(object.MarketOperator);
+    } else {
+      message.MarketOperator = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetMarketOperatorResponse): unknown {
+    const obj: any = {};
+    message.MarketOperator !== undefined &&
+      (obj.MarketOperator = message.MarketOperator
+        ? MarketOperator.toJSON(message.MarketOperator)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetMarketOperatorResponse>
+  ): QueryGetMarketOperatorResponse {
+    const message = {
+      ...baseQueryGetMarketOperatorResponse,
+    } as QueryGetMarketOperatorResponse;
+    if (object.MarketOperator !== undefined && object.MarketOperator !== null) {
+      message.MarketOperator = MarketOperator.fromPartial(
+        object.MarketOperator
+      );
+    } else {
+      message.MarketOperator = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Queries a dso by index. */
@@ -2782,6 +2921,10 @@ export interface Query {
   DefaultLemParsAll(
     request: QueryAllDefaultLemParsRequest
   ): Promise<QueryAllDefaultLemParsResponse>;
+  /** Queries a marketOperator by index. */
+  MarketOperator(
+    request: QueryGetMarketOperatorRequest
+  ): Promise<QueryGetMarketOperatorResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2990,6 +3133,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllDefaultLemParsResponse.decode(new Reader(data))
+    );
+  }
+
+  MarketOperator(
+    request: QueryGetMarketOperatorRequest
+  ): Promise<QueryGetMarketOperatorResponse> {
+    const data = QueryGetMarketOperatorRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "MarketOperator",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetMarketOperatorResponse.decode(new Reader(data))
     );
   }
 }

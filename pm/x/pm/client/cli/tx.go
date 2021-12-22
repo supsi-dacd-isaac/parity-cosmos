@@ -60,6 +60,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateDefaultLemPars())
 	cmd.AddCommand(CmdUpdateDefaultLemPars())
 	cmd.AddCommand(CmdDeleteDefaultLemPars())
+	cmd.AddCommand(CmdCreateMarketOperator())
+	cmd.AddCommand(CmdUpdateMarketOperator())
+	cmd.AddCommand(CmdDeleteMarketOperator())
 	// this line is used by starport scaffolding # 1
 
 	return cmd
@@ -93,6 +96,17 @@ func isAggregator(ctx client.Context) bool {
 	params := &types.QueryGetAggregatorRequest{}
 	res, _ := queryClient.Aggregator(context.Background(), params)
 	if res.GetAggregator().Address != ctx.GetFromAddress().String() {
+		return false
+	} else {
+		return true
+	}
+}
+
+func isMarketOperator(ctx client.Context) bool {
+	queryClient := types.NewQueryClient(ctx)
+	params := &types.QueryGetMarketOperatorRequest{}
+	res, _ := queryClient.MarketOperator(context.Background(), params)
+	if res.GetMarketOperator().Address != ctx.GetFromAddress().String() {
 		return false
 	} else {
 		return true

@@ -49,6 +49,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.DefaultLemParsList {
 		k.SetDefaultLemPars(ctx, elem)
 	}
+	// Set if defined
+	if genState.MarketOperator != nil {
+		k.SetMarketOperator(ctx, *genState.MarketOperator)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 }
 
@@ -74,6 +78,11 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.KpiMeasureList = k.GetAllKpiMeasure(ctx)
 	genesis.LemDatasetList = k.GetAllLemDataset(ctx)
 	genesis.DefaultLemParsList = k.GetAllDefaultLemPars(ctx)
+	// Get all marketOperator
+	marketOperator, found := k.GetMarketOperator(ctx)
+	if found {
+		genesis.MarketOperator = &marketOperator
+	}
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

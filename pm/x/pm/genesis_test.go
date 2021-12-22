@@ -83,6 +83,10 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		MarketOperator: &types.MarketOperator{
+			Idx:     "idx",
+			Address: "address",
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -109,5 +113,6 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.LemDatasetList, got.LemDatasetList)
 	require.Len(t, got.DefaultLemParsList, len(genesisState.DefaultLemParsList))
 	require.Subset(t, genesisState.DefaultLemParsList, got.DefaultLemParsList)
+	require.Equal(t, genesisState.MarketOperator, got.MarketOperator)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

@@ -10,6 +10,7 @@ import { Kpi } from "../pm/kpi";
 import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
+import { MarketOperator } from "../pm/market_operator";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -124,6 +125,11 @@ export interface QueryAllDefaultLemParsRequest {
 export interface QueryAllDefaultLemParsResponse {
     defaultLemPars: DefaultLemPars[];
     pagination: PageResponse | undefined;
+}
+export interface QueryGetMarketOperatorRequest {
+}
+export interface QueryGetMarketOperatorResponse {
+    MarketOperator: MarketOperator | undefined;
 }
 export declare const QueryGetDsoRequest: {
     encode(_: QueryGetDsoRequest, writer?: Writer): Writer;
@@ -377,6 +383,20 @@ export declare const QueryAllDefaultLemParsResponse: {
     toJSON(message: QueryAllDefaultLemParsResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllDefaultLemParsResponse>): QueryAllDefaultLemParsResponse;
 };
+export declare const QueryGetMarketOperatorRequest: {
+    encode(_: QueryGetMarketOperatorRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetMarketOperatorRequest;
+    fromJSON(_: any): QueryGetMarketOperatorRequest;
+    toJSON(_: QueryGetMarketOperatorRequest): unknown;
+    fromPartial(_: DeepPartial<QueryGetMarketOperatorRequest>): QueryGetMarketOperatorRequest;
+};
+export declare const QueryGetMarketOperatorResponse: {
+    encode(message: QueryGetMarketOperatorResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetMarketOperatorResponse;
+    fromJSON(object: any): QueryGetMarketOperatorResponse;
+    toJSON(message: QueryGetMarketOperatorResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetMarketOperatorResponse>): QueryGetMarketOperatorResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -415,6 +435,8 @@ export interface Query {
     DefaultLemPars(request: QueryGetDefaultLemParsRequest): Promise<QueryGetDefaultLemParsResponse>;
     /** Queries a list of defaultLemPars items. */
     DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
+    /** Queries a marketOperator by index. */
+    MarketOperator(request: QueryGetMarketOperatorRequest): Promise<QueryGetMarketOperatorResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -437,6 +459,7 @@ export declare class QueryClientImpl implements Query {
     LemDatasetAll(request: QueryAllLemDatasetRequest): Promise<QueryAllLemDatasetResponse>;
     DefaultLemPars(request: QueryGetDefaultLemParsRequest): Promise<QueryGetDefaultLemParsResponse>;
     DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
+    MarketOperator(request: QueryGetMarketOperatorRequest): Promise<QueryGetMarketOperatorResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

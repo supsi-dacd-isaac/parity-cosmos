@@ -11,6 +11,7 @@ import "pm/kpi.proto";
 import "pm/kpi_measure.proto";
 import "pm/lem_dataset.proto";
 import "pm/default_lem_pars.proto";
+import "pm/market_operator.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -47,6 +48,9 @@ service Msg {
   rpc CreateDefaultLemPars(MsgCreateDefaultLemPars) returns (MsgCreateDefaultLemParsResponse);
   rpc UpdateDefaultLemPars(MsgUpdateDefaultLemPars) returns (MsgUpdateDefaultLemParsResponse);
   rpc DeleteDefaultLemPars(MsgDeleteDefaultLemPars) returns (MsgDeleteDefaultLemParsResponse);
+  rpc CreateMarketOperator(MsgCreateMarketOperator) returns (MsgCreateMarketOperatorResponse);
+  rpc UpdateMarketOperator(MsgUpdateMarketOperator) returns (MsgUpdateMarketOperatorResponse);
+  rpc DeleteMarketOperator(MsgDeleteMarketOperator) returns (MsgDeleteMarketOperatorResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -316,4 +320,22 @@ message MsgDeleteDefaultLemPars {
 }
 message MsgDeleteDefaultLemParsResponse {}
 
+message MsgCreateMarketOperator {
+  string creator = 1;
+  string idx = 3;
+  string address = 4;
+}
+message MsgCreateMarketOperatorResponse {}
+
+message MsgUpdateMarketOperator {
+  string creator = 1;
+  string idx = 3;
+  string address = 4;
+}
+message MsgUpdateMarketOperatorResponse {}
+
+message MsgDeleteMarketOperator {
+  string creator = 1;
+}
+message MsgDeleteMarketOperatorResponse {}
 // this line is used by starport scaffolding # proto/tx/message

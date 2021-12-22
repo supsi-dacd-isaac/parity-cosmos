@@ -93,6 +93,10 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				MarketOperator: &types.MarketOperator{
+					Idx:     "idx",
+					Address: "address",
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
