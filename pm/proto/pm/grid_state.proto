@@ -1,0 +1,15 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+
+
+message GridState {
+  string index = 1; 
+  string grid = 2; 
+  int32 timestamp = 3; 
+  string state = 4; 
+  string creator = 5;
+}
+

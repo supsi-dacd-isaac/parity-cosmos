@@ -21,6 +21,7 @@ func DefaultGenesis() *GenesisState {
 		LemDatasetList:     []LemDataset{},
 		DefaultLemParsList: []DefaultLemPars{},
 		MarketOperator:     nil,
+		GridStateList:      []GridState{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -107,6 +108,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for defaultLemPars")
 		}
 		defaultLemParsIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in gridState
+	gridStateIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.GridStateList {
+		index := string(GridStateKey(elem.Index))
+		if _, ok := gridStateIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for gridState")
+		}
+		gridStateIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

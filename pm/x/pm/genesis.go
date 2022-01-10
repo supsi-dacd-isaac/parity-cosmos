@@ -53,6 +53,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.MarketOperator != nil {
 		k.SetMarketOperator(ctx, *genState.MarketOperator)
 	}
+	// Set all the gridState
+	for _, elem := range genState.GridStateList {
+		k.SetGridState(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 }
 
@@ -83,6 +87,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	if found {
 		genesis.MarketOperator = &marketOperator
 	}
+	genesis.GridStateList = k.GetAllGridState(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

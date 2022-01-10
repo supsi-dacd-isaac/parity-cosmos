@@ -17,6 +17,14 @@ export interface PmDso {
     address?: string;
     creator?: string;
 }
+export interface PmGridState {
+    index?: string;
+    grid?: string;
+    /** @format int32 */
+    timestamp?: number;
+    state?: string;
+    creator?: string;
+}
 export interface PmKpi {
     index?: string;
     sla?: string;
@@ -76,6 +84,7 @@ export interface PmMarketOperator {
 export declare type PmMsgCreateAggregatorResponse = object;
 export declare type PmMsgCreateDefaultLemParsResponse = object;
 export declare type PmMsgCreateDsoResponse = object;
+export declare type PmMsgCreateGridStateResponse = object;
 export declare type PmMsgCreateKpiMeasureResponse = object;
 export declare type PmMsgCreateKpiResponse = object;
 export declare type PmMsgCreateLemDatasetResponse = object;
@@ -87,6 +96,7 @@ export declare type PmMsgCreateSlaResponse = object;
 export declare type PmMsgDeleteAggregatorResponse = object;
 export declare type PmMsgDeleteDefaultLemParsResponse = object;
 export declare type PmMsgDeleteDsoResponse = object;
+export declare type PmMsgDeleteGridStateResponse = object;
 export declare type PmMsgDeleteKpiMeasureResponse = object;
 export declare type PmMsgDeleteKpiResponse = object;
 export declare type PmMsgDeleteLemDatasetResponse = object;
@@ -98,6 +108,7 @@ export declare type PmMsgDeleteSlaResponse = object;
 export declare type PmMsgUpdateAggregatorResponse = object;
 export declare type PmMsgUpdateDefaultLemParsResponse = object;
 export declare type PmMsgUpdateDsoResponse = object;
+export declare type PmMsgUpdateGridStateResponse = object;
 export declare type PmMsgUpdateKpiMeasureResponse = object;
 export declare type PmMsgUpdateKpiResponse = object;
 export declare type PmMsgUpdateLemDatasetResponse = object;
@@ -115,6 +126,19 @@ export interface PmPlayer {
 }
 export interface PmQueryAllDefaultLemParsResponse {
     defaultLemPars?: PmDefaultLemPars[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface PmQueryAllGridStateResponse {
+    gridState?: PmGridState[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -225,6 +249,9 @@ export interface PmQueryGetDefaultLemParsResponse {
 }
 export interface PmQueryGetDsoResponse {
     Dso?: PmDso;
+}
+export interface PmQueryGetGridStateResponse {
+    gridState?: PmGridState;
 }
 export interface PmQueryGetKpiMeasureResponse {
     kpiMeasure?: PmKpiMeasure;
@@ -419,6 +446,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/supsi-dacd-isaac/pm/pm/dso
      */
     queryDso: (params?: RequestParams) => Promise<HttpResponse<PmQueryGetDsoResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryGridStateAll
+     * @summary Queries a list of gridState items.
+     * @request GET:/supsi-dacd-isaac/pm/pm/gridState
+     */
+    queryGridStateAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PmQueryAllGridStateResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryGridState
+     * @summary Queries a gridState by index.
+     * @request GET:/supsi-dacd-isaac/pm/pm/gridState/{index}
+     */
+    queryGridState: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetGridStateResponse, RpcStatus>>;
     /**
      * No description
      *

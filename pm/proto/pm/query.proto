@@ -14,6 +14,7 @@ import "pm/kpi_measure.proto";
 import "pm/lem_dataset.proto";
 import "pm/default_lem_pars.proto";
 import "pm/market_operator.proto";
+import "pm/grid_state.proto";
 // this line is used by starport scaffolding # 1
 import "gogoproto/gogo.proto";
 
@@ -113,6 +114,16 @@ service Query {
 	rpc MarketOperator(QueryGetMarketOperatorRequest) returns (QueryGetMarketOperatorResponse) {
 		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/marketOperator";
 	}
+// Queries a gridState by index.
+	rpc GridState(QueryGetGridStateRequest) returns (QueryGetGridStateResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/gridState/{index}";
+	}
+
+	// Queries a list of gridState items.
+	rpc GridStateAll(QueryAllGridStateRequest) returns (QueryAllGridStateResponse) {
+		option (google.api.http).get = "/supsi-dacd-isaac/pm/pm/gridState";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -275,4 +286,22 @@ message QueryGetMarketOperatorRequest {}
 message QueryGetMarketOperatorResponse {
 	MarketOperator MarketOperator = 1 [(gogoproto.nullable) = false];
 }
+message QueryGetGridStateRequest {
+	  string index = 1;
+
+}
+
+message QueryGetGridStateResponse {
+	GridState gridState = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGridStateRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGridStateResponse {
+	repeated GridState gridState = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 // this line is used by starport scaffolding # 3

@@ -87,6 +87,14 @@ func TestGenesis(t *testing.T) {
 			Idx:     "idx",
 			Address: "address",
 		},
+		GridStateList: []types.GridState{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -114,5 +122,7 @@ func TestGenesis(t *testing.T) {
 	require.Len(t, got.DefaultLemParsList, len(genesisState.DefaultLemParsList))
 	require.Subset(t, genesisState.DefaultLemParsList, got.DefaultLemParsList)
 	require.Equal(t, genesisState.MarketOperator, got.MarketOperator)
+	require.Len(t, got.GridStateList, len(genesisState.GridStateList))
+	require.Subset(t, genesisState.GridStateList, got.GridStateList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

@@ -271,6 +271,30 @@ export interface MsgDeleteMarketOperator {
 }
 export interface MsgDeleteMarketOperatorResponse {
 }
+export interface MsgCreateGridState {
+    creator: string;
+    index: string;
+    grid: string;
+    timestamp: number;
+    state: string;
+}
+export interface MsgCreateGridStateResponse {
+}
+export interface MsgUpdateGridState {
+    creator: string;
+    index: string;
+    grid: string;
+    timestamp: number;
+    state: string;
+}
+export interface MsgUpdateGridStateResponse {
+}
+export interface MsgDeleteGridState {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteGridStateResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -733,6 +757,48 @@ export declare const MsgDeleteMarketOperatorResponse: {
     toJSON(_: MsgDeleteMarketOperatorResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteMarketOperatorResponse>): MsgDeleteMarketOperatorResponse;
 };
+export declare const MsgCreateGridState: {
+    encode(message: MsgCreateGridState, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateGridState;
+    fromJSON(object: any): MsgCreateGridState;
+    toJSON(message: MsgCreateGridState): unknown;
+    fromPartial(object: DeepPartial<MsgCreateGridState>): MsgCreateGridState;
+};
+export declare const MsgCreateGridStateResponse: {
+    encode(_: MsgCreateGridStateResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateGridStateResponse;
+    fromJSON(_: any): MsgCreateGridStateResponse;
+    toJSON(_: MsgCreateGridStateResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateGridStateResponse>): MsgCreateGridStateResponse;
+};
+export declare const MsgUpdateGridState: {
+    encode(message: MsgUpdateGridState, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateGridState;
+    fromJSON(object: any): MsgUpdateGridState;
+    toJSON(message: MsgUpdateGridState): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateGridState>): MsgUpdateGridState;
+};
+export declare const MsgUpdateGridStateResponse: {
+    encode(_: MsgUpdateGridStateResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateGridStateResponse;
+    fromJSON(_: any): MsgUpdateGridStateResponse;
+    toJSON(_: MsgUpdateGridStateResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateGridStateResponse>): MsgUpdateGridStateResponse;
+};
+export declare const MsgDeleteGridState: {
+    encode(message: MsgDeleteGridState, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteGridState;
+    fromJSON(object: any): MsgDeleteGridState;
+    toJSON(message: MsgDeleteGridState): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteGridState>): MsgDeleteGridState;
+};
+export declare const MsgDeleteGridStateResponse: {
+    encode(_: MsgDeleteGridStateResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteGridStateResponse;
+    fromJSON(_: any): MsgDeleteGridStateResponse;
+    toJSON(_: MsgDeleteGridStateResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteGridStateResponse>): MsgDeleteGridStateResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -767,8 +833,11 @@ export interface Msg {
     DeleteDefaultLemPars(request: MsgDeleteDefaultLemPars): Promise<MsgDeleteDefaultLemParsResponse>;
     CreateMarketOperator(request: MsgCreateMarketOperator): Promise<MsgCreateMarketOperatorResponse>;
     UpdateMarketOperator(request: MsgUpdateMarketOperator): Promise<MsgUpdateMarketOperatorResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteMarketOperator(request: MsgDeleteMarketOperator): Promise<MsgDeleteMarketOperatorResponse>;
+    CreateGridState(request: MsgCreateGridState): Promise<MsgCreateGridStateResponse>;
+    UpdateGridState(request: MsgUpdateGridState): Promise<MsgUpdateGridStateResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteGridState(request: MsgDeleteGridState): Promise<MsgDeleteGridStateResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -806,6 +875,9 @@ export declare class MsgClientImpl implements Msg {
     CreateMarketOperator(request: MsgCreateMarketOperator): Promise<MsgCreateMarketOperatorResponse>;
     UpdateMarketOperator(request: MsgUpdateMarketOperator): Promise<MsgUpdateMarketOperatorResponse>;
     DeleteMarketOperator(request: MsgDeleteMarketOperator): Promise<MsgDeleteMarketOperatorResponse>;
+    CreateGridState(request: MsgCreateGridState): Promise<MsgCreateGridStateResponse>;
+    UpdateGridState(request: MsgUpdateGridState): Promise<MsgUpdateGridStateResponse>;
+    DeleteGridState(request: MsgDeleteGridState): Promise<MsgDeleteGridStateResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

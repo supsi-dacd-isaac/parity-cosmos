@@ -12,6 +12,7 @@ import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
+import { GridState } from "../pm/grid_state";
 export const protobufPackage = "supsidacdisaac.pm.pm";
 const baseQueryGetDsoRequest = {};
 export const QueryGetDsoRequest = {
@@ -2285,6 +2286,268 @@ export const QueryGetMarketOperatorResponse = {
         return message;
     },
 };
+const baseQueryGetGridStateRequest = { index: "" };
+export const QueryGetGridStateRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.index !== "") {
+            writer.uint32(10).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetGridStateRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetGridStateRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetGridStateRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+};
+const baseQueryGetGridStateResponse = {};
+export const QueryGetGridStateResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.gridState !== undefined) {
+            GridState.encode(message.gridState, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetGridStateResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.gridState = GridState.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetGridStateResponse,
+        };
+        if (object.gridState !== undefined && object.gridState !== null) {
+            message.gridState = GridState.fromJSON(object.gridState);
+        }
+        else {
+            message.gridState = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.gridState !== undefined &&
+            (obj.gridState = message.gridState
+                ? GridState.toJSON(message.gridState)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetGridStateResponse,
+        };
+        if (object.gridState !== undefined && object.gridState !== null) {
+            message.gridState = GridState.fromPartial(object.gridState);
+        }
+        else {
+            message.gridState = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllGridStateRequest = {};
+export const QueryAllGridStateRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllGridStateRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllGridStateRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllGridStateRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllGridStateResponse = {};
+export const QueryAllGridStateResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.gridState) {
+            GridState.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllGridStateResponse,
+        };
+        message.gridState = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.gridState.push(GridState.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllGridStateResponse,
+        };
+        message.gridState = [];
+        if (object.gridState !== undefined && object.gridState !== null) {
+            for (const e of object.gridState) {
+                message.gridState.push(GridState.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.gridState) {
+            obj.gridState = message.gridState.map((e) => e ? GridState.toJSON(e) : undefined);
+        }
+        else {
+            obj.gridState = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllGridStateResponse,
+        };
+        message.gridState = [];
+        if (object.gridState !== undefined && object.gridState !== null) {
+            for (const e of object.gridState) {
+                message.gridState.push(GridState.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2383,5 +2646,15 @@ export class QueryClientImpl {
         const data = QueryGetMarketOperatorRequest.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "MarketOperator", data);
         return promise.then((data) => QueryGetMarketOperatorResponse.decode(new Reader(data)));
+    }
+    GridState(request) {
+        const data = QueryGetGridStateRequest.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "GridState", data);
+        return promise.then((data) => QueryGetGridStateResponse.decode(new Reader(data)));
+    }
+    GridStateAll(request) {
+        const data = QueryAllGridStateRequest.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Query", "GridStateAll", data);
+        return promise.then((data) => QueryAllGridStateResponse.decode(new Reader(data)));
     }
 }

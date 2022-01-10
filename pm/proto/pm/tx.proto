@@ -12,6 +12,7 @@ import "pm/kpi_measure.proto";
 import "pm/lem_dataset.proto";
 import "pm/default_lem_pars.proto";
 import "pm/market_operator.proto";
+import "pm/grid_state.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -51,6 +52,9 @@ service Msg {
   rpc CreateMarketOperator(MsgCreateMarketOperator) returns (MsgCreateMarketOperatorResponse);
   rpc UpdateMarketOperator(MsgUpdateMarketOperator) returns (MsgUpdateMarketOperatorResponse);
   rpc DeleteMarketOperator(MsgDeleteMarketOperator) returns (MsgDeleteMarketOperatorResponse);
+  rpc CreateGridState(MsgCreateGridState) returns (MsgCreateGridStateResponse);
+  rpc UpdateGridState(MsgUpdateGridState) returns (MsgUpdateGridStateResponse);
+  rpc DeleteGridState(MsgDeleteGridState) returns (MsgDeleteGridStateResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -338,4 +342,30 @@ message MsgDeleteMarketOperator {
   string creator = 1;
 }
 message MsgDeleteMarketOperatorResponse {}
+message MsgCreateGridState {
+  string creator = 1;
+  string index = 2;
+
+  string grid = 3;
+  int32 timestamp = 4;
+  string state = 5;
+}
+message MsgCreateGridStateResponse {}
+
+message MsgUpdateGridState {
+  string creator = 1;
+  string index = 2;
+
+  string grid = 3;
+  int32 timestamp = 4;
+  string state = 5;
+}
+message MsgUpdateGridStateResponse {}
+
+message MsgDeleteGridState {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteGridStateResponse {}
+
 // this line is used by starport scaffolding # proto/tx/message

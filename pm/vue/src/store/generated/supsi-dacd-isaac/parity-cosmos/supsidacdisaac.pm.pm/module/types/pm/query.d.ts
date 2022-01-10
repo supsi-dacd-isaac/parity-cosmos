@@ -11,6 +11,7 @@ import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
+import { GridState } from "../pm/grid_state";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -130,6 +131,19 @@ export interface QueryGetMarketOperatorRequest {
 }
 export interface QueryGetMarketOperatorResponse {
     MarketOperator: MarketOperator | undefined;
+}
+export interface QueryGetGridStateRequest {
+    index: string;
+}
+export interface QueryGetGridStateResponse {
+    gridState: GridState | undefined;
+}
+export interface QueryAllGridStateRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllGridStateResponse {
+    gridState: GridState[];
+    pagination: PageResponse | undefined;
 }
 export declare const QueryGetDsoRequest: {
     encode(_: QueryGetDsoRequest, writer?: Writer): Writer;
@@ -397,6 +411,34 @@ export declare const QueryGetMarketOperatorResponse: {
     toJSON(message: QueryGetMarketOperatorResponse): unknown;
     fromPartial(object: DeepPartial<QueryGetMarketOperatorResponse>): QueryGetMarketOperatorResponse;
 };
+export declare const QueryGetGridStateRequest: {
+    encode(message: QueryGetGridStateRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetGridStateRequest;
+    fromJSON(object: any): QueryGetGridStateRequest;
+    toJSON(message: QueryGetGridStateRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetGridStateRequest>): QueryGetGridStateRequest;
+};
+export declare const QueryGetGridStateResponse: {
+    encode(message: QueryGetGridStateResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetGridStateResponse;
+    fromJSON(object: any): QueryGetGridStateResponse;
+    toJSON(message: QueryGetGridStateResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetGridStateResponse>): QueryGetGridStateResponse;
+};
+export declare const QueryAllGridStateRequest: {
+    encode(message: QueryAllGridStateRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllGridStateRequest;
+    fromJSON(object: any): QueryAllGridStateRequest;
+    toJSON(message: QueryAllGridStateRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllGridStateRequest>): QueryAllGridStateRequest;
+};
+export declare const QueryAllGridStateResponse: {
+    encode(message: QueryAllGridStateResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllGridStateResponse;
+    fromJSON(object: any): QueryAllGridStateResponse;
+    toJSON(message: QueryAllGridStateResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllGridStateResponse>): QueryAllGridStateResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -437,6 +479,10 @@ export interface Query {
     DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
     /** Queries a marketOperator by index. */
     MarketOperator(request: QueryGetMarketOperatorRequest): Promise<QueryGetMarketOperatorResponse>;
+    /** Queries a gridState by index. */
+    GridState(request: QueryGetGridStateRequest): Promise<QueryGetGridStateResponse>;
+    /** Queries a list of gridState items. */
+    GridStateAll(request: QueryAllGridStateRequest): Promise<QueryAllGridStateResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -460,6 +506,8 @@ export declare class QueryClientImpl implements Query {
     DefaultLemPars(request: QueryGetDefaultLemParsRequest): Promise<QueryGetDefaultLemParsResponse>;
     DefaultLemParsAll(request: QueryAllDefaultLemParsRequest): Promise<QueryAllDefaultLemParsResponse>;
     MarketOperator(request: QueryGetMarketOperatorRequest): Promise<QueryGetMarketOperatorResponse>;
+    GridState(request: QueryGetGridStateRequest): Promise<QueryGetGridStateResponse>;
+    GridStateAll(request: QueryAllGridStateRequest): Promise<QueryAllGridStateResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

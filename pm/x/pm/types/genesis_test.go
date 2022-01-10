@@ -97,6 +97,14 @@ func TestGenesisState_Validate(t *testing.T) {
 					Idx:     "idx",
 					Address: "address",
 				},
+				GridStateList: []types.GridState{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -203,6 +211,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated defaultLemPars",
 			genState: &types.GenesisState{
 				DefaultLemParsList: []types.DefaultLemPars{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated gridState",
+			genState: &types.GenesisState{
+				GridStateList: []types.GridState{
 					{
 						Index: "0",
 					},

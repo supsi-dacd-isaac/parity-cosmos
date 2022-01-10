@@ -10,6 +10,7 @@ import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
+import { GridState } from "../pm/grid_state";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
@@ -26,8 +27,9 @@ export interface GenesisState {
   kpiMeasureList: KpiMeasure[];
   lemDatasetList: LemDataset[];
   defaultLemParsList: DefaultLemPars[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   marketOperator: MarketOperator | undefined;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  gridStateList: GridState[];
 }
 
 const baseGenesisState: object = {};
@@ -70,6 +72,9 @@ export const GenesisState = {
         writer.uint32(90).fork()
       ).ldelim();
     }
+    for (const v of message.gridStateList) {
+      GridState.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -85,6 +90,7 @@ export const GenesisState = {
     message.kpiMeasureList = [];
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
+    message.gridStateList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -132,6 +138,9 @@ export const GenesisState = {
             reader.uint32()
           );
           break;
+        case 12:
+          message.gridStateList.push(GridState.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -150,6 +159,7 @@ export const GenesisState = {
     message.kpiMeasureList = [];
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
+    message.gridStateList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromJSON(object.dso);
     } else {
@@ -207,6 +217,11 @@ export const GenesisState = {
       message.marketOperator = MarketOperator.fromJSON(object.marketOperator);
     } else {
       message.marketOperator = undefined;
+    }
+    if (object.gridStateList !== undefined && object.gridStateList !== null) {
+      for (const e of object.gridStateList) {
+        message.gridStateList.push(GridState.fromJSON(e));
+      }
     }
     return message;
   },
@@ -273,6 +288,13 @@ export const GenesisState = {
       (obj.marketOperator = message.marketOperator
         ? MarketOperator.toJSON(message.marketOperator)
         : undefined);
+    if (message.gridStateList) {
+      obj.gridStateList = message.gridStateList.map((e) =>
+        e ? GridState.toJSON(e) : undefined
+      );
+    } else {
+      obj.gridStateList = [];
+    }
     return obj;
   },
 
@@ -286,6 +308,7 @@ export const GenesisState = {
     message.kpiMeasureList = [];
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
+    message.gridStateList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromPartial(object.dso);
     } else {
@@ -345,6 +368,11 @@ export const GenesisState = {
       );
     } else {
       message.marketOperator = undefined;
+    }
+    if (object.gridStateList !== undefined && object.gridStateList !== null) {
+      for (const e of object.gridStateList) {
+        message.gridStateList.push(GridState.fromPartial(e));
+      }
     }
     return message;
   },

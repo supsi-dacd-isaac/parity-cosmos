@@ -10,6 +10,7 @@ import { KpiMeasure } from "../pm/kpi_measure";
 import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
+import { GridState } from "../pm/grid_state";
 import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "supsidacdisaac.pm.pm";
 const baseGenesisState = {};
@@ -48,6 +49,9 @@ export const GenesisState = {
         if (message.marketOperator !== undefined) {
             MarketOperator.encode(message.marketOperator, writer.uint32(90).fork()).ldelim();
         }
+        for (const v of message.gridStateList) {
+            GridState.encode(v, writer.uint32(98).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -62,6 +66,7 @@ export const GenesisState = {
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
         message.defaultLemParsList = [];
+        message.gridStateList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -98,6 +103,9 @@ export const GenesisState = {
                 case 11:
                     message.marketOperator = MarketOperator.decode(reader, reader.uint32());
                     break;
+                case 12:
+                    message.gridStateList.push(GridState.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -115,6 +123,7 @@ export const GenesisState = {
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
         message.defaultLemParsList = [];
+        message.gridStateList = [];
         if (object.dso !== undefined && object.dso !== null) {
             message.dso = Dso.fromJSON(object.dso);
         }
@@ -173,6 +182,11 @@ export const GenesisState = {
         }
         else {
             message.marketOperator = undefined;
+        }
+        if (object.gridStateList !== undefined && object.gridStateList !== null) {
+            for (const e of object.gridStateList) {
+                message.gridStateList.push(GridState.fromJSON(e));
+            }
         }
         return message;
     },
@@ -236,6 +250,12 @@ export const GenesisState = {
             (obj.marketOperator = message.marketOperator
                 ? MarketOperator.toJSON(message.marketOperator)
                 : undefined);
+        if (message.gridStateList) {
+            obj.gridStateList = message.gridStateList.map((e) => e ? GridState.toJSON(e) : undefined);
+        }
+        else {
+            obj.gridStateList = [];
+        }
         return obj;
     },
     fromPartial(object) {
@@ -248,6 +268,7 @@ export const GenesisState = {
         message.kpiMeasureList = [];
         message.lemDatasetList = [];
         message.defaultLemParsList = [];
+        message.gridStateList = [];
         if (object.dso !== undefined && object.dso !== null) {
             message.dso = Dso.fromPartial(object.dso);
         }
@@ -306,6 +327,11 @@ export const GenesisState = {
         }
         else {
             message.marketOperator = undefined;
+        }
+        if (object.gridStateList !== undefined && object.gridStateList !== null) {
+            for (const e of object.gridStateList) {
+                message.gridStateList.push(GridState.fromPartial(e));
+            }
         }
         return message;
     },

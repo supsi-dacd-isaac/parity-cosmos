@@ -307,6 +307,33 @@ export interface MsgDeleteMarketOperator {
 
 export interface MsgDeleteMarketOperatorResponse {}
 
+export interface MsgCreateGridState {
+  creator: string;
+  index: string;
+  grid: string;
+  timestamp: number;
+  state: string;
+}
+
+export interface MsgCreateGridStateResponse {}
+
+export interface MsgUpdateGridState {
+  creator: string;
+  index: string;
+  grid: string;
+  timestamp: number;
+  state: string;
+}
+
+export interface MsgUpdateGridStateResponse {}
+
+export interface MsgDeleteGridState {
+  creator: string;
+  index: string;
+}
+
+export interface MsgDeleteGridStateResponse {}
+
 const baseMsgCreateDso: object = { creator: "", idx: "", address: "" };
 
 export const MsgCreateDso = {
@@ -5708,6 +5735,501 @@ export const MsgDeleteMarketOperatorResponse = {
   },
 };
 
+const baseMsgCreateGridState: object = {
+  creator: "",
+  index: "",
+  grid: "",
+  timestamp: 0,
+  state: "",
+};
+
+export const MsgCreateGridState = {
+  encode(
+    message: MsgCreateGridState,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.grid !== "") {
+      writer.uint32(26).string(message.grid);
+    }
+    if (message.timestamp !== 0) {
+      writer.uint32(32).int32(message.timestamp);
+    }
+    if (message.state !== "") {
+      writer.uint32(42).string(message.state);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateGridState {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateGridState } as MsgCreateGridState;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.grid = reader.string();
+          break;
+        case 4:
+          message.timestamp = reader.int32();
+          break;
+        case 5:
+          message.state = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateGridState {
+    const message = { ...baseMsgCreateGridState } as MsgCreateGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.grid !== undefined && object.grid !== null) {
+      message.grid = String(object.grid);
+    } else {
+      message.grid = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Number(object.timestamp);
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = String(object.state);
+    } else {
+      message.state = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateGridState): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.grid !== undefined && (obj.grid = message.grid);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.state !== undefined && (obj.state = message.state);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateGridState>): MsgCreateGridState {
+    const message = { ...baseMsgCreateGridState } as MsgCreateGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.grid !== undefined && object.grid !== null) {
+      message.grid = object.grid;
+    } else {
+      message.grid = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = object.state;
+    } else {
+      message.state = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateGridStateResponse: object = {};
+
+export const MsgCreateGridStateResponse = {
+  encode(
+    _: MsgCreateGridStateResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateGridStateResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateGridStateResponse,
+    } as MsgCreateGridStateResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateGridStateResponse {
+    const message = {
+      ...baseMsgCreateGridStateResponse,
+    } as MsgCreateGridStateResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateGridStateResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateGridStateResponse>
+  ): MsgCreateGridStateResponse {
+    const message = {
+      ...baseMsgCreateGridStateResponse,
+    } as MsgCreateGridStateResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateGridState: object = {
+  creator: "",
+  index: "",
+  grid: "",
+  timestamp: 0,
+  state: "",
+};
+
+export const MsgUpdateGridState = {
+  encode(
+    message: MsgUpdateGridState,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.grid !== "") {
+      writer.uint32(26).string(message.grid);
+    }
+    if (message.timestamp !== 0) {
+      writer.uint32(32).int32(message.timestamp);
+    }
+    if (message.state !== "") {
+      writer.uint32(42).string(message.state);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateGridState {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateGridState } as MsgUpdateGridState;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.grid = reader.string();
+          break;
+        case 4:
+          message.timestamp = reader.int32();
+          break;
+        case 5:
+          message.state = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateGridState {
+    const message = { ...baseMsgUpdateGridState } as MsgUpdateGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.grid !== undefined && object.grid !== null) {
+      message.grid = String(object.grid);
+    } else {
+      message.grid = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Number(object.timestamp);
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = String(object.state);
+    } else {
+      message.state = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateGridState): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.grid !== undefined && (obj.grid = message.grid);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.state !== undefined && (obj.state = message.state);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateGridState>): MsgUpdateGridState {
+    const message = { ...baseMsgUpdateGridState } as MsgUpdateGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.grid !== undefined && object.grid !== null) {
+      message.grid = object.grid;
+    } else {
+      message.grid = "";
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    } else {
+      message.timestamp = 0;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = object.state;
+    } else {
+      message.state = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateGridStateResponse: object = {};
+
+export const MsgUpdateGridStateResponse = {
+  encode(
+    _: MsgUpdateGridStateResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateGridStateResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateGridStateResponse,
+    } as MsgUpdateGridStateResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateGridStateResponse {
+    const message = {
+      ...baseMsgUpdateGridStateResponse,
+    } as MsgUpdateGridStateResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateGridStateResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateGridStateResponse>
+  ): MsgUpdateGridStateResponse {
+    const message = {
+      ...baseMsgUpdateGridStateResponse,
+    } as MsgUpdateGridStateResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteGridState: object = { creator: "", index: "" };
+
+export const MsgDeleteGridState = {
+  encode(
+    message: MsgDeleteGridState,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteGridState {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteGridState } as MsgDeleteGridState;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteGridState {
+    const message = { ...baseMsgDeleteGridState } as MsgDeleteGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteGridState): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteGridState>): MsgDeleteGridState {
+    const message = { ...baseMsgDeleteGridState } as MsgDeleteGridState;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteGridStateResponse: object = {};
+
+export const MsgDeleteGridStateResponse = {
+  encode(
+    _: MsgDeleteGridStateResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteGridStateResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteGridStateResponse,
+    } as MsgDeleteGridStateResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteGridStateResponse {
+    const message = {
+      ...baseMsgDeleteGridStateResponse,
+    } as MsgDeleteGridStateResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteGridStateResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteGridStateResponse>
+  ): MsgDeleteGridStateResponse {
+    const message = {
+      ...baseMsgDeleteGridStateResponse,
+    } as MsgDeleteGridStateResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -5776,10 +6298,19 @@ export interface Msg {
   UpdateMarketOperator(
     request: MsgUpdateMarketOperator
   ): Promise<MsgUpdateMarketOperatorResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   DeleteMarketOperator(
     request: MsgDeleteMarketOperator
   ): Promise<MsgDeleteMarketOperatorResponse>;
+  CreateGridState(
+    request: MsgCreateGridState
+  ): Promise<MsgCreateGridStateResponse>;
+  UpdateGridState(
+    request: MsgUpdateGridState
+  ): Promise<MsgUpdateGridStateResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteGridState(
+    request: MsgDeleteGridState
+  ): Promise<MsgDeleteGridStateResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -6216,6 +6747,48 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgDeleteMarketOperatorResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateGridState(
+    request: MsgCreateGridState
+  ): Promise<MsgCreateGridStateResponse> {
+    const data = MsgCreateGridState.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "CreateGridState",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateGridStateResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateGridState(
+    request: MsgUpdateGridState
+  ): Promise<MsgUpdateGridStateResponse> {
+    const data = MsgUpdateGridState.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "UpdateGridState",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateGridStateResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteGridState(
+    request: MsgDeleteGridState
+  ): Promise<MsgDeleteGridStateResponse> {
+    const data = MsgDeleteGridState.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "DeleteGridState",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteGridStateResponse.decode(new Reader(data))
     );
   }
 }

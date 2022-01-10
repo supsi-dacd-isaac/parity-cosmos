@@ -5064,6 +5064,456 @@ export const MsgDeleteMarketOperatorResponse = {
         return message;
     },
 };
+const baseMsgCreateGridState = {
+    creator: "",
+    index: "",
+    grid: "",
+    timestamp: 0,
+    state: "",
+};
+export const MsgCreateGridState = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.grid !== "") {
+            writer.uint32(26).string(message.grid);
+        }
+        if (message.timestamp !== 0) {
+            writer.uint32(32).int32(message.timestamp);
+        }
+        if (message.state !== "") {
+            writer.uint32(42).string(message.state);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateGridState };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.grid = reader.string();
+                    break;
+                case 4:
+                    message.timestamp = reader.int32();
+                    break;
+                case 5:
+                    message.state = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        if (object.grid !== undefined && object.grid !== null) {
+            message.grid = String(object.grid);
+        }
+        else {
+            message.grid = "";
+        }
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = Number(object.timestamp);
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.state !== undefined && object.state !== null) {
+            message.state = String(object.state);
+        }
+        else {
+            message.state = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.grid !== undefined && (obj.grid = message.grid);
+        message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+        message.state !== undefined && (obj.state = message.state);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        if (object.grid !== undefined && object.grid !== null) {
+            message.grid = object.grid;
+        }
+        else {
+            message.grid = "";
+        }
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = object.timestamp;
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.state !== undefined && object.state !== null) {
+            message.state = object.state;
+        }
+        else {
+            message.state = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateGridStateResponse = {};
+export const MsgCreateGridStateResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateGridStateResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateGridStateResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateGridStateResponse,
+        };
+        return message;
+    },
+};
+const baseMsgUpdateGridState = {
+    creator: "",
+    index: "",
+    grid: "",
+    timestamp: 0,
+    state: "",
+};
+export const MsgUpdateGridState = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.grid !== "") {
+            writer.uint32(26).string(message.grid);
+        }
+        if (message.timestamp !== 0) {
+            writer.uint32(32).int32(message.timestamp);
+        }
+        if (message.state !== "") {
+            writer.uint32(42).string(message.state);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateGridState };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.grid = reader.string();
+                    break;
+                case 4:
+                    message.timestamp = reader.int32();
+                    break;
+                case 5:
+                    message.state = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        if (object.grid !== undefined && object.grid !== null) {
+            message.grid = String(object.grid);
+        }
+        else {
+            message.grid = "";
+        }
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = Number(object.timestamp);
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.state !== undefined && object.state !== null) {
+            message.state = String(object.state);
+        }
+        else {
+            message.state = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.grid !== undefined && (obj.grid = message.grid);
+        message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+        message.state !== undefined && (obj.state = message.state);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        if (object.grid !== undefined && object.grid !== null) {
+            message.grid = object.grid;
+        }
+        else {
+            message.grid = "";
+        }
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = object.timestamp;
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.state !== undefined && object.state !== null) {
+            message.state = object.state;
+        }
+        else {
+            message.state = "";
+        }
+        return message;
+    },
+};
+const baseMsgUpdateGridStateResponse = {};
+export const MsgUpdateGridStateResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUpdateGridStateResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUpdateGridStateResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUpdateGridStateResponse,
+        };
+        return message;
+    },
+};
+const baseMsgDeleteGridState = { creator: "", index: "" };
+export const MsgDeleteGridState = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteGridState };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteGridState };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+};
+const baseMsgDeleteGridStateResponse = {};
+export const MsgDeleteGridStateResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteGridStateResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDeleteGridStateResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDeleteGridStateResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -5232,5 +5682,20 @@ export class MsgClientImpl {
         const data = MsgDeleteMarketOperator.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteMarketOperator", data);
         return promise.then((data) => MsgDeleteMarketOperatorResponse.decode(new Reader(data)));
+    }
+    CreateGridState(request) {
+        const data = MsgCreateGridState.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "CreateGridState", data);
+        return promise.then((data) => MsgCreateGridStateResponse.decode(new Reader(data)));
+    }
+    UpdateGridState(request) {
+        const data = MsgUpdateGridState.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "UpdateGridState", data);
+        return promise.then((data) => MsgUpdateGridStateResponse.decode(new Reader(data)));
+    }
+    DeleteGridState(request) {
+        const data = MsgDeleteGridState.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteGridState", data);
+        return promise.then((data) => MsgDeleteGridStateResponse.decode(new Reader(data)));
     }
 }
