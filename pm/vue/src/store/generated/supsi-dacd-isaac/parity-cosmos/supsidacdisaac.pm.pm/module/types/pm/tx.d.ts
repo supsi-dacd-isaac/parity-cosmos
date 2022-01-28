@@ -295,6 +295,36 @@ export interface MsgDeleteGridState {
 }
 export interface MsgDeleteGridStateResponse {
 }
+export interface MsgCreateKpiFeatures {
+    creator: string;
+    index: string;
+    sla: string;
+    rule: string;
+    limit: string;
+    mu: string;
+    penalty: number;
+    players: string[];
+}
+export interface MsgCreateKpiFeaturesResponse {
+}
+export interface MsgUpdateKpiFeatures {
+    creator: string;
+    index: string;
+    sla: string;
+    rule: string;
+    limit: string;
+    mu: string;
+    penalty: number;
+    players: string[];
+}
+export interface MsgUpdateKpiFeaturesResponse {
+}
+export interface MsgDeleteKpiFeatures {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteKpiFeaturesResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -799,6 +829,48 @@ export declare const MsgDeleteGridStateResponse: {
     toJSON(_: MsgDeleteGridStateResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteGridStateResponse>): MsgDeleteGridStateResponse;
 };
+export declare const MsgCreateKpiFeatures: {
+    encode(message: MsgCreateKpiFeatures, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateKpiFeatures;
+    fromJSON(object: any): MsgCreateKpiFeatures;
+    toJSON(message: MsgCreateKpiFeatures): unknown;
+    fromPartial(object: DeepPartial<MsgCreateKpiFeatures>): MsgCreateKpiFeatures;
+};
+export declare const MsgCreateKpiFeaturesResponse: {
+    encode(_: MsgCreateKpiFeaturesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateKpiFeaturesResponse;
+    fromJSON(_: any): MsgCreateKpiFeaturesResponse;
+    toJSON(_: MsgCreateKpiFeaturesResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateKpiFeaturesResponse>): MsgCreateKpiFeaturesResponse;
+};
+export declare const MsgUpdateKpiFeatures: {
+    encode(message: MsgUpdateKpiFeatures, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateKpiFeatures;
+    fromJSON(object: any): MsgUpdateKpiFeatures;
+    toJSON(message: MsgUpdateKpiFeatures): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateKpiFeatures>): MsgUpdateKpiFeatures;
+};
+export declare const MsgUpdateKpiFeaturesResponse: {
+    encode(_: MsgUpdateKpiFeaturesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateKpiFeaturesResponse;
+    fromJSON(_: any): MsgUpdateKpiFeaturesResponse;
+    toJSON(_: MsgUpdateKpiFeaturesResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateKpiFeaturesResponse>): MsgUpdateKpiFeaturesResponse;
+};
+export declare const MsgDeleteKpiFeatures: {
+    encode(message: MsgDeleteKpiFeatures, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteKpiFeatures;
+    fromJSON(object: any): MsgDeleteKpiFeatures;
+    toJSON(message: MsgDeleteKpiFeatures): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteKpiFeatures>): MsgDeleteKpiFeatures;
+};
+export declare const MsgDeleteKpiFeaturesResponse: {
+    encode(_: MsgDeleteKpiFeaturesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteKpiFeaturesResponse;
+    fromJSON(_: any): MsgDeleteKpiFeaturesResponse;
+    toJSON(_: MsgDeleteKpiFeaturesResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteKpiFeaturesResponse>): MsgDeleteKpiFeaturesResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -836,8 +908,11 @@ export interface Msg {
     DeleteMarketOperator(request: MsgDeleteMarketOperator): Promise<MsgDeleteMarketOperatorResponse>;
     CreateGridState(request: MsgCreateGridState): Promise<MsgCreateGridStateResponse>;
     UpdateGridState(request: MsgUpdateGridState): Promise<MsgUpdateGridStateResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteGridState(request: MsgDeleteGridState): Promise<MsgDeleteGridStateResponse>;
+    CreateKpiFeatures(request: MsgCreateKpiFeatures): Promise<MsgCreateKpiFeaturesResponse>;
+    UpdateKpiFeatures(request: MsgUpdateKpiFeatures): Promise<MsgUpdateKpiFeaturesResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteKpiFeatures(request: MsgDeleteKpiFeatures): Promise<MsgDeleteKpiFeaturesResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -878,6 +953,9 @@ export declare class MsgClientImpl implements Msg {
     CreateGridState(request: MsgCreateGridState): Promise<MsgCreateGridStateResponse>;
     UpdateGridState(request: MsgUpdateGridState): Promise<MsgUpdateGridStateResponse>;
     DeleteGridState(request: MsgDeleteGridState): Promise<MsgDeleteGridStateResponse>;
+    CreateKpiFeatures(request: MsgCreateKpiFeatures): Promise<MsgCreateKpiFeaturesResponse>;
+    UpdateKpiFeatures(request: MsgUpdateKpiFeatures): Promise<MsgUpdateKpiFeaturesResponse>;
+    DeleteKpiFeatures(request: MsgDeleteKpiFeatures): Promise<MsgDeleteKpiFeaturesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

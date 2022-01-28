@@ -334,6 +334,39 @@ export interface MsgDeleteGridState {
 
 export interface MsgDeleteGridStateResponse {}
 
+export interface MsgCreateKpiFeatures {
+  creator: string;
+  index: string;
+  sla: string;
+  rule: string;
+  limit: string;
+  mu: string;
+  penalty: number;
+  players: string[];
+}
+
+export interface MsgCreateKpiFeaturesResponse {}
+
+export interface MsgUpdateKpiFeatures {
+  creator: string;
+  index: string;
+  sla: string;
+  rule: string;
+  limit: string;
+  mu: string;
+  penalty: number;
+  players: string[];
+}
+
+export interface MsgUpdateKpiFeaturesResponse {}
+
+export interface MsgDeleteKpiFeatures {
+  creator: string;
+  index: string;
+}
+
+export interface MsgDeleteKpiFeaturesResponse {}
+
 const baseMsgCreateDso: object = { creator: "", idx: "", address: "" };
 
 export const MsgCreateDso = {
@@ -6230,6 +6263,623 @@ export const MsgDeleteGridStateResponse = {
   },
 };
 
+const baseMsgCreateKpiFeatures: object = {
+  creator: "",
+  index: "",
+  sla: "",
+  rule: "",
+  limit: "",
+  mu: "",
+  penalty: 0,
+  players: "",
+};
+
+export const MsgCreateKpiFeatures = {
+  encode(
+    message: MsgCreateKpiFeatures,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.sla !== "") {
+      writer.uint32(26).string(message.sla);
+    }
+    if (message.rule !== "") {
+      writer.uint32(34).string(message.rule);
+    }
+    if (message.limit !== "") {
+      writer.uint32(42).string(message.limit);
+    }
+    if (message.mu !== "") {
+      writer.uint32(50).string(message.mu);
+    }
+    if (message.penalty !== 0) {
+      writer.uint32(56).int32(message.penalty);
+    }
+    for (const v of message.players) {
+      writer.uint32(66).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateKpiFeatures {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateKpiFeatures } as MsgCreateKpiFeatures;
+    message.players = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.sla = reader.string();
+          break;
+        case 4:
+          message.rule = reader.string();
+          break;
+        case 5:
+          message.limit = reader.string();
+          break;
+        case 6:
+          message.mu = reader.string();
+          break;
+        case 7:
+          message.penalty = reader.int32();
+          break;
+        case 8:
+          message.players.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateKpiFeatures {
+    const message = { ...baseMsgCreateKpiFeatures } as MsgCreateKpiFeatures;
+    message.players = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.sla !== undefined && object.sla !== null) {
+      message.sla = String(object.sla);
+    } else {
+      message.sla = "";
+    }
+    if (object.rule !== undefined && object.rule !== null) {
+      message.rule = String(object.rule);
+    } else {
+      message.rule = "";
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = String(object.limit);
+    } else {
+      message.limit = "";
+    }
+    if (object.mu !== undefined && object.mu !== null) {
+      message.mu = String(object.mu);
+    } else {
+      message.mu = "";
+    }
+    if (object.penalty !== undefined && object.penalty !== null) {
+      message.penalty = Number(object.penalty);
+    } else {
+      message.penalty = 0;
+    }
+    if (object.players !== undefined && object.players !== null) {
+      for (const e of object.players) {
+        message.players.push(String(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateKpiFeatures): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.sla !== undefined && (obj.sla = message.sla);
+    message.rule !== undefined && (obj.rule = message.rule);
+    message.limit !== undefined && (obj.limit = message.limit);
+    message.mu !== undefined && (obj.mu = message.mu);
+    message.penalty !== undefined && (obj.penalty = message.penalty);
+    if (message.players) {
+      obj.players = message.players.map((e) => e);
+    } else {
+      obj.players = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateKpiFeatures>): MsgCreateKpiFeatures {
+    const message = { ...baseMsgCreateKpiFeatures } as MsgCreateKpiFeatures;
+    message.players = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.sla !== undefined && object.sla !== null) {
+      message.sla = object.sla;
+    } else {
+      message.sla = "";
+    }
+    if (object.rule !== undefined && object.rule !== null) {
+      message.rule = object.rule;
+    } else {
+      message.rule = "";
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = object.limit;
+    } else {
+      message.limit = "";
+    }
+    if (object.mu !== undefined && object.mu !== null) {
+      message.mu = object.mu;
+    } else {
+      message.mu = "";
+    }
+    if (object.penalty !== undefined && object.penalty !== null) {
+      message.penalty = object.penalty;
+    } else {
+      message.penalty = 0;
+    }
+    if (object.players !== undefined && object.players !== null) {
+      for (const e of object.players) {
+        message.players.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateKpiFeaturesResponse: object = {};
+
+export const MsgCreateKpiFeaturesResponse = {
+  encode(
+    _: MsgCreateKpiFeaturesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateKpiFeaturesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateKpiFeaturesResponse,
+    } as MsgCreateKpiFeaturesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateKpiFeaturesResponse {
+    const message = {
+      ...baseMsgCreateKpiFeaturesResponse,
+    } as MsgCreateKpiFeaturesResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateKpiFeaturesResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateKpiFeaturesResponse>
+  ): MsgCreateKpiFeaturesResponse {
+    const message = {
+      ...baseMsgCreateKpiFeaturesResponse,
+    } as MsgCreateKpiFeaturesResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateKpiFeatures: object = {
+  creator: "",
+  index: "",
+  sla: "",
+  rule: "",
+  limit: "",
+  mu: "",
+  penalty: 0,
+  players: "",
+};
+
+export const MsgUpdateKpiFeatures = {
+  encode(
+    message: MsgUpdateKpiFeatures,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.sla !== "") {
+      writer.uint32(26).string(message.sla);
+    }
+    if (message.rule !== "") {
+      writer.uint32(34).string(message.rule);
+    }
+    if (message.limit !== "") {
+      writer.uint32(42).string(message.limit);
+    }
+    if (message.mu !== "") {
+      writer.uint32(50).string(message.mu);
+    }
+    if (message.penalty !== 0) {
+      writer.uint32(56).int32(message.penalty);
+    }
+    for (const v of message.players) {
+      writer.uint32(66).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateKpiFeatures {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateKpiFeatures } as MsgUpdateKpiFeatures;
+    message.players = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.sla = reader.string();
+          break;
+        case 4:
+          message.rule = reader.string();
+          break;
+        case 5:
+          message.limit = reader.string();
+          break;
+        case 6:
+          message.mu = reader.string();
+          break;
+        case 7:
+          message.penalty = reader.int32();
+          break;
+        case 8:
+          message.players.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateKpiFeatures {
+    const message = { ...baseMsgUpdateKpiFeatures } as MsgUpdateKpiFeatures;
+    message.players = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.sla !== undefined && object.sla !== null) {
+      message.sla = String(object.sla);
+    } else {
+      message.sla = "";
+    }
+    if (object.rule !== undefined && object.rule !== null) {
+      message.rule = String(object.rule);
+    } else {
+      message.rule = "";
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = String(object.limit);
+    } else {
+      message.limit = "";
+    }
+    if (object.mu !== undefined && object.mu !== null) {
+      message.mu = String(object.mu);
+    } else {
+      message.mu = "";
+    }
+    if (object.penalty !== undefined && object.penalty !== null) {
+      message.penalty = Number(object.penalty);
+    } else {
+      message.penalty = 0;
+    }
+    if (object.players !== undefined && object.players !== null) {
+      for (const e of object.players) {
+        message.players.push(String(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateKpiFeatures): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.sla !== undefined && (obj.sla = message.sla);
+    message.rule !== undefined && (obj.rule = message.rule);
+    message.limit !== undefined && (obj.limit = message.limit);
+    message.mu !== undefined && (obj.mu = message.mu);
+    message.penalty !== undefined && (obj.penalty = message.penalty);
+    if (message.players) {
+      obj.players = message.players.map((e) => e);
+    } else {
+      obj.players = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateKpiFeatures>): MsgUpdateKpiFeatures {
+    const message = { ...baseMsgUpdateKpiFeatures } as MsgUpdateKpiFeatures;
+    message.players = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.sla !== undefined && object.sla !== null) {
+      message.sla = object.sla;
+    } else {
+      message.sla = "";
+    }
+    if (object.rule !== undefined && object.rule !== null) {
+      message.rule = object.rule;
+    } else {
+      message.rule = "";
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = object.limit;
+    } else {
+      message.limit = "";
+    }
+    if (object.mu !== undefined && object.mu !== null) {
+      message.mu = object.mu;
+    } else {
+      message.mu = "";
+    }
+    if (object.penalty !== undefined && object.penalty !== null) {
+      message.penalty = object.penalty;
+    } else {
+      message.penalty = 0;
+    }
+    if (object.players !== undefined && object.players !== null) {
+      for (const e of object.players) {
+        message.players.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateKpiFeaturesResponse: object = {};
+
+export const MsgUpdateKpiFeaturesResponse = {
+  encode(
+    _: MsgUpdateKpiFeaturesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateKpiFeaturesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateKpiFeaturesResponse,
+    } as MsgUpdateKpiFeaturesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateKpiFeaturesResponse {
+    const message = {
+      ...baseMsgUpdateKpiFeaturesResponse,
+    } as MsgUpdateKpiFeaturesResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateKpiFeaturesResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateKpiFeaturesResponse>
+  ): MsgUpdateKpiFeaturesResponse {
+    const message = {
+      ...baseMsgUpdateKpiFeaturesResponse,
+    } as MsgUpdateKpiFeaturesResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteKpiFeatures: object = { creator: "", index: "" };
+
+export const MsgDeleteKpiFeatures = {
+  encode(
+    message: MsgDeleteKpiFeatures,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteKpiFeatures {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteKpiFeatures } as MsgDeleteKpiFeatures;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteKpiFeatures {
+    const message = { ...baseMsgDeleteKpiFeatures } as MsgDeleteKpiFeatures;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteKpiFeatures): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteKpiFeatures>): MsgDeleteKpiFeatures {
+    const message = { ...baseMsgDeleteKpiFeatures } as MsgDeleteKpiFeatures;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteKpiFeaturesResponse: object = {};
+
+export const MsgDeleteKpiFeaturesResponse = {
+  encode(
+    _: MsgDeleteKpiFeaturesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteKpiFeaturesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteKpiFeaturesResponse,
+    } as MsgDeleteKpiFeaturesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteKpiFeaturesResponse {
+    const message = {
+      ...baseMsgDeleteKpiFeaturesResponse,
+    } as MsgDeleteKpiFeaturesResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteKpiFeaturesResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteKpiFeaturesResponse>
+  ): MsgDeleteKpiFeaturesResponse {
+    const message = {
+      ...baseMsgDeleteKpiFeaturesResponse,
+    } as MsgDeleteKpiFeaturesResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -6307,10 +6957,19 @@ export interface Msg {
   UpdateGridState(
     request: MsgUpdateGridState
   ): Promise<MsgUpdateGridStateResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   DeleteGridState(
     request: MsgDeleteGridState
   ): Promise<MsgDeleteGridStateResponse>;
+  CreateKpiFeatures(
+    request: MsgCreateKpiFeatures
+  ): Promise<MsgCreateKpiFeaturesResponse>;
+  UpdateKpiFeatures(
+    request: MsgUpdateKpiFeatures
+  ): Promise<MsgUpdateKpiFeaturesResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteKpiFeatures(
+    request: MsgDeleteKpiFeatures
+  ): Promise<MsgDeleteKpiFeaturesResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -6789,6 +7448,48 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgDeleteGridStateResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateKpiFeatures(
+    request: MsgCreateKpiFeatures
+  ): Promise<MsgCreateKpiFeaturesResponse> {
+    const data = MsgCreateKpiFeatures.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "CreateKpiFeatures",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateKpiFeaturesResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateKpiFeatures(
+    request: MsgUpdateKpiFeatures
+  ): Promise<MsgUpdateKpiFeaturesResponse> {
+    const data = MsgUpdateKpiFeatures.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "UpdateKpiFeatures",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateKpiFeaturesResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteKpiFeatures(
+    request: MsgDeleteKpiFeatures
+  ): Promise<MsgDeleteKpiFeaturesResponse> {
+    const data = MsgDeleteKpiFeatures.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "DeleteKpiFeatures",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteKpiFeaturesResponse.decode(new Reader(data))
     );
   }
 }

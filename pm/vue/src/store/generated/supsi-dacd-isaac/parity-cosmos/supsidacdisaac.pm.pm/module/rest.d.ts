@@ -35,6 +35,17 @@ export interface PmKpi {
     penalty?: number;
     creator?: string;
 }
+export interface PmKpiFeatures {
+    index?: string;
+    sla?: string;
+    rule?: string;
+    limit?: string;
+    mu?: string;
+    /** @format int32 */
+    penalty?: number;
+    players?: string[];
+    creator?: string;
+}
 export interface PmKpiMeasure {
     index?: string;
     kpi?: string;
@@ -85,6 +96,7 @@ export declare type PmMsgCreateAggregatorResponse = object;
 export declare type PmMsgCreateDefaultLemParsResponse = object;
 export declare type PmMsgCreateDsoResponse = object;
 export declare type PmMsgCreateGridStateResponse = object;
+export declare type PmMsgCreateKpiFeaturesResponse = object;
 export declare type PmMsgCreateKpiMeasureResponse = object;
 export declare type PmMsgCreateKpiResponse = object;
 export declare type PmMsgCreateLemDatasetResponse = object;
@@ -97,6 +109,7 @@ export declare type PmMsgDeleteAggregatorResponse = object;
 export declare type PmMsgDeleteDefaultLemParsResponse = object;
 export declare type PmMsgDeleteDsoResponse = object;
 export declare type PmMsgDeleteGridStateResponse = object;
+export declare type PmMsgDeleteKpiFeaturesResponse = object;
 export declare type PmMsgDeleteKpiMeasureResponse = object;
 export declare type PmMsgDeleteKpiResponse = object;
 export declare type PmMsgDeleteLemDatasetResponse = object;
@@ -109,6 +122,7 @@ export declare type PmMsgUpdateAggregatorResponse = object;
 export declare type PmMsgUpdateDefaultLemParsResponse = object;
 export declare type PmMsgUpdateDsoResponse = object;
 export declare type PmMsgUpdateGridStateResponse = object;
+export declare type PmMsgUpdateKpiFeaturesResponse = object;
 export declare type PmMsgUpdateKpiMeasureResponse = object;
 export declare type PmMsgUpdateKpiResponse = object;
 export declare type PmMsgUpdateLemDatasetResponse = object;
@@ -139,6 +153,19 @@ export interface PmQueryAllDefaultLemParsResponse {
 }
 export interface PmQueryAllGridStateResponse {
     gridState?: PmGridState[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface PmQueryAllKpiFeaturesResponse {
+    kpiFeatures?: PmKpiFeatures[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -252,6 +279,9 @@ export interface PmQueryGetDsoResponse {
 }
 export interface PmQueryGetGridStateResponse {
     gridState?: PmGridState;
+}
+export interface PmQueryGetKpiFeaturesResponse {
+    kpiFeatures?: PmKpiFeatures;
 }
 export interface PmQueryGetKpiMeasureResponse {
     kpiMeasure?: PmKpiMeasure;
@@ -494,6 +524,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/supsi-dacd-isaac/pm/pm/kpi/{index}
      */
     queryKpi: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetKpiResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryKpiFeaturesAll
+     * @summary Queries a list of kpiFeatures items.
+     * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures
+     */
+    queryKpiFeaturesAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PmQueryAllKpiFeaturesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryKpiFeatures
+     * @summary Queries a kpiFeatures by index.
+     * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures/{index}
+     */
+    queryKpiFeatures: (index: string, params?: RequestParams) => Promise<HttpResponse<PmQueryGetKpiFeaturesResponse, RpcStatus>>;
     /**
      * No description
      *

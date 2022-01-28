@@ -5514,6 +5514,588 @@ export const MsgDeleteGridStateResponse = {
         return message;
     },
 };
+const baseMsgCreateKpiFeatures = {
+    creator: "",
+    index: "",
+    sla: "",
+    rule: "",
+    limit: "",
+    mu: "",
+    penalty: 0,
+    players: "",
+};
+export const MsgCreateKpiFeatures = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.sla !== "") {
+            writer.uint32(26).string(message.sla);
+        }
+        if (message.rule !== "") {
+            writer.uint32(34).string(message.rule);
+        }
+        if (message.limit !== "") {
+            writer.uint32(42).string(message.limit);
+        }
+        if (message.mu !== "") {
+            writer.uint32(50).string(message.mu);
+        }
+        if (message.penalty !== 0) {
+            writer.uint32(56).int32(message.penalty);
+        }
+        for (const v of message.players) {
+            writer.uint32(66).string(v);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateKpiFeatures };
+        message.players = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.sla = reader.string();
+                    break;
+                case 4:
+                    message.rule = reader.string();
+                    break;
+                case 5:
+                    message.limit = reader.string();
+                    break;
+                case 6:
+                    message.mu = reader.string();
+                    break;
+                case 7:
+                    message.penalty = reader.int32();
+                    break;
+                case 8:
+                    message.players.push(reader.string());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateKpiFeatures };
+        message.players = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        if (object.sla !== undefined && object.sla !== null) {
+            message.sla = String(object.sla);
+        }
+        else {
+            message.sla = "";
+        }
+        if (object.rule !== undefined && object.rule !== null) {
+            message.rule = String(object.rule);
+        }
+        else {
+            message.rule = "";
+        }
+        if (object.limit !== undefined && object.limit !== null) {
+            message.limit = String(object.limit);
+        }
+        else {
+            message.limit = "";
+        }
+        if (object.mu !== undefined && object.mu !== null) {
+            message.mu = String(object.mu);
+        }
+        else {
+            message.mu = "";
+        }
+        if (object.penalty !== undefined && object.penalty !== null) {
+            message.penalty = Number(object.penalty);
+        }
+        else {
+            message.penalty = 0;
+        }
+        if (object.players !== undefined && object.players !== null) {
+            for (const e of object.players) {
+                message.players.push(String(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.sla !== undefined && (obj.sla = message.sla);
+        message.rule !== undefined && (obj.rule = message.rule);
+        message.limit !== undefined && (obj.limit = message.limit);
+        message.mu !== undefined && (obj.mu = message.mu);
+        message.penalty !== undefined && (obj.penalty = message.penalty);
+        if (message.players) {
+            obj.players = message.players.map((e) => e);
+        }
+        else {
+            obj.players = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateKpiFeatures };
+        message.players = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        if (object.sla !== undefined && object.sla !== null) {
+            message.sla = object.sla;
+        }
+        else {
+            message.sla = "";
+        }
+        if (object.rule !== undefined && object.rule !== null) {
+            message.rule = object.rule;
+        }
+        else {
+            message.rule = "";
+        }
+        if (object.limit !== undefined && object.limit !== null) {
+            message.limit = object.limit;
+        }
+        else {
+            message.limit = "";
+        }
+        if (object.mu !== undefined && object.mu !== null) {
+            message.mu = object.mu;
+        }
+        else {
+            message.mu = "";
+        }
+        if (object.penalty !== undefined && object.penalty !== null) {
+            message.penalty = object.penalty;
+        }
+        else {
+            message.penalty = 0;
+        }
+        if (object.players !== undefined && object.players !== null) {
+            for (const e of object.players) {
+                message.players.push(e);
+            }
+        }
+        return message;
+    },
+};
+const baseMsgCreateKpiFeaturesResponse = {};
+export const MsgCreateKpiFeaturesResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateKpiFeaturesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateKpiFeaturesResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateKpiFeaturesResponse,
+        };
+        return message;
+    },
+};
+const baseMsgUpdateKpiFeatures = {
+    creator: "",
+    index: "",
+    sla: "",
+    rule: "",
+    limit: "",
+    mu: "",
+    penalty: 0,
+    players: "",
+};
+export const MsgUpdateKpiFeatures = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.sla !== "") {
+            writer.uint32(26).string(message.sla);
+        }
+        if (message.rule !== "") {
+            writer.uint32(34).string(message.rule);
+        }
+        if (message.limit !== "") {
+            writer.uint32(42).string(message.limit);
+        }
+        if (message.mu !== "") {
+            writer.uint32(50).string(message.mu);
+        }
+        if (message.penalty !== 0) {
+            writer.uint32(56).int32(message.penalty);
+        }
+        for (const v of message.players) {
+            writer.uint32(66).string(v);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateKpiFeatures };
+        message.players = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.sla = reader.string();
+                    break;
+                case 4:
+                    message.rule = reader.string();
+                    break;
+                case 5:
+                    message.limit = reader.string();
+                    break;
+                case 6:
+                    message.mu = reader.string();
+                    break;
+                case 7:
+                    message.penalty = reader.int32();
+                    break;
+                case 8:
+                    message.players.push(reader.string());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateKpiFeatures };
+        message.players = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        if (object.sla !== undefined && object.sla !== null) {
+            message.sla = String(object.sla);
+        }
+        else {
+            message.sla = "";
+        }
+        if (object.rule !== undefined && object.rule !== null) {
+            message.rule = String(object.rule);
+        }
+        else {
+            message.rule = "";
+        }
+        if (object.limit !== undefined && object.limit !== null) {
+            message.limit = String(object.limit);
+        }
+        else {
+            message.limit = "";
+        }
+        if (object.mu !== undefined && object.mu !== null) {
+            message.mu = String(object.mu);
+        }
+        else {
+            message.mu = "";
+        }
+        if (object.penalty !== undefined && object.penalty !== null) {
+            message.penalty = Number(object.penalty);
+        }
+        else {
+            message.penalty = 0;
+        }
+        if (object.players !== undefined && object.players !== null) {
+            for (const e of object.players) {
+                message.players.push(String(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.sla !== undefined && (obj.sla = message.sla);
+        message.rule !== undefined && (obj.rule = message.rule);
+        message.limit !== undefined && (obj.limit = message.limit);
+        message.mu !== undefined && (obj.mu = message.mu);
+        message.penalty !== undefined && (obj.penalty = message.penalty);
+        if (message.players) {
+            obj.players = message.players.map((e) => e);
+        }
+        else {
+            obj.players = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateKpiFeatures };
+        message.players = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        if (object.sla !== undefined && object.sla !== null) {
+            message.sla = object.sla;
+        }
+        else {
+            message.sla = "";
+        }
+        if (object.rule !== undefined && object.rule !== null) {
+            message.rule = object.rule;
+        }
+        else {
+            message.rule = "";
+        }
+        if (object.limit !== undefined && object.limit !== null) {
+            message.limit = object.limit;
+        }
+        else {
+            message.limit = "";
+        }
+        if (object.mu !== undefined && object.mu !== null) {
+            message.mu = object.mu;
+        }
+        else {
+            message.mu = "";
+        }
+        if (object.penalty !== undefined && object.penalty !== null) {
+            message.penalty = object.penalty;
+        }
+        else {
+            message.penalty = 0;
+        }
+        if (object.players !== undefined && object.players !== null) {
+            for (const e of object.players) {
+                message.players.push(e);
+            }
+        }
+        return message;
+    },
+};
+const baseMsgUpdateKpiFeaturesResponse = {};
+export const MsgUpdateKpiFeaturesResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUpdateKpiFeaturesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUpdateKpiFeaturesResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUpdateKpiFeaturesResponse,
+        };
+        return message;
+    },
+};
+const baseMsgDeleteKpiFeatures = { creator: "", index: "" };
+export const MsgDeleteKpiFeatures = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== "") {
+            writer.uint32(18).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteKpiFeatures };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteKpiFeatures };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteKpiFeatures };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+};
+const baseMsgDeleteKpiFeaturesResponse = {};
+export const MsgDeleteKpiFeaturesResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteKpiFeaturesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDeleteKpiFeaturesResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDeleteKpiFeaturesResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -5697,5 +6279,20 @@ export class MsgClientImpl {
         const data = MsgDeleteGridState.encode(request).finish();
         const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteGridState", data);
         return promise.then((data) => MsgDeleteGridStateResponse.decode(new Reader(data)));
+    }
+    CreateKpiFeatures(request) {
+        const data = MsgCreateKpiFeatures.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "CreateKpiFeatures", data);
+        return promise.then((data) => MsgCreateKpiFeaturesResponse.decode(new Reader(data)));
+    }
+    UpdateKpiFeatures(request) {
+        const data = MsgUpdateKpiFeatures.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "UpdateKpiFeatures", data);
+        return promise.then((data) => MsgUpdateKpiFeaturesResponse.decode(new Reader(data)));
+    }
+    DeleteKpiFeatures(request) {
+        const data = MsgDeleteKpiFeatures.encode(request).finish();
+        const promise = this.rpc.request("supsidacdisaac.pm.pm.Msg", "DeleteKpiFeatures", data);
+        return promise.then((data) => MsgDeleteKpiFeaturesResponse.decode(new Reader(data)));
     }
 }

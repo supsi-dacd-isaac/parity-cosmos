@@ -11,6 +11,7 @@ import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
+import { KpiFeatures } from "../pm/kpi_features";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
@@ -28,8 +29,9 @@ export interface GenesisState {
   lemDatasetList: LemDataset[];
   defaultLemParsList: DefaultLemPars[];
   marketOperator: MarketOperator | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   gridStateList: GridState[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  kpiFeaturesList: KpiFeatures[];
 }
 
 const baseGenesisState: object = {};
@@ -75,6 +77,9 @@ export const GenesisState = {
     for (const v of message.gridStateList) {
       GridState.encode(v!, writer.uint32(98).fork()).ldelim();
     }
+    for (const v of message.kpiFeaturesList) {
+      KpiFeatures.encode(v!, writer.uint32(106).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -91,6 +96,7 @@ export const GenesisState = {
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
     message.gridStateList = [];
+    message.kpiFeaturesList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -141,6 +147,11 @@ export const GenesisState = {
         case 12:
           message.gridStateList.push(GridState.decode(reader, reader.uint32()));
           break;
+        case 13:
+          message.kpiFeaturesList.push(
+            KpiFeatures.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -160,6 +171,7 @@ export const GenesisState = {
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
     message.gridStateList = [];
+    message.kpiFeaturesList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromJSON(object.dso);
     } else {
@@ -221,6 +233,14 @@ export const GenesisState = {
     if (object.gridStateList !== undefined && object.gridStateList !== null) {
       for (const e of object.gridStateList) {
         message.gridStateList.push(GridState.fromJSON(e));
+      }
+    }
+    if (
+      object.kpiFeaturesList !== undefined &&
+      object.kpiFeaturesList !== null
+    ) {
+      for (const e of object.kpiFeaturesList) {
+        message.kpiFeaturesList.push(KpiFeatures.fromJSON(e));
       }
     }
     return message;
@@ -295,6 +315,13 @@ export const GenesisState = {
     } else {
       obj.gridStateList = [];
     }
+    if (message.kpiFeaturesList) {
+      obj.kpiFeaturesList = message.kpiFeaturesList.map((e) =>
+        e ? KpiFeatures.toJSON(e) : undefined
+      );
+    } else {
+      obj.kpiFeaturesList = [];
+    }
     return obj;
   },
 
@@ -309,6 +336,7 @@ export const GenesisState = {
     message.lemDatasetList = [];
     message.defaultLemParsList = [];
     message.gridStateList = [];
+    message.kpiFeaturesList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromPartial(object.dso);
     } else {
@@ -372,6 +400,14 @@ export const GenesisState = {
     if (object.gridStateList !== undefined && object.gridStateList !== null) {
       for (const e of object.gridStateList) {
         message.gridStateList.push(GridState.fromPartial(e));
+      }
+    }
+    if (
+      object.kpiFeaturesList !== undefined &&
+      object.kpiFeaturesList !== null
+    ) {
+      for (const e of object.kpiFeaturesList) {
+        message.kpiFeaturesList.push(KpiFeatures.fromPartial(e));
       }
     }
     return message;

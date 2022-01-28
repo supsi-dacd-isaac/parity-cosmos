@@ -16,6 +16,7 @@ import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
+import { KpiFeatures } from "../pm/kpi_features";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
 
@@ -187,6 +188,23 @@ export interface QueryAllGridStateRequest {
 
 export interface QueryAllGridStateResponse {
   gridState: GridState[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetKpiFeaturesRequest {
+  index: string;
+}
+
+export interface QueryGetKpiFeaturesResponse {
+  kpiFeatures: KpiFeatures | undefined;
+}
+
+export interface QueryAllKpiFeaturesRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllKpiFeaturesResponse {
+  kpiFeatures: KpiFeatures[];
   pagination: PageResponse | undefined;
 }
 
@@ -3197,6 +3215,323 @@ export const QueryAllGridStateResponse = {
   },
 };
 
+const baseQueryGetKpiFeaturesRequest: object = { index: "" };
+
+export const QueryGetKpiFeaturesRequest = {
+  encode(
+    message: QueryGetKpiFeaturesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetKpiFeaturesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetKpiFeaturesRequest,
+    } as QueryGetKpiFeaturesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetKpiFeaturesRequest {
+    const message = {
+      ...baseQueryGetKpiFeaturesRequest,
+    } as QueryGetKpiFeaturesRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetKpiFeaturesRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetKpiFeaturesRequest>
+  ): QueryGetKpiFeaturesRequest {
+    const message = {
+      ...baseQueryGetKpiFeaturesRequest,
+    } as QueryGetKpiFeaturesRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetKpiFeaturesResponse: object = {};
+
+export const QueryGetKpiFeaturesResponse = {
+  encode(
+    message: QueryGetKpiFeaturesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.kpiFeatures !== undefined) {
+      KpiFeatures.encode(
+        message.kpiFeatures,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetKpiFeaturesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetKpiFeaturesResponse,
+    } as QueryGetKpiFeaturesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.kpiFeatures = KpiFeatures.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetKpiFeaturesResponse {
+    const message = {
+      ...baseQueryGetKpiFeaturesResponse,
+    } as QueryGetKpiFeaturesResponse;
+    if (object.kpiFeatures !== undefined && object.kpiFeatures !== null) {
+      message.kpiFeatures = KpiFeatures.fromJSON(object.kpiFeatures);
+    } else {
+      message.kpiFeatures = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetKpiFeaturesResponse): unknown {
+    const obj: any = {};
+    message.kpiFeatures !== undefined &&
+      (obj.kpiFeatures = message.kpiFeatures
+        ? KpiFeatures.toJSON(message.kpiFeatures)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetKpiFeaturesResponse>
+  ): QueryGetKpiFeaturesResponse {
+    const message = {
+      ...baseQueryGetKpiFeaturesResponse,
+    } as QueryGetKpiFeaturesResponse;
+    if (object.kpiFeatures !== undefined && object.kpiFeatures !== null) {
+      message.kpiFeatures = KpiFeatures.fromPartial(object.kpiFeatures);
+    } else {
+      message.kpiFeatures = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllKpiFeaturesRequest: object = {};
+
+export const QueryAllKpiFeaturesRequest = {
+  encode(
+    message: QueryAllKpiFeaturesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllKpiFeaturesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllKpiFeaturesRequest,
+    } as QueryAllKpiFeaturesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllKpiFeaturesRequest {
+    const message = {
+      ...baseQueryAllKpiFeaturesRequest,
+    } as QueryAllKpiFeaturesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllKpiFeaturesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllKpiFeaturesRequest>
+  ): QueryAllKpiFeaturesRequest {
+    const message = {
+      ...baseQueryAllKpiFeaturesRequest,
+    } as QueryAllKpiFeaturesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllKpiFeaturesResponse: object = {};
+
+export const QueryAllKpiFeaturesResponse = {
+  encode(
+    message: QueryAllKpiFeaturesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.kpiFeatures) {
+      KpiFeatures.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllKpiFeaturesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllKpiFeaturesResponse,
+    } as QueryAllKpiFeaturesResponse;
+    message.kpiFeatures = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.kpiFeatures.push(KpiFeatures.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllKpiFeaturesResponse {
+    const message = {
+      ...baseQueryAllKpiFeaturesResponse,
+    } as QueryAllKpiFeaturesResponse;
+    message.kpiFeatures = [];
+    if (object.kpiFeatures !== undefined && object.kpiFeatures !== null) {
+      for (const e of object.kpiFeatures) {
+        message.kpiFeatures.push(KpiFeatures.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllKpiFeaturesResponse): unknown {
+    const obj: any = {};
+    if (message.kpiFeatures) {
+      obj.kpiFeatures = message.kpiFeatures.map((e) =>
+        e ? KpiFeatures.toJSON(e) : undefined
+      );
+    } else {
+      obj.kpiFeatures = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllKpiFeaturesResponse>
+  ): QueryAllKpiFeaturesResponse {
+    const message = {
+      ...baseQueryAllKpiFeaturesResponse,
+    } as QueryAllKpiFeaturesResponse;
+    message.kpiFeatures = [];
+    if (object.kpiFeatures !== undefined && object.kpiFeatures !== null) {
+      for (const e of object.kpiFeatures) {
+        message.kpiFeatures.push(KpiFeatures.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Queries a dso by index. */
@@ -3265,6 +3600,14 @@ export interface Query {
   GridStateAll(
     request: QueryAllGridStateRequest
   ): Promise<QueryAllGridStateResponse>;
+  /** Queries a kpiFeatures by index. */
+  KpiFeatures(
+    request: QueryGetKpiFeaturesRequest
+  ): Promise<QueryGetKpiFeaturesResponse>;
+  /** Queries a list of kpiFeatures items. */
+  KpiFeaturesAll(
+    request: QueryAllKpiFeaturesRequest
+  ): Promise<QueryAllKpiFeaturesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3515,6 +3858,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllGridStateResponse.decode(new Reader(data))
+    );
+  }
+
+  KpiFeatures(
+    request: QueryGetKpiFeaturesRequest
+  ): Promise<QueryGetKpiFeaturesResponse> {
+    const data = QueryGetKpiFeaturesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "KpiFeatures",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetKpiFeaturesResponse.decode(new Reader(data))
+    );
+  }
+
+  KpiFeaturesAll(
+    request: QueryAllKpiFeaturesRequest
+  ): Promise<QueryAllKpiFeaturesResponse> {
+    const data = QueryAllKpiFeaturesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "KpiFeaturesAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllKpiFeaturesResponse.decode(new Reader(data))
     );
   }
 }

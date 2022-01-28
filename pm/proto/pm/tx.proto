@@ -13,6 +13,7 @@ import "pm/lem_dataset.proto";
 import "pm/default_lem_pars.proto";
 import "pm/market_operator.proto";
 import "pm/grid_state.proto";
+import "pm/kpi_features.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -55,6 +56,9 @@ service Msg {
   rpc CreateGridState(MsgCreateGridState) returns (MsgCreateGridStateResponse);
   rpc UpdateGridState(MsgUpdateGridState) returns (MsgUpdateGridStateResponse);
   rpc DeleteGridState(MsgDeleteGridState) returns (MsgDeleteGridStateResponse);
+  rpc CreateKpiFeatures(MsgCreateKpiFeatures) returns (MsgCreateKpiFeaturesResponse);
+  rpc UpdateKpiFeatures(MsgUpdateKpiFeatures) returns (MsgUpdateKpiFeaturesResponse);
+  rpc DeleteKpiFeatures(MsgDeleteKpiFeatures) returns (MsgDeleteKpiFeaturesResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -367,5 +371,37 @@ message MsgDeleteGridState {
   string index = 2;
 }
 message MsgDeleteGridStateResponse {}
+
+message MsgCreateKpiFeatures {
+  string creator = 1;
+  string index = 2;
+
+  string sla = 3;
+  string rule = 4;
+  string limit = 5;
+  string mu = 6;
+  int32 penalty = 7;
+  repeated string players = 8;
+}
+message MsgCreateKpiFeaturesResponse {}
+
+message MsgUpdateKpiFeatures {
+  string creator = 1;
+  string index = 2;
+
+  string sla = 3;
+  string rule = 4;
+  string limit = 5;
+  string mu = 6;
+  int32 penalty = 7;
+  repeated string players = 8;
+}
+message MsgUpdateKpiFeaturesResponse {}
+
+message MsgDeleteKpiFeatures {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteKpiFeaturesResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

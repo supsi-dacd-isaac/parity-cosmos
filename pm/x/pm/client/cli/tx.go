@@ -66,6 +66,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateGridState())
 	cmd.AddCommand(CmdUpdateGridState())
 	cmd.AddCommand(CmdDeleteGridState())
+	cmd.AddCommand(CmdCreateKpiFeatures())
+	cmd.AddCommand(CmdUpdateKpiFeatures())
+	cmd.AddCommand(CmdDeleteKpiFeatures())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

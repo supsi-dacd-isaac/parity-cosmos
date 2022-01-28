@@ -105,6 +105,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				KpiFeaturesList: []types.KpiFeatures{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -225,6 +233,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated gridState",
 			genState: &types.GenesisState{
 				GridStateList: []types.GridState{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated kpiFeatures",
+			genState: &types.GenesisState{
+				KpiFeaturesList: []types.KpiFeatures{
 					{
 						Index: "0",
 					},

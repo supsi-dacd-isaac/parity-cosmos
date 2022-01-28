@@ -53,6 +53,19 @@ export interface PmKpi {
   creator?: string;
 }
 
+export interface PmKpiFeatures {
+  index?: string;
+  sla?: string;
+  rule?: string;
+  limit?: string;
+  mu?: string;
+
+  /** @format int32 */
+  penalty?: number;
+  players?: string[];
+  creator?: string;
+}
+
 export interface PmKpiMeasure {
   index?: string;
   kpi?: string;
@@ -117,6 +130,8 @@ export type PmMsgCreateDsoResponse = object;
 
 export type PmMsgCreateGridStateResponse = object;
 
+export type PmMsgCreateKpiFeaturesResponse = object;
+
 export type PmMsgCreateKpiMeasureResponse = object;
 
 export type PmMsgCreateKpiResponse = object;
@@ -141,6 +156,8 @@ export type PmMsgDeleteDsoResponse = object;
 
 export type PmMsgDeleteGridStateResponse = object;
 
+export type PmMsgDeleteKpiFeaturesResponse = object;
+
 export type PmMsgDeleteKpiMeasureResponse = object;
 
 export type PmMsgDeleteKpiResponse = object;
@@ -164,6 +181,8 @@ export type PmMsgUpdateDefaultLemParsResponse = object;
 export type PmMsgUpdateDsoResponse = object;
 
 export type PmMsgUpdateGridStateResponse = object;
+
+export type PmMsgUpdateKpiFeaturesResponse = object;
 
 export type PmMsgUpdateKpiMeasureResponse = object;
 
@@ -206,6 +225,21 @@ export interface PmQueryAllDefaultLemParsResponse {
 
 export interface PmQueryAllGridStateResponse {
   gridState?: PmGridState[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface PmQueryAllKpiFeaturesResponse {
+  kpiFeatures?: PmKpiFeatures[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -338,6 +372,10 @@ export interface PmQueryGetDsoResponse {
 
 export interface PmQueryGetGridStateResponse {
   gridState?: PmGridState;
+}
+
+export interface PmQueryGetKpiFeaturesResponse {
+  kpiFeatures?: PmKpiFeatures;
 }
 
 export interface PmQueryGetKpiMeasureResponse {
@@ -802,6 +840,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryKpi = (index: string, params: RequestParams = {}) =>
     this.request<PmQueryGetKpiResponse, RpcStatus>({
       path: `/supsi-dacd-isaac/pm/pm/kpi/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryKpiFeaturesAll
+   * @summary Queries a list of kpiFeatures items.
+   * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures
+   */
+  queryKpiFeaturesAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PmQueryAllKpiFeaturesResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/kpiFeatures`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryKpiFeatures
+   * @summary Queries a kpiFeatures by index.
+   * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures/{index}
+   */
+  queryKpiFeatures = (index: string, params: RequestParams = {}) =>
+    this.request<PmQueryGetKpiFeaturesResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/kpiFeatures/${index}`,
       method: "GET",
       format: "json",
       ...params,

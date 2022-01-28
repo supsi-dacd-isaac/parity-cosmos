@@ -12,6 +12,7 @@ import { LemDataset } from "../pm/lem_dataset";
 import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
+import { KpiFeatures } from "../pm/kpi_features";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -143,6 +144,19 @@ export interface QueryAllGridStateRequest {
 }
 export interface QueryAllGridStateResponse {
     gridState: GridState[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetKpiFeaturesRequest {
+    index: string;
+}
+export interface QueryGetKpiFeaturesResponse {
+    kpiFeatures: KpiFeatures | undefined;
+}
+export interface QueryAllKpiFeaturesRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllKpiFeaturesResponse {
+    kpiFeatures: KpiFeatures[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryGetDsoRequest: {
@@ -439,6 +453,34 @@ export declare const QueryAllGridStateResponse: {
     toJSON(message: QueryAllGridStateResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllGridStateResponse>): QueryAllGridStateResponse;
 };
+export declare const QueryGetKpiFeaturesRequest: {
+    encode(message: QueryGetKpiFeaturesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetKpiFeaturesRequest;
+    fromJSON(object: any): QueryGetKpiFeaturesRequest;
+    toJSON(message: QueryGetKpiFeaturesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetKpiFeaturesRequest>): QueryGetKpiFeaturesRequest;
+};
+export declare const QueryGetKpiFeaturesResponse: {
+    encode(message: QueryGetKpiFeaturesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetKpiFeaturesResponse;
+    fromJSON(object: any): QueryGetKpiFeaturesResponse;
+    toJSON(message: QueryGetKpiFeaturesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetKpiFeaturesResponse>): QueryGetKpiFeaturesResponse;
+};
+export declare const QueryAllKpiFeaturesRequest: {
+    encode(message: QueryAllKpiFeaturesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllKpiFeaturesRequest;
+    fromJSON(object: any): QueryAllKpiFeaturesRequest;
+    toJSON(message: QueryAllKpiFeaturesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllKpiFeaturesRequest>): QueryAllKpiFeaturesRequest;
+};
+export declare const QueryAllKpiFeaturesResponse: {
+    encode(message: QueryAllKpiFeaturesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllKpiFeaturesResponse;
+    fromJSON(object: any): QueryAllKpiFeaturesResponse;
+    toJSON(message: QueryAllKpiFeaturesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllKpiFeaturesResponse>): QueryAllKpiFeaturesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -483,6 +525,10 @@ export interface Query {
     GridState(request: QueryGetGridStateRequest): Promise<QueryGetGridStateResponse>;
     /** Queries a list of gridState items. */
     GridStateAll(request: QueryAllGridStateRequest): Promise<QueryAllGridStateResponse>;
+    /** Queries a kpiFeatures by index. */
+    KpiFeatures(request: QueryGetKpiFeaturesRequest): Promise<QueryGetKpiFeaturesResponse>;
+    /** Queries a list of kpiFeatures items. */
+    KpiFeaturesAll(request: QueryAllKpiFeaturesRequest): Promise<QueryAllKpiFeaturesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -508,6 +554,8 @@ export declare class QueryClientImpl implements Query {
     MarketOperator(request: QueryGetMarketOperatorRequest): Promise<QueryGetMarketOperatorResponse>;
     GridState(request: QueryGetGridStateRequest): Promise<QueryGetGridStateResponse>;
     GridStateAll(request: QueryAllGridStateRequest): Promise<QueryAllGridStateResponse>;
+    KpiFeatures(request: QueryGetKpiFeaturesRequest): Promise<QueryGetKpiFeaturesResponse>;
+    KpiFeaturesAll(request: QueryAllKpiFeaturesRequest): Promise<QueryAllKpiFeaturesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

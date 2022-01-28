@@ -255,6 +255,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryKpiFeaturesAll
+         * @summary Queries a list of kpiFeatures items.
+         * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures
+         */
+        this.queryKpiFeaturesAll = (query, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/kpiFeatures`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryKpiFeatures
+         * @summary Queries a kpiFeatures by index.
+         * @request GET:/supsi-dacd-isaac/pm/pm/kpiFeatures/{index}
+         */
+        this.queryKpiFeatures = (index, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/kpiFeatures/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryKpiMeasureAll
          * @summary Queries a list of kpiMeasure items.
          * @request GET:/supsi-dacd-isaac/pm/pm/kpiMeasure

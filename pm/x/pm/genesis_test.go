@@ -95,6 +95,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		KpiFeaturesList: []types.KpiFeatures{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -124,5 +132,7 @@ func TestGenesis(t *testing.T) {
 	require.Equal(t, genesisState.MarketOperator, got.MarketOperator)
 	require.Len(t, got.GridStateList, len(genesisState.GridStateList))
 	require.Subset(t, genesisState.GridStateList, got.GridStateList)
+	require.Len(t, got.KpiFeaturesList, len(genesisState.KpiFeaturesList))
+	require.Subset(t, genesisState.KpiFeaturesList, got.KpiFeaturesList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
