@@ -67,7 +67,7 @@ func CmdUpdateLem() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-lem [index] [start] [end] [params] [players]",
 		Short: "Update a lem",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.MinimumNArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			// Get indexes
 			indexIndex := args[0]
