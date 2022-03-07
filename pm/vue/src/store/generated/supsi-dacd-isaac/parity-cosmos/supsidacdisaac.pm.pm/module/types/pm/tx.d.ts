@@ -325,6 +325,28 @@ export interface MsgDeleteKpiFeatures {
 }
 export interface MsgDeleteKpiFeaturesResponse {
 }
+export interface MsgCreateForecast {
+    creator: string;
+    index: string;
+    ts: number;
+    values: string[];
+}
+export interface MsgCreateForecastResponse {
+}
+export interface MsgUpdateForecast {
+    creator: string;
+    index: string;
+    ts: number;
+    values: string[];
+}
+export interface MsgUpdateForecastResponse {
+}
+export interface MsgDeleteForecast {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteForecastResponse {
+}
 export declare const MsgCreateDso: {
     encode(message: MsgCreateDso, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateDso;
@@ -871,6 +893,48 @@ export declare const MsgDeleteKpiFeaturesResponse: {
     toJSON(_: MsgDeleteKpiFeaturesResponse): unknown;
     fromPartial(_: DeepPartial<MsgDeleteKpiFeaturesResponse>): MsgDeleteKpiFeaturesResponse;
 };
+export declare const MsgCreateForecast: {
+    encode(message: MsgCreateForecast, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateForecast;
+    fromJSON(object: any): MsgCreateForecast;
+    toJSON(message: MsgCreateForecast): unknown;
+    fromPartial(object: DeepPartial<MsgCreateForecast>): MsgCreateForecast;
+};
+export declare const MsgCreateForecastResponse: {
+    encode(_: MsgCreateForecastResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateForecastResponse;
+    fromJSON(_: any): MsgCreateForecastResponse;
+    toJSON(_: MsgCreateForecastResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateForecastResponse>): MsgCreateForecastResponse;
+};
+export declare const MsgUpdateForecast: {
+    encode(message: MsgUpdateForecast, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateForecast;
+    fromJSON(object: any): MsgUpdateForecast;
+    toJSON(message: MsgUpdateForecast): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateForecast>): MsgUpdateForecast;
+};
+export declare const MsgUpdateForecastResponse: {
+    encode(_: MsgUpdateForecastResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateForecastResponse;
+    fromJSON(_: any): MsgUpdateForecastResponse;
+    toJSON(_: MsgUpdateForecastResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateForecastResponse>): MsgUpdateForecastResponse;
+};
+export declare const MsgDeleteForecast: {
+    encode(message: MsgDeleteForecast, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteForecast;
+    fromJSON(object: any): MsgDeleteForecast;
+    toJSON(message: MsgDeleteForecast): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteForecast>): MsgDeleteForecast;
+};
+export declare const MsgDeleteForecastResponse: {
+    encode(_: MsgDeleteForecastResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteForecastResponse;
+    fromJSON(_: any): MsgDeleteForecastResponse;
+    toJSON(_: MsgDeleteForecastResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteForecastResponse>): MsgDeleteForecastResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -911,8 +975,11 @@ export interface Msg {
     DeleteGridState(request: MsgDeleteGridState): Promise<MsgDeleteGridStateResponse>;
     CreateKpiFeatures(request: MsgCreateKpiFeatures): Promise<MsgCreateKpiFeaturesResponse>;
     UpdateKpiFeatures(request: MsgUpdateKpiFeatures): Promise<MsgUpdateKpiFeaturesResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DeleteKpiFeatures(request: MsgDeleteKpiFeatures): Promise<MsgDeleteKpiFeaturesResponse>;
+    CreateForecast(request: MsgCreateForecast): Promise<MsgCreateForecastResponse>;
+    UpdateForecast(request: MsgUpdateForecast): Promise<MsgUpdateForecastResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteForecast(request: MsgDeleteForecast): Promise<MsgDeleteForecastResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -956,6 +1023,9 @@ export declare class MsgClientImpl implements Msg {
     CreateKpiFeatures(request: MsgCreateKpiFeatures): Promise<MsgCreateKpiFeaturesResponse>;
     UpdateKpiFeatures(request: MsgUpdateKpiFeatures): Promise<MsgUpdateKpiFeaturesResponse>;
     DeleteKpiFeatures(request: MsgDeleteKpiFeatures): Promise<MsgDeleteKpiFeaturesResponse>;
+    CreateForecast(request: MsgCreateForecast): Promise<MsgCreateForecastResponse>;
+    UpdateForecast(request: MsgUpdateForecast): Promise<MsgUpdateForecastResponse>;
+    DeleteForecast(request: MsgDeleteForecast): Promise<MsgDeleteForecastResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

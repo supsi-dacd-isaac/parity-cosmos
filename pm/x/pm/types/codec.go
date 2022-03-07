@@ -47,6 +47,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateKpiFeatures{}, "pm/CreateKpiFeatures", nil)
 	cdc.RegisterConcrete(&MsgUpdateKpiFeatures{}, "pm/UpdateKpiFeatures", nil)
 	cdc.RegisterConcrete(&MsgDeleteKpiFeatures{}, "pm/DeleteKpiFeatures", nil)
+	cdc.RegisterConcrete(&MsgCreateForecast{}, "pm/CreateForecast", nil)
+	cdc.RegisterConcrete(&MsgUpdateForecast{}, "pm/UpdateForecast", nil)
+	cdc.RegisterConcrete(&MsgDeleteForecast{}, "pm/DeleteForecast", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -115,6 +118,11 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateKpiFeatures{},
 		&MsgUpdateKpiFeatures{},
 		&MsgDeleteKpiFeatures{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateForecast{},
+		&MsgUpdateForecast{},
+		&MsgDeleteForecast{},
 	)
 	// this line is used by starport scaffolding # 3
 

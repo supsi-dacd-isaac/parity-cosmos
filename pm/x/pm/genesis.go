@@ -61,6 +61,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.KpiFeaturesList {
 		k.SetKpiFeatures(ctx, elem)
 	}
+	// Set all the forecast
+	for _, elem := range genState.ForecastList {
+		k.SetForecast(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 }
 
@@ -93,6 +97,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 	genesis.GridStateList = k.GetAllGridState(ctx)
 	genesis.KpiFeaturesList = k.GetAllKpiFeatures(ctx)
+	genesis.ForecastList = k.GetAllForecast(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

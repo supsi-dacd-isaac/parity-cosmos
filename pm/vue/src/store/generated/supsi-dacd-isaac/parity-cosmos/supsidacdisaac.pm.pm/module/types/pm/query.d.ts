@@ -13,6 +13,7 @@ import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
 import { KpiFeatures } from "../pm/kpi_features";
+import { Forecast } from "../pm/forecast";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 export interface QueryGetDsoRequest {
 }
@@ -157,6 +158,19 @@ export interface QueryAllKpiFeaturesRequest {
 }
 export interface QueryAllKpiFeaturesResponse {
     kpiFeatures: KpiFeatures[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetForecastRequest {
+    index: string;
+}
+export interface QueryGetForecastResponse {
+    forecast: Forecast | undefined;
+}
+export interface QueryAllForecastRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllForecastResponse {
+    forecast: Forecast[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryGetDsoRequest: {
@@ -481,6 +495,34 @@ export declare const QueryAllKpiFeaturesResponse: {
     toJSON(message: QueryAllKpiFeaturesResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllKpiFeaturesResponse>): QueryAllKpiFeaturesResponse;
 };
+export declare const QueryGetForecastRequest: {
+    encode(message: QueryGetForecastRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetForecastRequest;
+    fromJSON(object: any): QueryGetForecastRequest;
+    toJSON(message: QueryGetForecastRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetForecastRequest>): QueryGetForecastRequest;
+};
+export declare const QueryGetForecastResponse: {
+    encode(message: QueryGetForecastResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetForecastResponse;
+    fromJSON(object: any): QueryGetForecastResponse;
+    toJSON(message: QueryGetForecastResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetForecastResponse>): QueryGetForecastResponse;
+};
+export declare const QueryAllForecastRequest: {
+    encode(message: QueryAllForecastRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllForecastRequest;
+    fromJSON(object: any): QueryAllForecastRequest;
+    toJSON(message: QueryAllForecastRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllForecastRequest>): QueryAllForecastRequest;
+};
+export declare const QueryAllForecastResponse: {
+    encode(message: QueryAllForecastResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllForecastResponse;
+    fromJSON(object: any): QueryAllForecastResponse;
+    toJSON(message: QueryAllForecastResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllForecastResponse>): QueryAllForecastResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a dso by index. */
@@ -529,6 +571,10 @@ export interface Query {
     KpiFeatures(request: QueryGetKpiFeaturesRequest): Promise<QueryGetKpiFeaturesResponse>;
     /** Queries a list of kpiFeatures items. */
     KpiFeaturesAll(request: QueryAllKpiFeaturesRequest): Promise<QueryAllKpiFeaturesResponse>;
+    /** Queries a forecast by index. */
+    Forecast(request: QueryGetForecastRequest): Promise<QueryGetForecastResponse>;
+    /** Queries a list of forecast items. */
+    ForecastAll(request: QueryAllForecastRequest): Promise<QueryAllForecastResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -556,6 +602,8 @@ export declare class QueryClientImpl implements Query {
     GridStateAll(request: QueryAllGridStateRequest): Promise<QueryAllGridStateResponse>;
     KpiFeatures(request: QueryGetKpiFeaturesRequest): Promise<QueryGetKpiFeaturesResponse>;
     KpiFeaturesAll(request: QueryAllKpiFeaturesRequest): Promise<QueryAllKpiFeaturesResponse>;
+    Forecast(request: QueryGetForecastRequest): Promise<QueryGetForecastResponse>;
+    ForecastAll(request: QueryAllForecastRequest): Promise<QueryAllForecastResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

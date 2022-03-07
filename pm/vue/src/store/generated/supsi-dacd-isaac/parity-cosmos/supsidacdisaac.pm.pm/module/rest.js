@@ -197,6 +197,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryForecastAll
+         * @summary Queries a list of forecast items.
+         * @request GET:/supsi-dacd-isaac/pm/pm/forecast
+         */
+        this.queryForecastAll = (query, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/forecast`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryForecast
+         * @summary Queries a forecast by index.
+         * @request GET:/supsi-dacd-isaac/pm/pm/forecast/{index}
+         */
+        this.queryForecast = (index, params = {}) => this.request({
+            path: `/supsi-dacd-isaac/pm/pm/forecast/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryGridStateAll
          * @summary Queries a list of gridState items.
          * @request GET:/supsi-dacd-isaac/pm/pm/gridState

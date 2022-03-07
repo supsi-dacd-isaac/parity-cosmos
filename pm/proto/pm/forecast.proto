@@ -1,0 +1,14 @@
+syntax = "proto3";
+package supsidacdisaac.pm.pm;
+
+option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
+
+
+
+message Forecast {
+  string index = 1; 
+  int32 ts = 2;
+  repeated string values = 3;
+  string creator = 4;
+}
+

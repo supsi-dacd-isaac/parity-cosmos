@@ -12,6 +12,7 @@ import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
 import { KpiFeatures } from "../pm/kpi_features";
+import { Forecast } from "../pm/forecast";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
@@ -30,8 +31,9 @@ export interface GenesisState {
   defaultLemParsList: DefaultLemPars[];
   marketOperator: MarketOperator | undefined;
   gridStateList: GridState[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   kpiFeaturesList: KpiFeatures[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  forecastList: Forecast[];
 }
 
 const baseGenesisState: object = {};
@@ -80,6 +82,9 @@ export const GenesisState = {
     for (const v of message.kpiFeaturesList) {
       KpiFeatures.encode(v!, writer.uint32(106).fork()).ldelim();
     }
+    for (const v of message.forecastList) {
+      Forecast.encode(v!, writer.uint32(114).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -97,6 +102,7 @@ export const GenesisState = {
     message.defaultLemParsList = [];
     message.gridStateList = [];
     message.kpiFeaturesList = [];
+    message.forecastList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -152,6 +158,9 @@ export const GenesisState = {
             KpiFeatures.decode(reader, reader.uint32())
           );
           break;
+        case 14:
+          message.forecastList.push(Forecast.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -172,6 +181,7 @@ export const GenesisState = {
     message.defaultLemParsList = [];
     message.gridStateList = [];
     message.kpiFeaturesList = [];
+    message.forecastList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromJSON(object.dso);
     } else {
@@ -241,6 +251,11 @@ export const GenesisState = {
     ) {
       for (const e of object.kpiFeaturesList) {
         message.kpiFeaturesList.push(KpiFeatures.fromJSON(e));
+      }
+    }
+    if (object.forecastList !== undefined && object.forecastList !== null) {
+      for (const e of object.forecastList) {
+        message.forecastList.push(Forecast.fromJSON(e));
       }
     }
     return message;
@@ -322,6 +337,13 @@ export const GenesisState = {
     } else {
       obj.kpiFeaturesList = [];
     }
+    if (message.forecastList) {
+      obj.forecastList = message.forecastList.map((e) =>
+        e ? Forecast.toJSON(e) : undefined
+      );
+    } else {
+      obj.forecastList = [];
+    }
     return obj;
   },
 
@@ -337,6 +359,7 @@ export const GenesisState = {
     message.defaultLemParsList = [];
     message.gridStateList = [];
     message.kpiFeaturesList = [];
+    message.forecastList = [];
     if (object.dso !== undefined && object.dso !== null) {
       message.dso = Dso.fromPartial(object.dso);
     } else {
@@ -408,6 +431,11 @@ export const GenesisState = {
     ) {
       for (const e of object.kpiFeaturesList) {
         message.kpiFeaturesList.push(KpiFeatures.fromPartial(e));
+      }
+    }
+    if (object.forecastList !== undefined && object.forecastList !== null) {
+      for (const e of object.forecastList) {
+        message.forecastList.push(Forecast.fromPartial(e));
       }
     }
     return message;

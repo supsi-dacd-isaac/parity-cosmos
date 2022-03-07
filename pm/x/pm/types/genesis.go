@@ -23,6 +23,7 @@ func DefaultGenesis() *GenesisState {
 		MarketOperator:     nil,
 		GridStateList:      []GridState{},
 		KpiFeaturesList:    []KpiFeatures{},
+		ForecastList:       []Forecast{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -129,6 +130,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for kpiFeatures")
 		}
 		kpiFeaturesIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in forecast
+	forecastIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.ForecastList {
+		index := string(ForecastKey(elem.Index))
+		if _, ok := forecastIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for forecast")
+		}
+		forecastIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

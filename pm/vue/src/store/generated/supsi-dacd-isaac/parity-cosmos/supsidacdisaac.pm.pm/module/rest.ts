@@ -31,6 +31,15 @@ export interface PmDso {
   creator?: string;
 }
 
+export interface PmForecast {
+  index?: string;
+
+  /** @format int32 */
+  ts?: number;
+  values?: string[];
+  creator?: string;
+}
+
 export interface PmGridState {
   index?: string;
   grid?: string;
@@ -128,6 +137,8 @@ export type PmMsgCreateDefaultLemParsResponse = object;
 
 export type PmMsgCreateDsoResponse = object;
 
+export type PmMsgCreateForecastResponse = object;
+
 export type PmMsgCreateGridStateResponse = object;
 
 export type PmMsgCreateKpiFeaturesResponse = object;
@@ -154,6 +165,8 @@ export type PmMsgDeleteDefaultLemParsResponse = object;
 
 export type PmMsgDeleteDsoResponse = object;
 
+export type PmMsgDeleteForecastResponse = object;
+
 export type PmMsgDeleteGridStateResponse = object;
 
 export type PmMsgDeleteKpiFeaturesResponse = object;
@@ -179,6 +192,8 @@ export type PmMsgUpdateAggregatorResponse = object;
 export type PmMsgUpdateDefaultLemParsResponse = object;
 
 export type PmMsgUpdateDsoResponse = object;
+
+export type PmMsgUpdateForecastResponse = object;
 
 export type PmMsgUpdateGridStateResponse = object;
 
@@ -210,6 +225,21 @@ export interface PmPlayer {
 
 export interface PmQueryAllDefaultLemParsResponse {
   defaultLemPars?: PmDefaultLemPars[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface PmQueryAllForecastResponse {
+  forecast?: PmForecast[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -368,6 +398,10 @@ export interface PmQueryGetDefaultLemParsResponse {
 
 export interface PmQueryGetDsoResponse {
   Dso?: PmDso;
+}
+
+export interface PmQueryGetForecastResponse {
+  forecast?: PmForecast;
 }
 
 export interface PmQueryGetGridStateResponse {
@@ -756,6 +790,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryDso = (params: RequestParams = {}) =>
     this.request<PmQueryGetDsoResponse, RpcStatus>({
       path: `/supsi-dacd-isaac/pm/pm/dso`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryForecastAll
+   * @summary Queries a list of forecast items.
+   * @request GET:/supsi-dacd-isaac/pm/pm/forecast
+   */
+  queryForecastAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PmQueryAllForecastResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/forecast`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryForecast
+   * @summary Queries a forecast by index.
+   * @request GET:/supsi-dacd-isaac/pm/pm/forecast/{index}
+   */
+  queryForecast = (index: string, params: RequestParams = {}) =>
+    this.request<PmQueryGetForecastResponse, RpcStatus>({
+      path: `/supsi-dacd-isaac/pm/pm/forecast/${index}`,
       method: "GET",
       format: "json",
       ...params,

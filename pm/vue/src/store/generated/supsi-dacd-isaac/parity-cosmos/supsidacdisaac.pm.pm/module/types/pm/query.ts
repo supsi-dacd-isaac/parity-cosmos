@@ -17,6 +17,7 @@ import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
 import { KpiFeatures } from "../pm/kpi_features";
+import { Forecast } from "../pm/forecast";
 
 export const protobufPackage = "supsidacdisaac.pm.pm";
 
@@ -205,6 +206,23 @@ export interface QueryAllKpiFeaturesRequest {
 
 export interface QueryAllKpiFeaturesResponse {
   kpiFeatures: KpiFeatures[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetForecastRequest {
+  index: string;
+}
+
+export interface QueryGetForecastResponse {
+  forecast: Forecast | undefined;
+}
+
+export interface QueryAllForecastRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllForecastResponse {
+  forecast: Forecast[];
   pagination: PageResponse | undefined;
 }
 
@@ -3532,6 +3550,314 @@ export const QueryAllKpiFeaturesResponse = {
   },
 };
 
+const baseQueryGetForecastRequest: object = { index: "" };
+
+export const QueryGetForecastRequest = {
+  encode(
+    message: QueryGetForecastRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetForecastRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetForecastRequest,
+    } as QueryGetForecastRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetForecastRequest {
+    const message = {
+      ...baseQueryGetForecastRequest,
+    } as QueryGetForecastRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetForecastRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetForecastRequest>
+  ): QueryGetForecastRequest {
+    const message = {
+      ...baseQueryGetForecastRequest,
+    } as QueryGetForecastRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetForecastResponse: object = {};
+
+export const QueryGetForecastResponse = {
+  encode(
+    message: QueryGetForecastResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.forecast !== undefined) {
+      Forecast.encode(message.forecast, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetForecastResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetForecastResponse,
+    } as QueryGetForecastResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.forecast = Forecast.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetForecastResponse {
+    const message = {
+      ...baseQueryGetForecastResponse,
+    } as QueryGetForecastResponse;
+    if (object.forecast !== undefined && object.forecast !== null) {
+      message.forecast = Forecast.fromJSON(object.forecast);
+    } else {
+      message.forecast = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetForecastResponse): unknown {
+    const obj: any = {};
+    message.forecast !== undefined &&
+      (obj.forecast = message.forecast
+        ? Forecast.toJSON(message.forecast)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetForecastResponse>
+  ): QueryGetForecastResponse {
+    const message = {
+      ...baseQueryGetForecastResponse,
+    } as QueryGetForecastResponse;
+    if (object.forecast !== undefined && object.forecast !== null) {
+      message.forecast = Forecast.fromPartial(object.forecast);
+    } else {
+      message.forecast = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllForecastRequest: object = {};
+
+export const QueryAllForecastRequest = {
+  encode(
+    message: QueryAllForecastRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllForecastRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllForecastRequest,
+    } as QueryAllForecastRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllForecastRequest {
+    const message = {
+      ...baseQueryAllForecastRequest,
+    } as QueryAllForecastRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllForecastRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllForecastRequest>
+  ): QueryAllForecastRequest {
+    const message = {
+      ...baseQueryAllForecastRequest,
+    } as QueryAllForecastRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllForecastResponse: object = {};
+
+export const QueryAllForecastResponse = {
+  encode(
+    message: QueryAllForecastResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.forecast) {
+      Forecast.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllForecastResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllForecastResponse,
+    } as QueryAllForecastResponse;
+    message.forecast = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.forecast.push(Forecast.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllForecastResponse {
+    const message = {
+      ...baseQueryAllForecastResponse,
+    } as QueryAllForecastResponse;
+    message.forecast = [];
+    if (object.forecast !== undefined && object.forecast !== null) {
+      for (const e of object.forecast) {
+        message.forecast.push(Forecast.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllForecastResponse): unknown {
+    const obj: any = {};
+    if (message.forecast) {
+      obj.forecast = message.forecast.map((e) =>
+        e ? Forecast.toJSON(e) : undefined
+      );
+    } else {
+      obj.forecast = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllForecastResponse>
+  ): QueryAllForecastResponse {
+    const message = {
+      ...baseQueryAllForecastResponse,
+    } as QueryAllForecastResponse;
+    message.forecast = [];
+    if (object.forecast !== undefined && object.forecast !== null) {
+      for (const e of object.forecast) {
+        message.forecast.push(Forecast.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Queries a dso by index. */
@@ -3608,6 +3934,12 @@ export interface Query {
   KpiFeaturesAll(
     request: QueryAllKpiFeaturesRequest
   ): Promise<QueryAllKpiFeaturesResponse>;
+  /** Queries a forecast by index. */
+  Forecast(request: QueryGetForecastRequest): Promise<QueryGetForecastResponse>;
+  /** Queries a list of forecast items. */
+  ForecastAll(
+    request: QueryAllForecastRequest
+  ): Promise<QueryAllForecastResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3886,6 +4218,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllKpiFeaturesResponse.decode(new Reader(data))
+    );
+  }
+
+  Forecast(
+    request: QueryGetForecastRequest
+  ): Promise<QueryGetForecastResponse> {
+    const data = QueryGetForecastRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "Forecast",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetForecastResponse.decode(new Reader(data))
+    );
+  }
+
+  ForecastAll(
+    request: QueryAllForecastRequest
+  ): Promise<QueryAllForecastResponse> {
+    const data = QueryAllForecastRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Query",
+      "ForecastAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllForecastResponse.decode(new Reader(data))
     );
   }
 }

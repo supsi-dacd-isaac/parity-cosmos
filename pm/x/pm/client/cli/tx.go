@@ -69,6 +69,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateKpiFeatures())
 	cmd.AddCommand(CmdUpdateKpiFeatures())
 	cmd.AddCommand(CmdDeleteKpiFeatures())
+	cmd.AddCommand(CmdCreateForecast())
+	cmd.AddCommand(CmdUpdateForecast())
+	cmd.AddCommand(CmdDeleteForecast())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

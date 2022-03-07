@@ -103,6 +103,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		ForecastList: []types.Forecast{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -134,5 +142,7 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.GridStateList, got.GridStateList)
 	require.Len(t, got.KpiFeaturesList, len(genesisState.KpiFeaturesList))
 	require.Subset(t, genesisState.KpiFeaturesList, got.KpiFeaturesList)
+	require.Len(t, got.ForecastList, len(genesisState.ForecastList))
+	require.Subset(t, genesisState.ForecastList, got.ForecastList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

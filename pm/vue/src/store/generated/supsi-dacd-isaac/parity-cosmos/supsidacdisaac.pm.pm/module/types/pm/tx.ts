@@ -367,6 +367,31 @@ export interface MsgDeleteKpiFeatures {
 
 export interface MsgDeleteKpiFeaturesResponse {}
 
+export interface MsgCreateForecast {
+  creator: string;
+  index: string;
+  ts: number;
+  values: string[];
+}
+
+export interface MsgCreateForecastResponse {}
+
+export interface MsgUpdateForecast {
+  creator: string;
+  index: string;
+  ts: number;
+  values: string[];
+}
+
+export interface MsgUpdateForecastResponse {}
+
+export interface MsgDeleteForecast {
+  creator: string;
+  index: string;
+}
+
+export interface MsgDeleteForecastResponse {}
+
 const baseMsgCreateDso: object = { creator: "", idx: "", address: "" };
 
 export const MsgCreateDso = {
@@ -6880,6 +6905,470 @@ export const MsgDeleteKpiFeaturesResponse = {
   },
 };
 
+const baseMsgCreateForecast: object = {
+  creator: "",
+  index: "",
+  ts: 0,
+  values: "",
+};
+
+export const MsgCreateForecast = {
+  encode(message: MsgCreateForecast, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.ts !== 0) {
+      writer.uint32(24).int32(message.ts);
+    }
+    for (const v of message.values) {
+      writer.uint32(34).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateForecast {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateForecast } as MsgCreateForecast;
+    message.values = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.ts = reader.int32();
+          break;
+        case 4:
+          message.values.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateForecast {
+    const message = { ...baseMsgCreateForecast } as MsgCreateForecast;
+    message.values = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.ts !== undefined && object.ts !== null) {
+      message.ts = Number(object.ts);
+    } else {
+      message.ts = 0;
+    }
+    if (object.values !== undefined && object.values !== null) {
+      for (const e of object.values) {
+        message.values.push(String(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateForecast): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.ts !== undefined && (obj.ts = message.ts);
+    if (message.values) {
+      obj.values = message.values.map((e) => e);
+    } else {
+      obj.values = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateForecast>): MsgCreateForecast {
+    const message = { ...baseMsgCreateForecast } as MsgCreateForecast;
+    message.values = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.ts !== undefined && object.ts !== null) {
+      message.ts = object.ts;
+    } else {
+      message.ts = 0;
+    }
+    if (object.values !== undefined && object.values !== null) {
+      for (const e of object.values) {
+        message.values.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateForecastResponse: object = {};
+
+export const MsgCreateForecastResponse = {
+  encode(
+    _: MsgCreateForecastResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateForecastResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateForecastResponse,
+    } as MsgCreateForecastResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateForecastResponse {
+    const message = {
+      ...baseMsgCreateForecastResponse,
+    } as MsgCreateForecastResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateForecastResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateForecastResponse>
+  ): MsgCreateForecastResponse {
+    const message = {
+      ...baseMsgCreateForecastResponse,
+    } as MsgCreateForecastResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateForecast: object = {
+  creator: "",
+  index: "",
+  ts: 0,
+  values: "",
+};
+
+export const MsgUpdateForecast = {
+  encode(message: MsgUpdateForecast, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    if (message.ts !== 0) {
+      writer.uint32(24).int32(message.ts);
+    }
+    for (const v of message.values) {
+      writer.uint32(34).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateForecast {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateForecast } as MsgUpdateForecast;
+    message.values = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        case 3:
+          message.ts = reader.int32();
+          break;
+        case 4:
+          message.values.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateForecast {
+    const message = { ...baseMsgUpdateForecast } as MsgUpdateForecast;
+    message.values = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    if (object.ts !== undefined && object.ts !== null) {
+      message.ts = Number(object.ts);
+    } else {
+      message.ts = 0;
+    }
+    if (object.values !== undefined && object.values !== null) {
+      for (const e of object.values) {
+        message.values.push(String(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateForecast): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    message.ts !== undefined && (obj.ts = message.ts);
+    if (message.values) {
+      obj.values = message.values.map((e) => e);
+    } else {
+      obj.values = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateForecast>): MsgUpdateForecast {
+    const message = { ...baseMsgUpdateForecast } as MsgUpdateForecast;
+    message.values = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    if (object.ts !== undefined && object.ts !== null) {
+      message.ts = object.ts;
+    } else {
+      message.ts = 0;
+    }
+    if (object.values !== undefined && object.values !== null) {
+      for (const e of object.values) {
+        message.values.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateForecastResponse: object = {};
+
+export const MsgUpdateForecastResponse = {
+  encode(
+    _: MsgUpdateForecastResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateForecastResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateForecastResponse,
+    } as MsgUpdateForecastResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateForecastResponse {
+    const message = {
+      ...baseMsgUpdateForecastResponse,
+    } as MsgUpdateForecastResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateForecastResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateForecastResponse>
+  ): MsgUpdateForecastResponse {
+    const message = {
+      ...baseMsgUpdateForecastResponse,
+    } as MsgUpdateForecastResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteForecast: object = { creator: "", index: "" };
+
+export const MsgDeleteForecast = {
+  encode(message: MsgDeleteForecast, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.index !== "") {
+      writer.uint32(18).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteForecast {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteForecast } as MsgDeleteForecast;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteForecast {
+    const message = { ...baseMsgDeleteForecast } as MsgDeleteForecast;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteForecast): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteForecast>): MsgDeleteForecast {
+    const message = { ...baseMsgDeleteForecast } as MsgDeleteForecast;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteForecastResponse: object = {};
+
+export const MsgDeleteForecastResponse = {
+  encode(
+    _: MsgDeleteForecastResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteForecastResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteForecastResponse,
+    } as MsgDeleteForecastResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteForecastResponse {
+    const message = {
+      ...baseMsgDeleteForecastResponse,
+    } as MsgDeleteForecastResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteForecastResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteForecastResponse>
+  ): MsgDeleteForecastResponse {
+    const message = {
+      ...baseMsgDeleteForecastResponse,
+    } as MsgDeleteForecastResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateDso(request: MsgCreateDso): Promise<MsgCreateDsoResponse>;
@@ -6966,10 +7455,19 @@ export interface Msg {
   UpdateKpiFeatures(
     request: MsgUpdateKpiFeatures
   ): Promise<MsgUpdateKpiFeaturesResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   DeleteKpiFeatures(
     request: MsgDeleteKpiFeatures
   ): Promise<MsgDeleteKpiFeaturesResponse>;
+  CreateForecast(
+    request: MsgCreateForecast
+  ): Promise<MsgCreateForecastResponse>;
+  UpdateForecast(
+    request: MsgUpdateForecast
+  ): Promise<MsgUpdateForecastResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteForecast(
+    request: MsgDeleteForecast
+  ): Promise<MsgDeleteForecastResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -7490,6 +7988,48 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgDeleteKpiFeaturesResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateForecast(
+    request: MsgCreateForecast
+  ): Promise<MsgCreateForecastResponse> {
+    const data = MsgCreateForecast.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "CreateForecast",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateForecastResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateForecast(
+    request: MsgUpdateForecast
+  ): Promise<MsgUpdateForecastResponse> {
+    const data = MsgUpdateForecast.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "UpdateForecast",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateForecastResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteForecast(
+    request: MsgDeleteForecast
+  ): Promise<MsgDeleteForecastResponse> {
+    const data = MsgDeleteForecast.encode(request).finish();
+    const promise = this.rpc.request(
+      "supsidacdisaac.pm.pm.Msg",
+      "DeleteForecast",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteForecastResponse.decode(new Reader(data))
     );
   }
 }

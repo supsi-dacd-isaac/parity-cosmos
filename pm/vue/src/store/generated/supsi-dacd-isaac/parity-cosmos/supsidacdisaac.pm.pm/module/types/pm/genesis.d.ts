@@ -11,6 +11,7 @@ import { DefaultLemPars } from "../pm/default_lem_pars";
 import { MarketOperator } from "../pm/market_operator";
 import { GridState } from "../pm/grid_state";
 import { KpiFeatures } from "../pm/kpi_features";
+import { Forecast } from "../pm/forecast";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "supsidacdisaac.pm.pm";
 /** GenesisState defines the pm module's genesis state. */
@@ -27,8 +28,9 @@ export interface GenesisState {
     defaultLemParsList: DefaultLemPars[];
     marketOperator: MarketOperator | undefined;
     gridStateList: GridState[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     kpiFeaturesList: KpiFeatures[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    forecastList: Forecast[];
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

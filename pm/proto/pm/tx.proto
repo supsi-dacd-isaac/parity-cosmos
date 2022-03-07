@@ -14,6 +14,7 @@ import "pm/default_lem_pars.proto";
 import "pm/market_operator.proto";
 import "pm/grid_state.proto";
 import "pm/kpi_features.proto";
+import "pm/forecast.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/supsi-dacd-isaac/parity-cosmos/pm/x/pm/types";
@@ -59,6 +60,9 @@ service Msg {
   rpc CreateKpiFeatures(MsgCreateKpiFeatures) returns (MsgCreateKpiFeaturesResponse);
   rpc UpdateKpiFeatures(MsgUpdateKpiFeatures) returns (MsgUpdateKpiFeaturesResponse);
   rpc DeleteKpiFeatures(MsgDeleteKpiFeatures) returns (MsgDeleteKpiFeaturesResponse);
+  rpc CreateForecast(MsgCreateForecast) returns (MsgCreateForecastResponse);
+  rpc UpdateForecast(MsgUpdateForecast) returns (MsgUpdateForecastResponse);
+  rpc DeleteForecast(MsgDeleteForecast) returns (MsgDeleteForecastResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -403,5 +407,29 @@ message MsgDeleteKpiFeatures {
   string index = 2;
 }
 message MsgDeleteKpiFeaturesResponse {}
+
+message MsgCreateForecast {
+  string creator = 1;
+  string index = 2;
+
+  int32 ts = 3;
+  repeated string values = 4;
+}
+message MsgCreateForecastResponse {}
+
+message MsgUpdateForecast {
+  string creator = 1;
+  string index = 2;
+
+  int32 ts = 3;
+  repeated string values = 4;
+}
+message MsgUpdateForecastResponse {}
+
+message MsgDeleteForecast {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteForecastResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message
